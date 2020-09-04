@@ -20,7 +20,7 @@ CORTX Project Scope & Core Design Goals
 
 .. csv-table::
    :header: "Project Scope", "Core Design Goals"
-   :widths: 20, 80
+   :widths: 30, 80
    
    "Processor agnostic", "Works with any processor."
    "Flexibility", "Highly flexible, works with HDD, SSD, and NVM."
