@@ -34,16 +34,16 @@ CORTX Community Values
 
 - **Inclusive** - Our ambitions are global. The CORTX community is, too. The perspectives and skills necessary to achieve our goals are wide and varied; we believe in creating a community and a project that is inclusive, accessible, and welcoming to everyone.
 
-- **Open** - We are dedicated to remaining open and transparent. We believe in keeping CORTX Community code freely and fully available to be viewed, modified, and used without vendor lock in or other in-built limitations.
+- **Open** - We are dedicated to remaining open and transparent. We believe in keeping CORTX Community code freely and fully available to be viewed, modified, and used without vendor lock-in or other in-built limitations.
 
-- **Inspired** - CORTX is all about the challenge. Our goals are not small: we want to build the world’s best scalable mass-capacity object storage system, one that can work with any hardware and interoperate with all workloads. CORTX is built on hard work, ingenuity and an engineering mindset. We embrace hard problems and find inspired solutions.
+- **Inspired** - CORTX is all about the challenge. Our goals are not small: we want to build the world’s best scalable mass-capacity object storage system, one that can work with any hardware and interoperate with all workloads. CORTX is built on hard work, ingenuity, and an engineering mindset. We embrace hard problems and find inspired solutions.
 
 - **Evolving** – CORTX is continuously growing and adapting. As a community project, there is no limit to its development. We continuously make room for improvement and welcome the opportunities offered by the ever-evolving nature of community projects.
 
-We are excited about your interest in CORTX and hope you will join us. We take community very seriously and we are committed to creating a community built on respectful interactions and inclusivity as documented in our `Code of Conduct <CODE_OF_CONDUCT.md>`_. 
+We are excited about your interest in CORTX and hope you will join us. We take our community very seriously, and we are committed to creating a community built on respectful interactions and inclusivity, as documented in our `Code of Conduct <CODE_OF_CONDUCT.md>`_. 
 
 - Join our CORTX-Open Source Slack channel |Slack| to interact with your fellow community members and gets your questions answered. 
-- Subscribe to the Newsletter to and stay updated on the latest developments in the CORTX project. **TODO** add link for newsletter subscriptions.
+- Subscribe to the Newsletter to and stay updated on the latest developments in the CORTX project. **TODO** add a link for newsletter subscriptions.
 
 How to Get Started
 ********************
@@ -51,7 +51,7 @@ How to Get Started
 - Jump into `CORTX Quickstart Guide <../main/CORTX_Quickstart_Guide.rst>`_ to build and test CORTX.
 - Check out our Contribution Guide to pick up topics and issues to contribute, submit your codes, and learn how to turn your pull request into a successful contribution.
 - You can `submit requests and bugs using GitHub Issues <https://github.com/Seagate/cortx/issues>`_
-- Eefer to our `Suggested Contributions  <../main/doc/SuggestedContributios.md>`_ page for some inspiration to contribute to the CORTX project.
+- Refer to our `Suggested Contributions  <../main/doc/SuggestedContributios.md>`_ page for some inspiration to contribute to the CORTX project.
 
 Resources
 ---------------
