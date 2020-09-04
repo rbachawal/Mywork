@@ -22,46 +22,51 @@ CORTX Project Scope & Core Design Goals
    :header: "Project Scope", "Core Design Goals"
    :widths: 20, 80
    
-   "Processor", "Agnostic, adapts to any processor."
+   "Processor agnostic", "Works with any processor."
    "Flexibility", "Highly flexible, works with HDD, SSD, and NVM."
    "Scalability", "Massively Scalable. Scales up to a billion billion billion billion billion exabytes (2^206) and 1.3 billion billion billion billion (2^120) objects with unlimited object sizes."
    "Responsiveness", "Rapidly Responsive. Quickly retrieves data regardless of the scale using a novel Key-Value System that ensures low search latency across massive data sets."
    "Resilience", "Highly Resilient. Ensures a high tolerance for hardware failure and faster rebuild and recovery times using Network Erasure Coding, while remaining fully RAID-compatible."
    "Transparency", "Provides specialized telemetry data and unmatched insight into system performance."
 
-The CORTX project is licensed under the `Apache 2.0 License <LICENSE>`__.
-
 CORTX Community Values
 ---------------------
 
-**Inclusive** - Our ambitions are global. The CORTX community is, too. The perspectives and skills necessary to achieve our goals are wide and varied; we believe in creating a community and a project that is inclusive, accessible, and welcoming to everyone.
+- **Inclusive** - Our ambitions are global. The CORTX community is, too. The perspectives and skills necessary to achieve our goals are wide and varied; we believe in creating a community and a project that is inclusive, accessible, and welcoming to everyone.
 
-**Open** - We are dedicated to remaining open and transparent. We believe in keeping CORTX Community code freely and fully available to be viewed, modified, and used without vendor lock in or other in-built limitations.
+- **Open** - We are dedicated to remaining open and transparent. We believe in keeping CORTX Community code freely and fully available to be viewed, modified, and used without vendor lock in or other in-built limitations.
 
-**Inspired** - CORTX is all about the challenge. Our goals are not small: we want to build the world’s best scalable mass-capacity object storage system, one that can work with any hardware and interoperate with all workloads. CORTX is built on hard work, ingenuity and an engineering mindset. We embrace hard problems and find inspired solutions.
+- **Inspired** - CORTX is all about the challenge. Our goals are not small: we want to build the world’s best scalable mass-capacity object storage system, one that can work with any hardware and interoperate with all workloads. CORTX is built on hard work, ingenuity and an engineering mindset. We embrace hard problems and find inspired solutions.
 
-**Evolving** – CORTX is continuously growing and adapting. As a community project, there is no limit to its development. We continuously make room for improvement and welcome the opportunities offered by the ever-evolving nature of community projects.
+- **Evolving** – CORTX is continuously growing and adapting. As a community project, there is no limit to its development. We continuously make room for improvement and welcome the opportunities offered by the ever-evolving nature of community projects.
 
-We excited for your interest in CORTX and hope you will join us. We take community very seriously and we are committed to creating a community built on respectful interactions and inclusivity as documented in our `Code of Conduct <CODE_OF_CONDUCT.md>`_. 
-
-Refer to the CORTX Community Guide **<link placeholder>** that hosts all information about community values, code of conduct, how to contribute code and documentation, community and code style guide, and how to reach out to us. 
-
-To Start Using CORTX
-********************
-
-- Refer to the `CORTX Quickstart Guide <../main/CORTX_Quickstart_Guide.rst>`_ to build and test CORTX.
-- You can `submit requests and bugs using GitHub Issues <https://github.com/Seagate/cortx/issues>`_
-
-Reach Out To Us
----------------
+We excited about your interest in CORTX and hope you will join us. We take community very seriously and we are committed to creating a community built on respectful interactions and inclusivity as documented in our `Code of Conduct <CODE_OF_CONDUCT.md>`_. 
 
 - Join our CORTX-Open Source Slack channel |Slack| to interact with your fellow community members and gets your questions answered. 
-- If you'd like to contact us directly, drop us a mail at: `opensource@seagate.com <opensource@seagate.com>`_
+- Subscribe to the Newsletter to and stay updated on the latest developments in the CORTX project. **TODO** add link for newsletter subscriptions.
+
+How to Get Started
+********************
+
+- Jump into `CORTX Quickstart Guide <../main/CORTX_Quickstart_Guide.rst>`_ to build and test CORTX.
+- Check out our Contribution Guide to pick up topics and issues to contribute, submit your codes, and learn how to turn your pull request into a successful contribution.
+- You can `submit requests and bugs using GitHub Issues <https://github.com/Seagate/cortx/issues>`_
+- Eefer to our `Suggested Contributions  <../main/doc/SuggestedContributios.md>`_ page for some inspiration to contribute to the CORTX project.
+
+Resources
+---------------
+
+- Join our CORTX-Open Source Slack channel |Slack| to interact with community members and gets your questions answered. 
+- Become a forum member to ask, answer, and discuss topics with your fellow CORTX contributors! **TODO** Add link for Forum.
+- If you'd like to contact us directly, drop us a mail at `cortx-questions@seagate.com <cortx-questions@seagate.com>`_
+- We like to highlight the work and contributions of our community members—if you have solved an interesting challenge, interested in sharing your experience, or use cases, we want to talk to you! Please contact `john.bent@seagate.com <john.bent@seagate.com>`_ or `schedule a meeting with us <https://outlook.office365.com/owa/calendar/CORTXCommunity@seagate.com/bookings/s/x8yMn2ODxUCOdhxvXkH4FA2>`_.
 
 Thank You!
 ----------
 
 We thank you for stopping by to check out the CORTX Community. We are fully dedicated to our mission to build open source technologies that help the world save unlimited data and solve challenging data problems. Join our mission to help reinvent a data-driven world. 
+
+The CORTX project is licensed under the `Apache 2.0 License <LICENSE>`__.
 
 .. |Slack| image:: https://img.shields.io/badge/chat-on%20Slack-blue
    :target: https://join.slack.com/t/cortxcommunity/shared_invite/zt-femhm3zm-yiCs5V9NBxh89a_709FFXQ?
