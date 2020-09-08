@@ -8,7 +8,7 @@
 
 Cloud Storage Manager (CSM) is a virtualization layer that lets you configure & provision—storage, manage users, set policies, and gain insights through reports. The CSM is made up of the Agent and Web components. The CSM-Web component is a UI based application that lets you configure, manage, and monitor all the backend components of the CORTX application. The CSM-Web sits on top of the CSM agent. The CSM-Agent is a backend application that bridges the CSM-Web with all other CORTX backend components, thus establishing a two-way communication among them.
 
-## Get CORTX-CSM Ready! 
+## Get CORTX-CSM Web Ready! 
 
 **TODO** Add links for the following Quickstart Guides:
 - To set up the CSM backend, refer to the CORTX-CSM Agent Quickstart Guide.
