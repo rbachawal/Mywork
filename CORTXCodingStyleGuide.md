@@ -4,11 +4,11 @@ We are glad that you are interested in contributing to the CORTX project. Since 
 
 | **Repository Name** 	| **Coding Style Guides** 	|
 |-	|-	|
-| cortx-s3-server 	| **[C++](https://google.github.io/styleguide/cppguide.html)** 	|
+| cortx-s3-server 	| **[C++](https://google.github.io/styleguide/cppguide.html)**, **[Python](https://google.github.io/styleguide/pyguide.html)**, **[Bash](https://github.com/bahamas10/bash-style-guide)** |
 | cortx-motr 	| **[C](https://github.com/Seagate/cortx-motr/blob/dev/doc/coding-style.md)** 	|
 | cortx-hare 	| **[Bash, Python, and C](https://github.com/Seagate/cortx-hare/tree/dev/rfc/8)** 	|
-| cortx-ha 	| **[Python](https://google.github.io/styleguide/pyguide.html)** , **[Shell](https://google.github.io/styleguide/shellguide.html)** 	|
+| cortx-ha 	| **[Python](https://google.github.io/styleguide/pyguide.html)**, **[Shell](https://google.github.io/styleguide/shellguide.html)** 	|
 | cortx-csm 	| **[JSDoc, VueJS, Python](../master/CSMCodingStyleGuide.md)** 	|
-| cortx-nfs 	| **[C](https://github.com/Seagate/cortx-motr/blob/dev/doc/coding-style.md)** , **[Python](https://google.github.io/styleguide/pyguide.html)** 	|
-| cortx-ras-sspl 	| **[C](https://github.com/Seagate/cortx-motr/blob/dev/doc/coding-style.md)** , **[Python](https://google.github.io/styleguide/pyguide.html)** 	|
-| cortx-provisioner 	| **YAML for Salt: [Style](https://docs.saltstack.com/en/latest/topics/development/conventions/style.html)** and **[Formulae](https://docs.saltstack.com/en/latest/topics/development/conventions/formulas.html)** , <p>**[Shell](https://google.github.io/styleguide/shellguide.html)** , **[Python](https://www.python.org/dev/peps/pep-0008/)** </p>|
+| cortx-nfs 	| **[C](https://github.com/Seagate/cortx-motr/blob/dev/doc/coding-style.md)**, **[Python](https://google.github.io/styleguide/pyguide.html)** 	|
+| cortx-ras-sspl 	| **[C](https://github.com/Seagate/cortx-motr/blob/dev/doc/coding-style.md)**, **[Python](https://google.github.io/styleguide/pyguide.html)** 	|
+| cortx-provisioner 	| **YAML for Salt:** <ul><li> **[Style](https://docs.saltstack.com/en/latest/topics/development/conventions/style.html)** </li><li>**[Formulae](https://docs.saltstack.com/en/latest/topics/development/conventions/formulas.html)**</li></ul></br>**[Shell](https://google.github.io/styleguide/shellguide.html)**, **[Python](https://www.python.org/dev/peps/pep-0008/)**
