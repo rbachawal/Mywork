@@ -12,3 +12,11 @@ We are glad that you are interested in contributing to the CORTX project. Since 
 | cortx-nfs 	| **[C](https://github.com/Seagate/cortx-motr/blob/dev/doc/coding-style.md)**, **[Python](https://google.github.io/styleguide/pyguide.html)** 	|
 | cortx-ras-sspl 	| **[C](https://github.com/Seagate/cortx-motr/blob/dev/doc/coding-style.md)**, **[Python](https://google.github.io/styleguide/pyguide.html)** 	|
 | cortx-provisioner 	| **[Shell](https://google.github.io/styleguide/shellguide.html)**, **[Python](https://www.python.org/dev/peps/pep-0008/)**, and </br> **YAML for Salt:** <ul><li> **[Style](https://docs.saltstack.com/en/latest/topics/development/conventions/style.html)** </li><li>**[Formulae](https://docs.saltstack.com/en/latest/topics/development/conventions/formulas.html)**</li></ul>
+
+:page_with_curl: **Note** 
+
+The CORTX project is inclusive, and we have made it a priority to keep the project as accessible as possible by preferring literal and direct terminology over metaphorical language, slang, or other shorthand wherever possible. 
+**Example:** 
+
+- Use *Allowlist* instead of *Whitelist*
+- Replace the *Master and Slave* terminology, use terminology that more precisely reflects the relationship such as *Primary and Secondary* or *Main and Dev*. 
