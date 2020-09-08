@@ -4,7 +4,7 @@ We are glad that you are interested in contributing to the CORTX project. Since 
 
 | **Repository Name** 	| **Coding Style Guides** 	|
 |-	|-	|
-| cortx-s3-server 	| **[C++](https://google.github.io/styleguide/cppguide.html)**, **[Python](https://google.github.io/styleguide/pyguide.html)**, **[Bash](https://github.com/bahamas10/bash-style-guide)** |
+| cortx-s3-server 	| **[C++](https://google.github.io/styleguide/cppguide.html)**, **[Python](https://google.github.io/styleguide/pyguide.html)**, **[Java](https://google.github.io/styleguide/javaguide.html)**, **[Bash](https://github.com/bahamas10/bash-style-guide)** |
 | cortx-motr 	| **[C](https://github.com/Seagate/cortx-motr/blob/dev/doc/coding-style.md)** 	|
 | cortx-hare 	| **[Bash, Python, and C](https://github.com/Seagate/cortx-hare/tree/dev/rfc/8)** 	|
 | cortx-ha 	| **[Python](https://google.github.io/styleguide/pyguide.html)**, **[Shell](https://google.github.io/styleguide/shellguide.html)** 	|
