@@ -2,9 +2,9 @@
 
 This document describes code style for the Motr repository. However, this document does not cover code documentation practices. The primary purpose of a code style guide is to make your code human readable and easy to understand. Thus, your code submissions have to be uniform and idiomaticcally similar to the human speech. The Motr code style guide is based on the [Linux Kernel Coding Style](https://www.kernel.org/doc/Documentation/process/coding-style.rst).
 
-## Syntax
-
 Use British English in documents, comments, and variable names.
+
+## Syntax
 
 ### Indentation
 
@@ -56,11 +56,11 @@ Use British English in documents, comments, and variable names.
               pl_oldrec->pr_attr.pa_N != pl->pl_attr.pa_N) {
           }
 
-# Comment 
+### Comment 
 
 - Put the comments at the head of the function, telling people what it does, and possibly WHY it does it.
     
-# Variable Declarations
+### Variable Declarations
 
 - Align the identifier names and not the asterisks or type-declaration related decorations.
 - This rule is applicable to block-level variable declarations as well.
@@ -76,7 +76,7 @@ Use British English in documents, comments, and variable names.
      
      ```
      
-In addition to the above syntactic conventions, Motr code should try to adhere to some higher level idioms.
+## Idioms
 
   * a loop repeated N times is written
 
