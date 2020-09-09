@@ -9,7 +9,8 @@ Use British English in documents, comments, and variable names.
   + [Placement of braces and spacing](#Placement-of-Braces-and-Spacing)
   + [Breaking Long Lines and Strings](#Breaking-Long-Lines-and-Strings)
   + [Comments](#Comments)
-  + [Variable Declarations](#Variable Declarations)
+  + [Variable Declarations](#Variable-Declarations)
+- [Idioms](#Idioms)
 
 
 ## Syntax
@@ -95,21 +96,24 @@ It is essential that you adhere to these higher level idiomatic styles.
 
 - To write a loop that is repeated N times: 
         
-        ```c
-           for (i = 0; i < N; ++i) {
-                                body;
-           }
+  ```c
+  
+     for (i = 0; i < N; ++i) {
+                          body;
+     }
 
-      or, if appropriate,
+     or, if appropriate,
 
-          m0_forall(i, N, body);   
-      ```
+     m0_forall(i, N, body);   
+  ```
 
-  * an infinite loop is written as
+- An infinite loop is written as:
 
-          while (1) {
-                  ...
-          }
+  ```c
+  while (1) {
+        ...
+  }
+  ```
 
   * names of struct and union members (fields) are have a short
     (1--4 characters) prefix, derived from the union or struct tag:
