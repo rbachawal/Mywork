@@ -6,12 +6,12 @@ Use British English in documents, comments, and variable names.
 
 ## Syntax
 
-### Indentation
+#### Indentation
 
 - Tabs are 8 characters, hence indentations are 8 characters.
 - Use tabs for block indentation.
 
-### Placement of braces and spacing
+#### Placement of braces and spacing
 
 - Do not add a blank space at the end of a line.
 - You can omit braces around single statement blocks. The preferred way of placing braces, as ascertained by Kernighan and Ritchie, is to put the opening brace last on the line, and put the closing brace first:
@@ -41,26 +41,31 @@ Use British English in documents, comments, and variable names.
    }
    ```
    
-### Breaking long lines and strings
+#### Breaking long lines and strings
 
-  * continuation line starts one column after the last unclosed
-    opening parenthesis:
+- A continuous line starts a column after the last unclosed opening parenthesis.
 
-          M0_ASSERT(ergo(service != NULL,
-                         m0_rpc_service_invariant(service) &&
-                         service->svc_state == M0_RPC_SERVICE_STATE_INITIALISED));
+  ```c
+          
+  M0_ASSERT(ergo(service != NULL,
+                 m0_rpc_service_invariant(service) &&
+                 service->svc_state == M0_RPC_SERVICE_STATE_INITIALISED));
+  ```
 
-  * a new line should not start with an operator:
+- You should not begin a new line with an operator.
 
-          if (pl_oldrec->pr_let_id != stl->ls_enum->le_type->let_id ||
-              pl_oldrec->pr_attr.pa_N != pl->pl_attr.pa_N) {
-          }
+  ```c
+          
+  if (pl_oldrec->pr_let_id != stl->ls_enum->le_type->let_id ||
+     pl_oldrec->pr_attr.pa_N != pl->pl_attr.pa_N) {
+  }
+ ```
 
-### Comment 
+#### Comment 
 
 - Put the comments at the head of the function, telling people what it does, and possibly WHY it does it.
     
-### Variable Declarations
+#### Variable Declarations
 
 - Align the identifier names and not the asterisks or type-declaration related decorations.
 - This rule is applicable to block-level variable declarations as well.
@@ -78,15 +83,19 @@ Use British English in documents, comments, and variable names.
      
 ## Idioms
 
-  * a loop repeated N times is written
+It is essential that you adhere to these higher level idiomatic styles.
 
-          for (i = 0; i < N; ++i) {
-                  body;
-          }
+- To write a loop that is repeated N times: 
+        
+        ```c
+           for (i = 0; i < N; ++i) {
+                                body;
+           }
 
       or, if appropriate,
 
-          m0_forall(i, N, body);
+          m0_forall(i, N, body);   
+      ```
 
   * an infinite loop is written as
 
