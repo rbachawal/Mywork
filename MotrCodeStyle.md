@@ -1,25 +1,15 @@
-This document describes Motr project coding style. This document
-does NOT describe code documentation practices, they are explained
-elsewhere.
+# Motr Code Style
 
-The first thing to remember is that a primary purpose that a coding
-style exists for is to make understanding code easier for a project
-participant. To this end, a code should be as uniform and idiomatic as
-possible similarly with the properties that make usual human speech
-easier to understand.
+This document describes code style for the Motr repository. However, this document does not cover code documentation practices. The primary purpose of a code style guide is to make your code human readable and easy to understand. Thus, your code submissions have to be uniform and idiomaticcally similar to the human speech. The Motr code style guide is based on the [Linux Kernel Coding Style](https://www.kernel.org/doc/Documentation/process/coding-style.rst).
 
-Motr coding style is based on the Linux kernel coding style, which
-everyone is advised to familiarize with at
-[Linux Kernel Coding Style](https://www.kernel.org/doc/Documentation/process/coding-style.rst).
+### Indentation
 
-To summarise:
+- Tabs are 8 characters, hence indentations are 8 characters;
+- Use tabs for block indentation;
+- Placement of braces and spacing:
 
-  * tabs are 8 characters;
-
-  * block indentation is done with tabs;
-
-  * braces placement and spacing is as following:
-
+      ```c
+      
           if (condition) {
                   branch0;
           } else {
@@ -41,6 +31,7 @@ To summarise:
           default:
                   defaultbranch;
           }
+       ```
 
   * no blank spaces at the end of a line;
 
