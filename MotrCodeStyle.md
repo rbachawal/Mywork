@@ -29,6 +29,10 @@ Use British English in documents, comments, and variable names.
 
 #### Placement of Braces and Spacing
 
+<details>
+  <summary>Click to expand!</summary>
+  <p>
+    
 - Do not add a blank space at the end of a line.
 - You can omit braces around single statement blocks. The preferred way of placing braces, as ascertained by Kernighan and Ritchie, is to put the opening brace last on the line, and put the closing brace first:
         
@@ -57,7 +61,14 @@ Use British English in documents, comments, and variable names.
    }
    ```
    
+   </p>
+   </details>
+   
 #### Breaking Long Lines and Strings
+
+<details>
+  <summary>Click to expand!</summary>
+  <p>
 
 - A continuous line starts a column after the last unclosed opening parenthesis.
 
@@ -76,6 +87,9 @@ Use British English in documents, comments, and variable names.
      pl_oldrec->pr_attr.pa_N != pl->pl_attr.pa_N) {
    }
   ```
+  
+  </p>
+  </details>
  
 #### Comments
 
@@ -83,6 +97,10 @@ Put the comments at the head of the function, telling people what it does, and p
     
 #### Variable Declarations
 
+<details>
+  <summary>Click to expand!</summary>
+  <p>
+    
 - Align the identifier names and not the asterisks or type-declaration related decorations.
 - This rule is applicable to block-level variable declarations as well.
 
@@ -97,12 +115,19 @@ Put the comments at the head of the function, telling people what it does, and p
      
      ```
      
+     </p>
+     </details>
+     
 ## Idioms
 
 It is essential that you adhere to these higher level idiomatic styles.
 
 #### Loops
 
+<details>
+  <summary>Click to expand!</summary>
+  <p>
+    
 - To write a loop that is repeated N times: 
         
   ```c
@@ -123,11 +148,17 @@ It is essential that you adhere to these higher level idiomatic styles.
         ...
   }
   ```
+  </p>
+  </details>
 
 #### Conventions 
 
 ##### Name
 
+<details>
+  <summary>Click to expand!</summary>
+  <p>
+    
 Add a short (1--4 characters) prefix to the struct and union member names. 
 
   ```c
@@ -140,6 +171,9 @@ Add a short (1--4 characters) prefix to the struct and union member names.
 
 **Rationale:** Prefixes make searching for field names easier.
 
+</p>
+</details>
+
 ##### Typedefs 
 
 Typedefs are used only for *scalar* data types. This includes function pointers and excludes enums. Compound data types like structs and unions, should never be aliased with a typedef.
@@ -148,6 +182,10 @@ Typedefs are used only for *scalar* data types. This includes function pointers 
 
 ##### Expression Size
 
+<details>
+  <summary>Click to expand!</summary>
+  <p>
+    
 The size of expression is preferred to the size of type.
 
 ```c
@@ -157,8 +195,15 @@ The size of expression is preferred to the size of type.
 
 **Rationale:** Code changes remain impact when the bar type changes.  
 
+</p>
+</details>
+
 ##### Array Size 
 
+<details>
+  <summary>Click to expand!</summary>
+  <p>
+    
 To iterate over indices of an array `X` use the `ARRAY_SIZE(X)` macro instead of explicitly writing the array size.
 
  ```c
@@ -173,8 +218,15 @@ To iterate over indices of an array `X` use the `ARRAY_SIZE(X)` macro instead of
 
 :page_with_curl: **Note:** Always ensure that your code is autonomous to keep the code correct and consistent despite changes.
 
+</p>
+</details>
+
 #### Formatting
 
+<details>
+  <summary>Click to expand!</summary>
+  <p>
+    
 - Ensure that you differentiate NULL, 0, and `false` to emphasize a pointer, boolean, and integer—including code success or failure.
 
 ```c
@@ -191,31 +243,29 @@ To iterate over indices of an array `X` use the `ARRAY_SIZE(X)` macro instead of
   
   - Operands, including `a` can have any suitable type.
 
-- Simplify the code, wherever possible.
+- Wherever possible, simplify your code.
 
   `return q != 0` - to return q and,
   `return expr ? 0 : 1` - to return !expr.
 
-- Specifically, never use `(x == true)` or `(x == false)` instead of `(x)` or `(!x)` respectively.
+  - Specifically, never use `(x == true)` or `(x == false)` instead of `(x)` or `(!x)` respectively.
 
-**Rationale:** 
-  - If `(x == true)` is clearer than `(x)` then 
-  - `((x == true) == true)` is even more clearer.
+    **Rationale:** If `(x == true)` is clearer than `(x)`. Then `((x == true) == true)` is even more clearer.
 
-  * use `!!x` to convert a "boolean" integer into an "arithmetic" integer;
+- Use `!!x` to convert a *boolean* integer into an *arithmetic* integer.
+  - Use C99 bool type.
 
-  * use C99 bool type;
+- Provide globally visible names.
 
-  * naming:
+  ```c
+  
+      struct m0_<module>_<noun> { ... }; /* data-type */
+      int    m0_<module>_<noun>[size];   /* variable */
+      int    m0_<module>_<noun>_<verb>(...); /* function */
+      bool   m0_<module>_<noun>_is_<adjective>(...); /* predicate function */
+   ```
 
-      globally visible name:
-
-          struct m0_<module>_<noun> { ... }; /* data-type */
-          int    m0_<module>_<noun>[size];   /* variable */
-          int    m0_<module>_<noun>_<verb>(...); /* function */
-          bool   m0_<module>_<noun>_is_<adjective>(...); /* predicate function */
-
-      Static names don't have "m0_" prefix. Function pointers within
+Static names don't have "m0_" prefix. Function pointers within
       "operation" structs count as static. Names of constants are
       capitalized.
 
