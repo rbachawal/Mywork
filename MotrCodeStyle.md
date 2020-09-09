@@ -238,20 +238,14 @@ To iterate over indices of an array `X` use the `ARRAY_SIZE(X)` macro instead of
 ```
 - Never use `if (r == true)`
 - Use `?:` form of ternary operator—a gcc-extension like:
-
   `a ?: b ?: c ?: ...` - this expression will return the first non-zero value among a, b, c. 
-  
   - Operands, including `a` can have any suitable type.
-
-- Wherever possible, simplify your code.
+- Wherever possible, simplify.
 
   `return q != 0` - to return q and,
-  `return expr ? 0 : 1` - to return !expr.
+  `return expr ? 0 : 1` - to return !expr. Specifically, never use `(x == true)` or `(x == false)` instead of `(x)` or `(!x)` respectively.
 
-  - Specifically, never use `(x == true)` or `(x == false)` instead of `(x)` or `(!x)` respectively.
-
-    **Rationale:** If `(x == true)` is clearer than `(x)`. Then `((x == true) == true)` is even more clearer.
-
+   **Rationale:** If `(x == true)` is clearer than `(x)`. Then `((x == true) == true)` is even more clearer.
 - Use `!!x` to convert a *boolean* integer into an *arithmetic* integer.
   - Use C99 bool type.
 
@@ -265,27 +259,25 @@ To iterate over indices of an array `X` use the `ARRAY_SIZE(X)` macro instead of
       bool   m0_<module>_<noun>_is_<adjective>(...); /* predicate function */
    ```
 
-Static names don't have "m0_" prefix. Function pointers within
-      "operation" structs count as static. Names of constants are
-      capitalized.
+- Static names don't have `m0_` prefix. 
+- Function pointers within *operation structs* count as *static*. 
+- Capitalize the names of constants. 
+- Functions that are not static and globally exported, and shared only across multiple files within a module are prefixed with `m0_<module-name>__`. This rule applies to invariants as well.
+- Use C99 designated initializers.
 
-      Functions which are not static, not globally exported, and are shared
-      only across multiple files within a module - shall be prefixed with
-      `m0_<module-name>__` (that is double _). This rule applies to invariants as
-      well;
+  ```c
+  
+     static const struct foo bar = { /* initialize a struct */
+              .field0 = ...,
+              .field1 = { /* initialize an array */
+                       [3] = ...,
+                       [0] = ...
+               },
+               ...
+      };
+  ```
 
-  * use C99 "designated initializers":
-
-          static const struct foo bar = { /* initialize a struct */
-                  .field0 = ...,
-                  .field1 = { /* initialize an array */
-                          [3] = ...,
-                          [0] = ...
-                  },
-                  ...
-          };
-
-  * avoid implicit field initialization using designated initializers;
+- Avoid implicit field initialization using designated initializers;
 
       (Rationale: it helps to find all struct field usage and it documents
       default value of the field.);
