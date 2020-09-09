@@ -2,45 +2,46 @@
 
 This document describes code style for the Motr repository. However, this document does not cover code documentation practices. The primary purpose of a code style guide is to make your code human readable and easy to understand. Thus, your code submissions have to be uniform and idiomaticcally similar to the human speech. The Motr code style guide is based on the [Linux Kernel Coding Style](https://www.kernel.org/doc/Documentation/process/coding-style.rst).
 
+## Syntax
+
+Use British English in documents, comments, and variable names.
+
 ### Indentation
 
-- Tabs are 8 characters, hence indentations are 8 characters;
-- Use tabs for block indentation;
-- Placement of braces and spacing:
+- Tabs are 8 characters, hence indentations are 8 characters.
+- Use tabs for block indentation.
 
-      ```c
-      
-          if (condition) {
-                  branch0;
-          } else {
-                  branch1;
-          }
+### Placement of braces and spacing
 
-          func(arg0, arg1, ...);
+- Do not add a blank space at the end of a line.
+- You can omit braces around single statement blocks. The preferred way of placing braces, as ascertained by Kernighan and Ritchie, is to put the opening brace last on the line, and put the closing brace first:
+        
+  ```c
+        
+   if (condition) {
+           branch0;
+   } else {
+           branch1;
+   }
 
-          while (condition) {
-                  body;
-          }
+   func(arg0, arg1, ...);
 
-          switch (expression) {
-          case VALUE0:
-                  branch0;
-          case VALUE1:
-                  branch1;
-          ...
-          default:
-                  defaultbranch;
-          }
-       ```
+   while (condition) {
+                 body;
+   }
 
-  * no blank spaces at the end of a line;
-
-  * braces around single statement blocks can be optionally omitted;
-
-  * comment formatting follows Linux kernel style;
-
-  * British spelling is used in the documentation, comments and
-    variable names;
+   switch (expression) {
+   case VALUE0:
+   branch0;
+   case VALUE1:
+           branch1;
+   ...
+   default:
+           defaultbranch;
+   }
+   ```
+   
+### Breaking long lines and strings
 
   * continuation line starts one column after the last unclosed
     opening parenthesis:
@@ -55,20 +56,27 @@ This document describes code style for the Motr repository. However, this docume
               pl_oldrec->pr_attr.pa_N != pl->pl_attr.pa_N) {
           }
 
-  * align identifier names, not asterisks or other type-declaration related
-    decorations:
+# Comment 
 
-          struct foo {
-                  const char        *f_name;
-                  uint32_t           f_id;
-                  const struct bar  *f_bar;
-                  int              (*f_callback)(struct foo *f, int flag);
-          };
+- Put the comments at the head of the function, telling people what it does, and possibly WHY it does it.
+    
+# Variable Declarations
 
-      This rule applied to block-level variable declarations too.
+- Align the identifier names and not the asterisks or type-declaration related decorations.
+- This rule is applicable to block-level variable declarations as well.
 
-In addition to the above syntactic conventions, Motr code should
-try to adhere to some higher level idioms.
+     ```c
+         
+        struct foo {
+              const char        *f_name;
+              uint32_t           f_id;
+              const struct bar  *f_bar;
+              int                (*f_callback)(struct foo *f, int flag);
+         };
+     
+     ```
+     
+In addition to the above syntactic conventions, Motr code should try to adhere to some higher level idioms.
 
   * a loop repeated N times is written
 
