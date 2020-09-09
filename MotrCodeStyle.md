@@ -18,7 +18,8 @@ Use British English in documents, comments, and variable names.
     * [Expr Size](#Expression-Size)
     * [Array Size](#Array-Size)
     * [Formatting](#Formatting)
-
+   + [Things to Consider](#Things-to-Consider)
+- [Code Organization Guidelines](#Code-Organization-Guidelines)
 
 ## Syntax
 
@@ -351,7 +352,7 @@ To iterate over indices of an array `X` use the `ARRAY_SIZE(X)` macro instead of
   - Declare one variable per line.
   - Avoid bit-fields and use explicit bit manipulations with integer types.
   
-  **Rationale:** This eliminates non-atomic access to bit-fields and implicit integer promotion.
+    **Rationale:** This eliminates non-atomic access to bit-fields and implicit integer promotion.
 
 - Avoid dead assignments and initializations—assignments that get overwritten before the variable is read.
 
@@ -365,7 +366,7 @@ To iterate over indices of an array `X` use the `ARRAY_SIZE(X)` macro instead of
     ```
   - Instead, initialize a variable with a meaningful value, when the latter is known.
   
-  **Rationale:** Dead initializations potentially hide errors. If, after the code restructuring, the variable remains un-initialized in a conditional branch or in a loop that might execute 0 times, the initializer will suppress compiler warning.
+    **Rationale:** Dead initializations potentially hide errors. If, after the code restructuring, the variable remains un-initialized in a conditional branch or in a loop that might execute 0 times, the initializer will suppress compiler warning.
 
 - All header files should begin with `#pragma once`, followed by a conventional `#ifndef` include guard.
 
@@ -378,181 +379,135 @@ To iterate over indices of an array `X` use the `ARRAY_SIZE(X)` macro instead of
       #endif /* __MOTR_SUBSYS_HEADER_H__ */
    ```
 
-Notice, that the include guards should use names conforming to the regular expression: `__MOTR_\w+_H__`. This is required for a build script which automatically checks for the correctness of include guards and reports duplicates.
+    Notice, that the include guards should use names conforming to the regular expression: `__MOTR_\w+_H__`. This is required for a build script which automatically checks for the correctness of include guards and reports duplicates.
 - Specify invariants as a conjunction of positive properties that are reliable than using disjunction of exceptions. Use `m0_*_forall()` macros to build conjunctions over containers and sequences.
   - In invariants use `_0C()` macro to record a failed conjunct.
 - A header file should include only headers that are necessary for the header to pass compilation. Use forward declarations instead of includes wherever possible. `.c` files should include all necessary headers directly, without relaying on headers that are already included. 
   - Do not include headers unnecessarily. 
   - If the included header is for a few definitions as opposed to the whole interface, these symbols should be mentioned in the comment on the `#include` line.
-**Rationale:** This reduces dependencies between modules, makes it easy to restructure the inclusion tree, and results in faster compilation faster.
+  
+    **Rationale:** This reduces dependencies between modules, makes it easy to restructure the inclusion tree, and results in faster compilation faster.
+- Use `M0_LOG()` from `lib/trace.h` instead of `printf(3)/printk()` in all source files which are part of `libmotr.so library` or `m0tr.ko module` helper utilities like UT, ST. Modules should use `printf(3)/printk())`.
+  - Consider using `M0_LOG()` with meaningful information to describe important error conditions. Preferably, this should be included near the place where the error is detected.
+  
+    ```c
+  
+    reply = m0_fop_alloc(&m0_reply_fopt, NULL);
+    if (reply == NULL)
+               M0_LOG(M0_ERROR, "failed to allocate reply fop");
+    ```
 
-  * use M0_LOG() from lib/trace.h instead of printf(3)/printk() in
-    all source files which are part of libmotr.so library or
-    m0tr.ko module (UT, ST and various helper utilities and
-    modules should use printf(3)/printk()).
+  - Try to describe the error using current and not the low-level context as this might already have been logged by the other func.
+    
+    **Example:** `failed to allocate memory` is not an ideal error message.
+  - Choose an appropriate trace level for each `M0_LOG()`. You can find the general guidelines for the same at `lib/trace.h` - `m0_trace_level` enum documentation.
+  - Consider using `M0_ENTRY()/M0_LEAVE()` at function's entry and exit points. 
+  - Use `M0_RC()` and `M0_ERR_INFO()` to explicitly return from function, which conforms to the standard return code convention.
+  - Leaf level error is an error returned by a non-Motr function. Wrap the error code for a *leaf level* function error that is initially produced by the function in `M0_ERR()`.
 
-  * consider using M0_LOG() with some meaningful information to
-    describe important error conditions; preferably it should be
-    done close to the place where the error is detected:
+    ```c
+    
+        result = M0_ERR(-EFAULT);
+        ...
+        return M0_RC(result);
+        or
+        return M0_ERR(-EIO);
+    ```
+  - A non-leaf error should be reported rarely. This is to avoid artificial code complication arising out of reporting an error just for the sake of reporting. 
+  
+    **Example:**
+    
+    You can report no-leaf errors like:  
+     
+     ```c
+     
+        result = m0_foo(bar);
+        if (result != 0)
+                return M0_ERR(result);
+     ```
 
-          reply = m0_fop_alloc(&m0_reply_fopt, NULL);
-          if (reply == NULL)
-                  M0_LOG(M0_ERROR, "failed to allocate reply fop");
+     Avoid reporting errors like: 
 
-      try to describe error using current context, and not a low-level
-      (which might be already logged by the other func), for example
-      it would be bad to report the above error like this:
+     ```c
+     
+        result = m0_foo(bar);
+        ...
+        return result == 0 ? M0_RC(0) : M0_ERR(result);
+     ```
 
-          "failed to allocate memory"
+      **Rationale:** Error reporting through `M0_ERR()` is important for log analysis. Reporting leaf errors is more important, because you can trace upward call-chain easily.
+ 
+ </p>
+ </details>
 
-  * choose appropriate trace level for each M0_LOG(), a general
-    guidelines for this can be found in lib/trace.h in
-    documentation of m0_trace_level enum.
+## Things to Consider
 
-  * consider using M0_ENTRY()/M0_LEAVE() at function's entry and exit points,
-    as well as M0_RC() and M0_ERR_INFO() to explicitly return from function,
-    which conforms to the standard return code convention.
+<details>
+  <summary>Click to expand!</summary>
+  <p>
 
-  * When a function is about to return a "leaf level" error (i.e., an
-    error initially produced by this function, rather than returned
-    from a lower level Motr function), it should wrap the error code in
-    M0_ERR():
+- Locks should outlive the object(s) they are protecting. The code below illustrates a common mistake:
 
-          result = M0_ERR(-EFAULT);
-          ...
-          return M0_RC(result);
+    ```c
+  
+    struct foo {
+    ...
+    /* Protects foo object from concurrent modifications. */
+    struct m0_mutex f_lock;
+    };
+    int foo_init(struct foo * foo) {
+    m0_mutex_init( & foo -> f_lock);
+    m0_mutex_lock( & foo -> f_lock);
+    /* ... Initialize foo ... */
+    m0_mutex_unlock( & foo -> f_lock);
+    }
+    void foo_fini(struct foo * foo) {
+    m0_mutex_lock( & foo -> f_lock);
+    /* ... Finalize foo ... */
+    m0_mutex_unlock( & foo -> f_lock);
+    m0_mutex_fini( & foo -> f_lock); /* <--- Thread A */
+    }
+    int foo_modify(struct foo * foo, ...) {
+    m0_mutex_lock( & foo -> f_lock);
+    /* ... Modify field(s) of foo ... */
+    /* <--- Thread B */
+    m0_mutex_unlock( & foo -> f_lock);
+    }
+    ```
+    
+  Here it is possible that some thread (B) tries to unlock the mutex, which is already finalized by another thread (A). A general rule of thumb is that object creation and destruction should be protected by *existential lock(s)*, with a lifetime that's longer than that of the object.
+  
+  </p>
+  </details>
 
-      or
+# Code Organization Guidelines
 
-          return M0_ERR(-EIO);
+<details>
+  <summary>Click to expad!</summary>
+  <p>
 
-      (an error, returned by a non-Motr function, is considered leaf).
+Traditional code organization techniques, taught in universities, include modularity, layering, information hiding, and maintaining abstraction boundaries. They tend to produce code, which is easy to modify and re-factor, and are, hence, very important. Their utility is highest in the projects that experience constant frequent modifications. Such projects or phases of projects cannot be long. In a long term project, where code lives around for many years, different considerations start playing an increasing role.
 
-      A non-leaf errors should be reported optionally, when this
-      doesn't lead to artificial code complication for reporting
-      sake. For example,
+Consider an example, a stable project sees relatively infrequent addition of the new features, the most typical use of source code by a programmer in bug analysis. The programmer starts with a failure report, performance degradation, or test failure and looks through the area of code that is suspect. If the Programmer fails to find the problem  in this identified area, which is usually the case sice all obvious bugs are already ironed out: the programmer proceeds to the other modules, recursively.
 
-          result = m0_foo(bar);
-          if (result != 0)
-                  return M0_ERR(result);
+There are two observations that can be drawn out of this:
 
-      but usually not
+1. Code is mostly read, not written. The stabler the project, the more predominant the reads. This is because its hard to find bugs that remain in the code and to fix one bug, one has to analyze many lines of code.
+2. The assumption while reading the code is that it is incorrect.
 
-          result = m0_foo(bar);
-          ...
-          return result == 0 ? M0_RC(0) : M0_ERR(result);
+The second point is contrary to the principles of information hiding and abstraction boundaries, where module A, which uses module B, is analyzed
+under the assumption that neither of them has bugs. Abstraction boundary is not only not helpful, but directly detrimental, because every call from A to B has needs to be followed and one cannot rely on invariants. The more rigorous the abstraction, the more effort is spent jumping around the abstraction wall.
 
-      Rationale: error reporting through M0_ERR() is important for log
-      analysis. Reporting leaf errors is more important, because
-      call-chain can usually be traced upward easily.
+Over time, large and long term projects, such as Lustre and Linux kernel, have demonstrated that after a certain threshold, readability is at least as important as modifiability. In such projects, abstraction and modularity are properties of the software *design*. In turn, the code that is produced from the design, is optimised for long term readability. 
 
-Things to look after:
+It is therefore necessary that you:
 
-  * locks should outlive the object(s) they are protecting.
-
-      The code below illustrates a common mistake:
-
-          struct foo {
-                  ...
-                  /* Protects foo object from concurrent modifications. */
-                  struct m0_mutex f_lock;
-          };
-
-          int foo_init(struct foo *foo)
-          {
-                  m0_mutex_init(&foo->f_lock);
-                  m0_mutex_lock(&foo->f_lock);
-                  /* ... Initialize foo ... */
-                  m0_mutex_unlock(&foo->f_lock);
-          }
-
-          void foo_fini(struct foo *foo)
-          {
-                  m0_mutex_lock(&foo->f_lock);
-                  /* ... Finalize foo ... */
-                  m0_mutex_unlock(&foo->f_lock);
-                  m0_mutex_fini(&foo->f_lock);           /* <--- Thread A */
-          }
-
-          int foo_modify(struct foo *foo, ...)
-          {
-                  m0_mutex_lock(&foo->f_lock);
-                  /* ... Modify field(s) of foo ... */   /* <--- Thread B */
-                  m0_mutex_unlock(&foo->f_lock);
-          }
-
-      Here it is possible that some thread (B) tries to unlock the
-      mutex, which is already finalized by another thread (A).
-
-      A general rule of thumb is that object creation and destruction
-      should be protected by "existential lock(s)", with a life-time
-      longer than that of the object.
-
-Code organization guidelines.
-
-The following is not a substitute for design guidelines, which are defined
-elsewhere.
-
-Traditional code organization techniques, taught in universities, include
-modularity, layering, information hiding, and maintaining abstraction
-boundaries. They tend to produce code, which is easy to modify and re-factor,
-and are, hence, very important. Their utility is highest in the projects that
-experience constant frequent modifications. Such projects (or phases of
-projects) cannot be long. In a long term project, where code lives around for
-many years, different considerations start playing an increasing role.
-
-Consider an example. In a project that is in a stable phase, i.e., sees
-relatively infrequent addition of the new features, most typical use of source
-code by a programmer is bug analysis. That is starting from a failure report (or
-performance degradation, or test failure) a programmer looks through the area of
-code that is most likely to be the culprit. Failing to find the problem here
-(which is usually the case, because all obvious bugs are already ironed out),
-the programmer proceeds through the other involved modules, recursively.
-
-Two observations are of import here:
-
-  * the code is mostly read, not written. The stabler the project, the more
-    predominant reads are, because only harder to find bugs remain and more
-    code has to be analyzed for each of them;
-
-  * the code is read under an assumption that it is incorrect.
-
-The last point goes contrary to the principles of information hiding and
-abstraction boundaries: when a module A, which uses a module B, is analyzed
-under an assumption that there is a bug in either, abstraction boundary is not
-only not helpful, but directly detrimental, because every call from A to B has
-to be followed anyway (cannot rely on invariants!) and the more rigorous is
-abstraction, the more effort is spent jumping around the abstraction wall.
-
-The experience with large long term projects, such as Lustre and Linux kernel,
-demonstrated that after a certain threshold readability is at least as important
-as modifiability. In such projects, abstraction and modularity are properties of
-the software *design*, whereas the code, produced from the design, is optimised
-toward the long term readability.
-
-Some concrete consequences:
-
-  * keep the code *visually* compact. The amount of code visible at the screen
-    at once is very important, if you stare at it for hours. Blank lines are
-    precious resource;
-
-  * all kinds of redundant Hungarian notations should be eschewed. For
-    example, don't put information about parameters in function name, because
-    parameters are already present at a call-site. A typical call for
-    m0_mod_call_with_bar() would look like m0_mod_call_with_bar(foo, bar). Not
-    only "bar" is redundant, it is also ugly. Use thesaurus to deal with
-    "call_with_x" vs. "call_with_y";
-
-  * wrapping field access in an accessor function is a gratuitous abstraction,
-    which should only be used sparingly, if it makes code more compact: field
-    accesses have nice properties (like side-effect freedom), which are
-    important for code analysis and which function wrapper hides. Besides, C
-    type system doesn't allow correct handling of constness in this case,
-    unless you have *two* wrappers;
-
-  * more generally, abstractions should be introduced for design purposes,
-    e.g., to mark a point of possible variability. Sub-modules,
-    data-structures and operation vectors should not be created simply to
-    "keep things small". Remember, that in the long term, refactoring is easy.
-
-LocalWords:  struct enums structs sizeof summarise accessor
+- Keep the code *visually* compact. The amount of code that is visible on the screen is very important. 
+- Blank lines are a precious resource.
+- Avoid using all forms of redundant Hungarian notations. For example, don't put information about parameters in the function name as parameters are already present at the call-site. 
+  - A typical call for `m0_mod_call_with_bar()` would look like `m0_mod_call_with_bar(foo, bar)`. Not only is *bar* is redundant, it is also ill-favoured. Use a thesaurus for describing `call_with_x" vs. "call_with_y"`.
+- Wrapping the field access in an accessor function is a gratuitous abstraction, which should be used sparingly and only if it makes code more compact. Field accesses have great properties such a side-effect freedom that are important for code analysis, which the function wrapper hides. 
+  - Besides that, the C type system doesn't handle constants in this case, unless you have *two* wrappers.
+- More generally, abstractions should be introduced for design purposes. For example, to mark a point of possible variability. 
+  - Do not create Sub-modules, data-structures, and operation vectors to keep things small. 
+  - Remember, in the long term, refactoring is easy.
