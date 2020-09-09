@@ -277,69 +277,56 @@ To iterate over indices of an array `X` use the `ARRAY_SIZE(X)` macro instead of
       };
   ```
 
-- Avoid implicit field initialization using designated initializers;
+- Avoid implicit field initialization using designated initializers.
+  
+  **Rationale:** This helps you to find all struct fields while letting you document the default value of a field.
+- Use enums to define numerical constants.
 
-      (Rationale: it helps to find all struct field usage and it documents
-      default value of the field.);
+  ```c
+  
+      enum LSD_HASHTABLE_PARAMS {
+              LHP_PRIME   = 32416190071ULL,
+              LHP_ORDER   = 11,
+              LHP_SIZE    = 1 << LHP_ORDER,
+              LHP_MASK    = LHP_SIZE - 1,
+              LHP_FACTOR0 = 0.577215665,
+              LHP_FACTOR1,
+              LHP_FACTOR2
+      };
+   ```
 
-  * use enums to define numerical constants:
+  **Rationale:** enums as opposed to #defines, have types that are visible in a debugger.
 
-          enum LSD_HASHTABLE_PARAMS {
-                  LHP_PRIME   = 32416190071ULL,
-                  LHP_ORDER   = 11,
-                  LHP_SIZE    = 1 << LHP_ORDER,
-                  LHP_MASK    = LHP_SIZE - 1,
-                  LHP_FACTOR0 = 0.577215665,
-                  LHP_FACTOR1,
-                  LHP_FACTOR2
-          };
+- Prefer using inline functions over macros.
+  
+  **Rationale:** This is due to evaluation rules that perform type-checking and check for sane arguments.
+- Prefer using Non-inline functions over inline functions, unless performance measurements show otherwise.
 
-      (Rationale: enums (as opposed to #defines) have types, visible
-      in a debugger, etc.)
+  **Rationale:** breakpoint can be placed within a non-inline function. Stack trace is more reliable with non-inline functions. Instruction cache pollution is reduced.
+- Use macros only when you cannot achieve the end goal with other language constructs. 
+  - While creating a macro ensure that you:
+    - Evaluate arguments only once
+    - Perform type-check. For more information, refer to the `min_t()` macro in the [Linux Kernel Coding Style](https://www.kernel.org/doc/Documentation/process/coding-style.rst)
+    - Never affect control flow from a macro.
+    - Capitalize the macro name.
+    - Ensure that you correctly parenthesize a macro so that it works across any context.
+    - Use the following return code conventions:
+      - Return 1 for success
+      - Use 0 for failure
+      - Use positive values for other non failure conditions
+- Use `const` for documentation and help for type-checker. 
+  - Do not use casts to trick the type-checking system into believing your consts. 
+    - A typical scenario is where the function doesn't let you modify its *input struct argument*, except for locking and unlocking within a struct. In this case, don't use *const*, instead, document why this argument isn't a constant.
+- Ensure that the *control flow statement conditions* have no impacts.
 
-  * inline functions are preferable to macros
-
-      (Rationale: type-checking, sane argument evaluation rules.);
-
-  * not inline functions are preferable to inline functions, unless
-    performance measurements show otherwise.
-
-      (Rationale: breakpoint can be placed within a non-inline function. Stack
-      trace is more reliable with non-inline functions. Instruction cache
-      pollution is reduced.);
-
-  * macros should be used only when other language constructs cannot
-    achieve the required goal. When creating a macro take care to:
-
-      - evaluate arguments only once,
-
-      - type-check (see min_t() macro in the Linux kernel),
-
-      - never affect control flow from a macro,
-
-      - capitalize macro name,
-
-      - properly parenthesize so that macro works in any context;
-
-  * return code conventions follow linux: return 0 for success,
-    negated error code for a failure, positive values for other non
-    failure conditions;
-
-  * use "const" as a documentation and help for type-checker. Do not
-    use casts to trick type-checking system into believing your
-    consts. A typical scenario is a function that doesn't modify its
-    input struct argument except for taking and releasing a lock
-    inside of the struct. Don't use "const" in this case. Instead,
-    document why the argument is not technically a constant;
-
-  * control flow statement conditions ought to have no side-effects:
-
-          alive = qoo_is_alive(elvis);
-          if (alive) { /* rather than if (qoo_is_alive(elvis)) */
-                  ...
-          }
-
-      (Rationale: with this convention statement coverage metric is more adequate.);
+  ```c
+  
+      alive = qoo_is_alive(elvis);
+      if (alive) { /* rather than if (qoo_is_alive(elvis)) */
+               ...
+      }
+  ```
+  **Rationale:** with this convention statement coverage metric is more adequate.
 
   * use C precedence rules to omit noise in _obvious_ expressions:
 
