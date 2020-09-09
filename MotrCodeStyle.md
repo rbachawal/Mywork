@@ -328,99 +328,63 @@ To iterate over indices of an array `X` use the `ARRAY_SIZE(X)` macro instead of
   ```
   **Rationale:** with this convention statement coverage metric is more adequate.
 
-  * use C precedence rules to omit noise in _obvious_ expressions:
+- Use **C** precedence rules to omit noise in `_obvious_` expressions.
 
-          (left <= x && x < right)  /* not ((left <= x) && (x < right)) */
+  `(left <= x && x < right)  /* not ((left <= x) && (x < right)) */` 
+  
+  But don't overdo it, for example: `(mask << (bits & 0xf)) /* not (mask << bits & 0xf) */`.
 
-      but don't overdo:
+- Use assertions freely to verify state invariants. An asserted expression should have no impacts.
+- Factor common code—always prefer creating a common helper function than copying code.
 
-          (mask << (bits & 0xf)) /* not (mask << bits & 0xf) */
+  **Rationale:** This helps you avoid duplication of bugs.
+- Use standard scalar data type with explicit width, instead of using `long` or `int`. 
+  **Example:**
+  
+  Use `int32_t, int64_t, uint32_t, uint64_t` - to represent 32-bits, 64-bits integers, unsigned 32-bits, and unsigned 64-bits integers respectively.
+  
+  **Rationale:** Lets you avoid inconsistent data structures on different arch.
+- There is no comparison between signed and unsigned qualifiers without an explicit casting. The canonical order of type qualifiers in declarations and definitions is
 
-  * use assertions freely to verify state invariants. An asserted
-    expression should have no side-effects;
+  `{static|extern|auto} {const|volatile} typename`
+  - when using long or long long qualifiers, use `omit int`.
+  - Declare one variable per line.
+  - Avoid bit-fields and use explicit bit manipulations with integer types.
+  
+  **Rationale:** This eliminates non-atomic access to bit-fields and implicit integer promotion.
 
-  * factor common code. Always prefer creating a common helper
-    function to copying code
+- Avoid dead assignments and initializations—assignments that get overwritten before the variable is read.
 
-      (Rationale: avoids duplication of bugs.);
-
-  * use standard scalar data type with explicit width, instead of
-    "long" or "int".  E.g., int32_t, int64_t, uint32_t, uint64_t
-    should be used to represent 32-bits, 64-bits integers, unsigned
-    32-bits, unsigned 64-bits integers respectively
-
-      (Rationale: avoids inconsistent data structures on different arch);
-
-  * no comparison between signed vs. unsigned without explicit casting;
-
-  * the canonical order of type qualifiers in declarations and
-    definitions is
-
-          {static|extern|auto} {const|volatile} typename;
-
-  * when using long or long long qualifiers, omit int;
-
-  * declare one variable per line;
-
-  * avoid bit-fields. Instead, use explicit bit manipulations with
-    integer types;
-
-      (Rationale: eliminates non-atomic access to bit-fields and implicit
-      integer promotion.)
-
-  * avoid dead assignments and initializations (i.e., assignments
-    which are overwritten before the variable is read)
-
-          int x = 0;
-
-          if (y)
-                  x = foo();
+  ```c
+  
+      int x = 0;
+      if (y)
+        x = foo();
           else
-                  x = bar();
+        x = bar();
+    ```
+  - Instead, initialize a variable with a meaningful value, when the latter is known.
+  
+  **Rationale:** Dead initializations potentially hide errors. If, after the code restructuring, the variable remains un-initialized in a conditional branch or in a loop that might execute 0 times, the initializer will suppress compiler warning.
 
-      Instead, initialize a variable with a meaningful value, when the
-      latter is known.
+- All header files should begin with `#pragma once`, followed by a conventional `#ifndef` include guard.
 
-      (Rationale: dead initializations potentially hide errors. If,
-      after the code restructuring, the variable remains
-      un-initialized in a conditional branch or in a loop that might
-      execute 0 times, the initializer suppresses compiler warning.);
+  ```c
+  
+      #pragma once
+      #ifndef __MOTR_SUBSYS_HEADER_H__
+      #define __MOTR_SUBSYS_HEADER_H__
+      ...
+      #endif /* __MOTR_SUBSYS_HEADER_H__ */
+   ```
 
-  * all header files should begin with '#pragma once' followed by a
-    conventional '#ifndef' include guard:
-
-          #pragma once
-
-          #ifndef __MOTR_SUBSYS_HEADER_H__
-          #define __MOTR_SUBSYS_HEADER_H__
-          ...
-          #endif /* __MOTR_SUBSYS_HEADER_H__ */
-
-      notice, that include guards should use names conforming to the
-      following regular expression:
-
-          __MOTR_\w+_H__
-
-      this is required for a build script which automatically checks
-      correctness of include guards and reports duplicates;
-
-  * specify invariants as a conjunction of positive properties one can rely
-    upon, rather than as a disjunction of exceptions. Use m0_*_forall() macros
-    to build conjunctions over containers and sequences;
-
-  * in invariants use _0C() macro to record a failed conjunct;
-
-  * a header file should include only headers, which are necessary for the
-    header to pass compilation. Forward declarations should be used instead of
-    includes where possible. .c files should include all necessary headers
-    directly, without relaying on headers included in already included
-    headers. Unneeded headers should not be included. When a header is
-    included only for a few definitions (as opposed to for a whole interface
-    defined in this header) these symbols should be mentioned in the comment
-    on the #include line.
-
-      (Rationale: reduces dependencies between modules, makes inclusion tree
-      re-structuring easier and compilation faster.).
+Notice, that the include guards should use names conforming to the regular expression: `__MOTR_\w+_H__`. This is required for a build script which automatically checks for the correctness of include guards and reports duplicates.
+- Specify invariants as a conjunction of positive properties that are reliable than using disjunction of exceptions. Use `m0_*_forall()` macros to build conjunctions over containers and sequences.
+  - In invariants use `_0C()` macro to record a failed conjunct.
+- A header file should include only headers that are necessary for the header to pass compilation. Use forward declarations instead of includes wherever possible. `.c` files should include all necessary headers directly, without relaying on headers that are already included. 
+  - Do not include headers unnecessarily. 
+  - If the included header is for a few definitions as opposed to the whole interface, these symbols should be mentioned in the comment on the `#include` line.
+**Rationale:** This reduces dependencies between modules, makes it easy to restructure the inclusion tree, and results in faster compilation faster.
 
   * use M0_LOG() from lib/trace.h instead of printf(3)/printk() in
     all source files which are part of libmotr.so library or
