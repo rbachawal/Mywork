@@ -480,7 +480,7 @@ To iterate over indices of an array `X` use the `ARRAY_SIZE(X)` macro instead of
   </p>
   </details>
 
-# Code Organization Guidelines
+## Code Organization Guidelines
 
 <details>
   <summary>Click to expad!</summary>
