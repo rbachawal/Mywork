@@ -11,6 +11,13 @@ Use British English in documents, comments, and variable names.
   + [Comments](#Comments)
   + [Variable Declarations](#Variable-Declarations)
 - [Idioms](#Idioms)
+  + [Loops](#Loops)
+  + [Conventions](#Conventions)
+    * [Name](#Name)
+    * [typedefs](#Typedefs)
+    * [Expr Size](#Expression-Size)
+    * [Array Size](#Array-Size)
+    * [Formatting](#Formatting)
 
 
 ## Syntax
@@ -72,7 +79,7 @@ Use British English in documents, comments, and variable names.
  
 #### Comments
 
-- Put the comments at the head of the function, telling people what it does, and possibly WHY it does it.
+Put the comments at the head of the function, telling people what it does, and possibly WHY it does it.
     
 #### Variable Declarations
 
@@ -93,6 +100,8 @@ Use British English in documents, comments, and variable names.
 ## Idioms
 
 It is essential that you adhere to these higher level idiomatic styles.
+
+#### Loops
 
 - To write a loop that is repeated N times: 
         
@@ -115,73 +124,83 @@ It is essential that you adhere to these higher level idiomatic styles.
   }
   ```
 
-  * names of struct and union members (fields) are have a short
-    (1--4 characters) prefix, derived from the union or struct tag:
+#### Conventions 
 
-          struct misc_imperium_translatio {
-                  destination_t mit_rome[3]; /* there shall be no fourth Rome */
-                  enum reason   mit_why;
-          };
+##### Name
 
-      (Rationale: his makes search for field name usage easier.)
+Add a short (1--4 characters) prefix to the struct and union member names. 
 
-  * typedefs are used only for "scalar" data types, including
-    function pointers, but excluding enums. Compound data types
-    (structs and unions) should never be aliased with typedef.
+  ```c
+  
+  struct misc_imperium_translatio {
+         destination_t mit_rome[3]; /* there shall be no fourth Rome */
+         enum reason   mit_why;
+  };
+  ```
 
-      Names introduced by typedef end with `_t` ;
+**Rationale:** Prefixes make searching for field names easier.
 
-  * sizeof expr is preferred to sizeof(type):
+##### Typedefs 
 
-          struct foo *bar = m0_alloc(sizeof *bar);
+Typedefs are used only for *scalar* data types. This includes function pointers and excludes enums. Compound data types like structs and unions, should never be aliased with a typedef.
 
-      (Rationale: when bar's type changes code remains correct.);
+`Names introduced by typedef end with '_t'`
 
-  * to iterate over indices of an array X use ARRAY_SIZE(X) macro
-    instead of an explicit array size:
+##### Expression Size
 
-          #define MAX_DEGREE_OF_SEPARATION (7)
+The size of expression is preferred to the size of type.
 
-          int degrees_of_separation[MAX_DEGREE_OF_SEPARATION + 1];
+```c
 
-          for (i = 0; i < ARRAY_SIZE(degrees_of_separation); ++i) {
-                  body;
-          }
+   struct foo *bar = m0_alloc(sizeof *bar);
+```
 
-      (Rationale: when array's declaration changes code remains correct.);
+**Rationale:** Code changes remain impact when the bar type changes.  
 
-  * in the spirit of the two examples above, always try to make the
-    code as autonomous as possible, so that the code correctness
-    survives changes;
+##### Array Size 
 
-  * use difference between NULL, 0 and "false" to emphasize whether
-    an expression is used as a pointer, integer (including success
-    or failure code) or boolean:
+To iterate over indices of an array `X` use the `ARRAY_SIZE(X)` macro instead of explicitly writing the array size.
 
-          if (p == NULL) { /* assumes that p is a pointer */
-          } else if (q != 0) { /* q is an integer */
-          } else if (r) { /* r is a boolean */
-          }
+ ```c
+ 
+     #define MAX_DEGREE_OF_SEPARATION (7)
+     int degrees_of_separation[MAX_DEGREE_OF_SEPARATION + 1];
+     for (i = 0; i < ARRAY_SIZE(degrees_of_separation); ++i) {
+         body;
+     }
+  ```
+**Rationale:** Use the Array_Size(X) macro to ensure that the code remains correct when the array declaration changes. 
 
-      Specifically, never use if (r == true);
+:page_with_curl: **Note:** Always ensure that your code is autonomous to keep the code correct and consistent despite changes.
 
-  * use `?:` form of ternary operator (a gcc-extension) like
+#### Formatting
 
-          a ?: b ?: c ?: ...
+- Ensure that you differentiate NULL, 0, and `false` to emphasize a pointer, boolean, and integer—including code success or failure.
 
-      This expression means "return first non-zero value among a, b,
-      c". Operands, including "a" can have any suitable type.
+```c
 
-  * simplify:
+   if (p == NULL) { /* assumes that p is a pointer */
+   } else if (q != 0) { /* q is an integer */
+   } else if (r) { /* r is a boolean */
+   }
+```
+- Never use `if (r == true)`
+- Use `?:` form of ternary operator—a gcc-extension like:
 
-            return q != 0;            to     return q;
-            return expr ? 0 : 1;      to     return !expr;
+  `a ?: b ?: c ?: ...` - this expression will return the first non-zero value among a, b, c. 
+  
+  - Operands, including `a` can have any suitable type.
 
-      Specifically, never use `(x == true)` or `(x == false)` instead of
-      `(x)` or `(!x)` respectively;
+- Simplify the code, wherever possible.
 
-      (Rationale: if `(x == true)` is clearer than `(x)`, then `((x == true) == true)`
-      is even more clearer.)
+  `return q != 0` - to return q and,
+  `return expr ? 0 : 1` - to return !expr.
+
+- Specifically, never use `(x == true)` or `(x == false)` instead of `(x)` or `(!x)` respectively.
+
+**Rationale:** 
+  - If `(x == true)` is clearer than `(x)` then 
+  - `((x == true) == true)` is even more clearer.
 
   * use `!!x` to convert a "boolean" integer into an "arithmetic" integer;
 
