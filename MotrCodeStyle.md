@@ -4,6 +4,14 @@ This document describes code style for the Motr repository. However, this docume
 
 Use British English in documents, comments, and variable names.
 
+- [Syntax](#Syntax)
+  + [Indentation](#Indentation)
+  + [Placement of braces and spacing](#Placement-of-Braces-and-Spacing)
+  + [Breaking Long Lines and Strings](#Breaking-Long-Lines-and-Strings)
+  + [Comments](#Comments)
+  + [Variable Declarations](#Variable Declarations)
+
+
 ## Syntax
 
 #### Indentation
@@ -11,7 +19,7 @@ Use British English in documents, comments, and variable names.
 - Tabs are 8 characters, hence indentations are 8 characters.
 - Use tabs for block indentation.
 
-#### Placement of braces and spacing
+#### Placement of Braces and Spacing
 
 - Do not add a blank space at the end of a line.
 - You can omit braces around single statement blocks. The preferred way of placing braces, as ascertained by Kernighan and Ritchie, is to put the opening brace last on the line, and put the closing brace first:
@@ -41,7 +49,7 @@ Use British English in documents, comments, and variable names.
    }
    ```
    
-#### Breaking long lines and strings
+#### Breaking Long Lines and Strings
 
 - A continuous line starts a column after the last unclosed opening parenthesis.
 
@@ -58,10 +66,10 @@ Use British English in documents, comments, and variable names.
           
   if (pl_oldrec->pr_let_id != stl->ls_enum->le_type->let_id ||
      pl_oldrec->pr_attr.pa_N != pl->pl_attr.pa_N) {
-  }
- ```
-
-#### Comment 
+   }
+  ```
+ 
+#### Comments
 
 - Put the comments at the head of the function, telling people what it does, and possibly WHY it does it.
     
