@@ -76,16 +76,17 @@ Ensure that you have the correct hardware cofiguration before moving on to the p
     
       `$ getenforce`
     
-* [x] Provision your Controller: Ensure that the storage controller attached to the servers is configured correctly with pools and volumes. 
-   
-   ## Base Command
+* [x] Provision your Controller: ensure that the storage controller attached to the servers is correctly configured with pools and volumes. 
 
-   `./controller-cli.sh host -h '<controller host>' -u <username> -p '<password>'`
-
-Where,
-- -h : hostname/IP address of controller
-- -u : Username of controller
-- -p : Password for mentioned username 
+  Base Command
+  
+  `./controller-cli.sh host -h '<controller host>' -u <username> -p '<password>'`
+  
+  Where,
+  
+  - -h : hostname/IP address of controller
+  - -u : Username of controller
+  - -p : Password for mentioned username 
 
 Usage -     
     
