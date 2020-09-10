@@ -34,42 +34,132 @@ Ensure that you have the correct hardware cofiguration before moving on to the p
 
 * [x] Hardware Configuration and Storage:                                                                             
   
-  - Minimum 2GB space should be available under /opt/ directory or partition
-  - Minimum 2 LUNs available from storage controller or 2 raw disks available locally to the system: one for metadata and one for data                                                                                                      
+  - You'll need a minimum of 2GB space under /opt/ directory or partition.
+  - A minimum of two LUNs should be available from the storage controller or two raw disks locally available on the system (one for metadata and one for data.) 
+  
+* [x] Miscellaneous:
+  
+- Ensure that your hardware is connected to cortx-storage.colo.seagate.com.
+- You'll need internet connectivity to download and install third-party open source softwares. 
+- You'll have to open the following ports:                                                                                                
+  - 80 haproxy
+  - 443 haproxy
+  - 8100 CSM        
+  
+* [x] Disable SE Linux.  
 
-1. **Miscellaneous**:                                                                                                           
-Connectivity to cortx-storage.colo.seagate.com                                               
-Connectivity to internet to be able to download and install third party open source softwares                                                                                                                                                                                                                                                                                                                                                                                         
+  Follow these steps to disable SE Linux:  
+  
+  1. Run `$ vi /etc/selinux/config`
+  2. Configure SELINUX=disabled in the /etc/selinux/config file using `$ vi /etc/selinux/config` 
+  3. Set SELINUX=disabled 
+    
+      ```shell
+    
+          # This file controls the state of SELinux on the system.
+          # SELINUX= can take one of these three values:
+          #     enforcing - SELinux security policy is enforced.
+          #     permissive - SELinux prints warnings instead of enforcing.
+          #     disabled - No SELinux policy is loaded.
+          SELINUX=disabled
+          # SELINUXTYPE= can take one of three two values:
+          #     targeted - Targeted processes are protected,
+          #     minimum - Modification of targeted policy. Only selected processes are protected.
+          #     mls - Multi Level Security protection.
+          SELINUXTYPE=targeted
+      ```  
+   4. Restart your node using: 
+    
+      `$ shutdown -r now`
+    
+   5. After rebooting your system, confirm that the getenforce command returns a `Disabled` status:
+    
+      `$ getenforce`
+    
+* [x] Provision your Controller. 
 
-   Following ports needs to be opened:                                                                                                
-   80 haproxy                                                                                                   
-   443 haproxy                                                                                                                      
-   8100 CSM                                                                                                                                                                                                                               
+   Ensure that the storage controller attached to the servers is configured correctly with pools and volumes. 
+   
+   ## Base Command
 
-# Pre-setup Checklist
-1. SE Linux needs to be disabled  
-   Steps to disable SE Linux:  
-    $ `vi /etc/selinux/config`  
-    **Set SELINUX=disabled**  
-    ```
-    # This file controls the state of SELinux on the system.
-    # SELINUX= can take one of these three values:
-    #     enforcing - SELinux security policy is enforced.
-    #     permissive - SELinux prints warnings instead of enforcing.
-    #     disabled - No SELinux policy is loaded.
-    SELINUX=disabled
-    # SELINUXTYPE= can take one of three two values:
-    #     targeted - Targeted processes are protected,
-    #     minimum - Modification of targeted policy. Only selected processes are protected.
-    #     mls - Multi Level Security protection.
-    SELINUXTYPE=targeted
-    ```  
-    **Restart node**  
-    $ `shutdown -r now`
+   `./controller-cli.sh host -h '<controller host>' -u <username> -p '<password>'`
 
-# Controller is provisioned
-1. Ensure the storage controller attached to the servers is configured correctly with pools and volumes.  
-   Refer [this](Setup-Guides/Seagate-Gallium-Storage-Controller-Configuration) guide to create pools and volumes
+Where,
+- -h : hostname/IP address of controller
+- -u : Username of controller
+- -p : Password for mentioned username 
+
+Usage -     
+    
+```
+./controller-cli.sh host -h 'host.seagate.com' -u admin -p '!admin'
+			     OR
+./controller-cli.sh host -h '192.168.1.1' -u admin -p '!admin'
+```
+
+## Basic Utilities:
+
+1. Print a usage message briefly summarizing command-line options
+   ___
+   `./controller-cli.sh host -h 'host.seagate.com' -u admin -p '!admin' -h | --help`
+	
+2. Print brief information about provisioning setup present on storage enclosure
+   ___	      
+   `./controller-cli.sh host -h 'host.seagate.com' -u admin -p '!admin' prov -s | --show-prov`
+
+3. Controller provisioning
+   ___
+   Standard - 
+   
+   Provision controller on 'host.seagate.com' with standard configuration of 2 linear pools with 8 volumes per pool.
+   
+   `./controller-cli.sh host -h 'host.seagate.com' -u admin -p '!admin' prov [-a | --all]`
+
+   Custom -
+   1. Provision controller on 'host.seagate.com' with adapt linear pool dg01, disks range in 
+      0.0-41 and default 8 volumes    
+      
+      `./controller-cli.sh host -h 'host.seagate.com' -u admin -p '!admin' prov -t linear -l 
+      adapt -m dg01 -d 0.0-41`
+   
+   2. Provision controller on 'host.seagate.com' with raid5 virtual pool a, disks range in 0.42-83 and default 8 volumes
+   
+      `./controller-cli.sh host -h 'host.seagate.com' -u admin -p '!admin' prov -t virtual -l r6 -m a -d 0.42-83`
+   
+   3. Provision controller on 'host.seagate.com' with raid5 virtual pool b, disks range in 0.0-9 and 6 volumes
+     
+      `./controller-cli.sh host -h 'host.seagate.com' -u admin -p '!admin' prov -t virtual -l r5 -m b -d 0.0-9 -n 6`
+
+   >**Note :** -t,-l,-m,-d flags are necessary while custom controller provisioning.
+   >
+   >**Supported Custom Parameters :**    
+   >- pool-type : linear,virtual
+   >- level : r1,r5,r6,r10,r50,adapt
+   >- pool-name for virtual pool : a,b 
+   >- no of volumes : 1,2,3,4,5,6,7,8
+
+4. Eliminate existing standard/custom provisioning on 'host.seagate.com' controller
+   ___
+   `./controller-cli.sh host -h 'host.seagate.com' -u admin -p '!admin' prov [-c | --cleanup]`
+
+
+5. Eliminate existing standard/custom provisioning on 'host.seagate.com' controller and setup standard provisioning on it
+   ___
+   `./controller-cli.sh host -h 'host.seagate.com' -u admin -p '!admin' prov [-c | --cleanup] [-a | --all]`
+   
+   >**Note :** You could also use cleanup flag with custom provisioning setup.
+
+
+6. Print details about available disks on storage enclosure
+   ___
+   `./controller-cli.sh host -h 'host.seagate.com' -u admin -p '!admin' [-s|--show-disks]`
+
+7. Print storage enclosure
+ serial number, firmware version
+ and license details present on controller 'host.seagate.com'
+   ___
+   `./controller-cli.sh host -h 'host.seagate.com' -u admin -p '!admin' --show-license` 
+     
 
 ## 1.1 Prerequisites
 
