@@ -13,18 +13,29 @@ This guide provides a step-by-step walkthrough for getting you CORTX-Provisioner
 
 ## 1.0 Hardware Checklist
 
-1. **Operating System**:                                                                                      
-Centos 7.7.1908                                                                                                                                                      
-*Note*: Install a vanilla OS for Centos 7.7.1908 release and ensure to have root credentials                                      
-                                
-1. **Network**:                                                                                                
-**Single node EOS setup**: None                                                                                           
-**Dual node EOS setup**:                                                                                                                                                                Ensure uniform network interfaces are available on both the nodes  
-e.g. If there are eth0 and eth1 interfaces available on node1 then they should be available on node2 with the same name and properties (subnet, mtu etc) as well.  
+Ensure that you have the correct hardware cofiguration before moving on to the prerequisites section.
 
-1. **Hardware Configuration and Storage**:                                                                                
-Minimum 2GB space should be available under /opt/ directory or partition                                                          
-Minimum 2 LUNs available from storage controller or 2 raw disks available locally to the system: one for        metadata and one for data                                                                                                      
+<details>
+  <summary>Click to expand!</summary>
+  <p>
+    
+* [x] Operating System: Centos 7.7.1908                                                                                                                                         
+
+  :page_with_curl: **Notes:** 
+  - Install the vanilla OS for Centos 7.7.1908 release. 
+  - Ensure you have root credentials.                                      
+                                
+* [x] Network:                                                                                                
+  
+  - Single node CORTX setup: Not Applicable
+  - Dual node CORTX setup: Ensure that uniform network interfaces are available on both the nodes. 
+  
+    **Example:** If there are eth0 and eth1 interfaces available on node1, they should be available and have the same names and properties on node2 (subnet, mtu, etc.)  
+
+* [x] Hardware Configuration and Storage:                                                                             
+  
+  - Minimum 2GB space should be available under /opt/ directory or partition
+  - Minimum 2 LUNs available from storage controller or 2 raw disks available locally to the system: one for metadata and one for data                                                                                                      
 
 1. **Miscellaneous**:                                                                                                           
 Connectivity to cortx-storage.colo.seagate.com                                               
