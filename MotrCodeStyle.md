@@ -53,7 +53,7 @@ Use British English in documents, comments, and variable names.
 
    switch (expression) {
    case VALUE0:
-   branch0;
+           branch0;
    case VALUE1:
            branch1;
    ...
@@ -134,7 +134,7 @@ It is essential that you adhere to these higher level idiomatic styles.
   ```c
   
      for (i = 0; i < N; ++i) {
-                          body;
+             body;
      }
 
      or, if appropriate,
@@ -187,7 +187,7 @@ Typedefs are used only for *scalar* data types. This includes function pointers 
   <summary>Click to expand!</summary>
   <p>
     
-The size of expression is preferred to the size of type.
+The size of expression is preferred to the sizeof type.
 
 ```c
 
@@ -215,7 +215,7 @@ To iterate over indices of an array `X` use the `ARRAY_SIZE(X)` macro instead of
          body;
      }
   ```
-**Rationale:** Use the Array_Size(X) macro to ensure that the code remains correct when the array declaration changes. 
+**Rationale:** Use the s/Array_Size(X)/ARRAY_SIZE(X) macro to ensure that the code remains correct when the array declaration changes. 
 
 :page_with_curl: **Note:** Always ensure that your code is autonomous to keep the code correct and consistent despite changes.
 
@@ -238,13 +238,18 @@ To iterate over indices of an array `X` use the `ARRAY_SIZE(X)` macro instead of
    }
 ```
 - Never use `if (r == true)`
-- Use `?:` form of ternary operator—a gcc-extension like:
+- Use `?:` form of ternary operator (this is a gcc-extension) like:
+
   `a ?: b ?: c ?: ...` - this expression will return the first non-zero value among a, b, c. 
   - Operands, including `a` can have any suitable type.
-- Wherever possible, simplify.
+- Wherever possible, simplify,
 
-  `return q != 0` - to return q and,
-  `return expr ? 0 : 1` - to return !expr. Specifically, never use `(x == true)` or `(x == false)` instead of `(x)` or `(!x)` respectively.
+  ```c
+  
+  return q != 0;            to     return q;
+  return expr ? 0 : 1;      to     return !expr; 
+  ```
+  Specifically, never use `(x == true)` or `(x == false)` instead of `(x)` or `(!x)` respectively.
 
    **Rationale:** If `(x == true)` is clearer than `(x)`. Then `((x == true) == true)` is even more clearer.
 - Use `!!x` to convert a *boolean* integer into an *arithmetic* integer.
@@ -348,7 +353,7 @@ To iterate over indices of an array `X` use the `ARRAY_SIZE(X)` macro instead of
 - There is no comparison between signed and unsigned qualifiers without an explicit casting. The canonical order of type qualifiers in declarations and definitions is
 
   `{static|extern|auto} {const|volatile} typename`
-  - when using long or long long qualifiers, use `omit int`.
+  - when using long or long long qualifiers, omit `int`.
   - Declare one variable per line.
   - Avoid bit-fields and use explicit bit manipulations with integer types.
   
@@ -448,32 +453,37 @@ To iterate over indices of an array `X` use the `ARRAY_SIZE(X)` macro instead of
 
 - Locks should outlive the object(s) they are protecting. The code below illustrates a common mistake:
 
-    ```c
+```c
   
     struct foo {
-    ...
-    /* Protects foo object from concurrent modifications. */
-    struct m0_mutex f_lock;
-    };
-    int foo_init(struct foo * foo) {
-    m0_mutex_init( & foo -> f_lock);
-    m0_mutex_lock( & foo -> f_lock);
-    /* ... Initialize foo ... */
-    m0_mutex_unlock( & foo -> f_lock);
-    }
-    void foo_fini(struct foo * foo) {
-    m0_mutex_lock( & foo -> f_lock);
-    /* ... Finalize foo ... */
-    m0_mutex_unlock( & foo -> f_lock);
-    m0_mutex_fini( & foo -> f_lock); /* <--- Thread A */
-    }
-    int foo_modify(struct foo * foo, ...) {
-    m0_mutex_lock( & foo -> f_lock);
-    /* ... Modify field(s) of foo ... */
-    /* <--- Thread B */
-    m0_mutex_unlock( & foo -> f_lock);
-    }
-    ```
+          ...
+          /* Protects foo object from concurrent modifications. */
+          struct m0_mutex f_lock;
+  };
+
+  int foo_init(struct foo *foo)
+  {
+          m0_mutex_init(&foo->f_lock);
+          m0_mutex_lock(&foo->f_lock);
+          /* ... Initialize foo ... */
+          m0_mutex_unlock(&foo->f_lock);
+  }
+
+  void foo_fini(struct foo *foo)
+  {
+          m0_mutex_lock(&foo->f_lock);
+          /* ... Finalize foo ... */
+          m0_mutex_unlock(&foo->f_lock);
+          m0_mutex_fini(&foo->f_lock);           /* <--- Thread A */
+  }
+
+  int foo_modify(struct foo *foo, ...)
+  {
+          m0_mutex_lock(&foo->f_lock);
+          /* ... Modify field(s) of foo ... */   /* <--- Thread B */
+          m0_mutex_unlock(&foo->f_lock);
+  }
+```
     
   Here it is possible that some thread (B) tries to unlock the mutex, which is already finalized by another thread (A). A general rule of thumb is that object creation and destruction should be protected by *existential lock(s)*, with a lifetime that's longer than that of the object.
   
