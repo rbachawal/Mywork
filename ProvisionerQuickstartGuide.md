@@ -19,7 +19,7 @@ Ensure that you have the correct hardware cofiguration before moving on to the p
   <summary>Click to expand!</summary>
   <p>
     
-* [x] Operating System: Centos 7.7.1908                                                                                                                                         
+* [x] Ensure that you are on a Centos 7.7.1908 Operating System.                                                                                                                 
 
   :page_with_curl: **Notes:** 
   - Install the vanilla OS for Centos 7.7.1908 release. 
@@ -76,9 +76,7 @@ Ensure that you have the correct hardware cofiguration before moving on to the p
     
       `$ getenforce`
     
-* [x] Provision your Controller. 
-
-   Ensure that the storage controller attached to the servers is configured correctly with pools and volumes. 
+* [x] Provision your Controller: Ensure that the storage controller attached to the servers is configured correctly with pools and volumes. 
    
    ## Base Command
 
