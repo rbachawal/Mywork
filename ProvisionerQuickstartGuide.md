@@ -9,7 +9,7 @@ This guide provides a step-by-step walkthrough for getting you CORTX-Provisioner
 - [1.4 Teardown CORTX](#14-Teardown-CORTX)
 - [1.5 Virtual Machines](#15-Virtual-Machines)
 - [1.6 Set up the S3client](#16-Set-up-the-S3client)
-- [1.7 Additional Resources](#17-Additional-Resources)
+
 
 ## 1.0 Hardware Checklist
 
@@ -711,12 +711,106 @@ In such scenarios the destroy may get stuck somewhere due to some unknown reason
    
    </p>
    </details>	
-		
   
-## 1.5 Set up the S3client   
-  
-  **TODO** Add link for for s3client setup document.
+## 1.6 Set up the S3client   
 
-## 1.6 Additional Resources
-  
-  **TODO** Add link for CLI
+**Prerequisites:** Before proceeding with Server setup ensure you have:  
+- [Vagrant Setup](https://github.com/Seagate/cortx-prvsnr/wiki/Vagrant-Setup)
+- [SaltStack Setup](https://github.com/Seagate/cortx-prvsnr/wiki/SaltStack-Setup)
+
+### 1. Prepare Config Files
+
+1. S3Client provisioning refers to the required data in _pillar/components/s3client.sls_.
+
+	```shell
+
+		s3client:
+  		  s3server:
+    		    fqdn: srvnode-1
+    		    ip: 127.0.0.1        # Optional if FQDN is under DNS
+  		access_key: 2lB1wnQKSw2gehG68SzHwA
+  		secret_key: Z/xFyapiUnfUBGAXsK+DdJbrQEEyyTie5+uOylO0
+  		region: US
+  		output: text      # json/text/table
+  		s3endpoint: s3.seagate.com
+	```  
+		
+	**Or**
+
+- Run script to set the s3client config:
+
+	```python
+	
+	$ cd /opt/seagate/cortx/provisioner  
+	$ python3 ./utils/configure-eos.py --show-s3client-file-format
+	$ python3 ./utils/configure-eos.py --s3client-file <yaml_file_generated_based_on_output_above>
+	```
+2. Set target release version to be installed:
+
+	`$ cat <prvsnr source>/pillar/components/release.sls`
+	
+	**Output**
+	
+	```
+	
+	   release:
+	       target_build: last_successful
+	```
+	     
+**OR**  
+
+- Run script to set the release tag:  
+
+	`$ python <prvsnr source>/utils/configure-eos.py --release ees1.0.0-PI.1-sprint2`  
+
+### 2. Setup S3Client
+
+   1. Execute Salt formula to setup: `$ salt-call state.apply components.s3clients`  
+
+      - This implicitly installs:  
+      	- S3IAMCLI
+	- S3Cmd
+	- AWSCLI
+   2. To uninstall salt formula setup: `$ salt-call --local state.apply components.s3clients.teardown`
+
+#### Independent Setup
+
+###### 1. S3Cmd
+
+1. To setup S3Cmd: 
+
+	`$ salt-call --local state.apply components.s3client.s3cmd`
+	
+2. To teardown:  
+
+	`$ salt-call --local state.apply components.s3client.s3cmd.teardown`
+
+###### 2. AWSCli
+
+1. To setup AWSCli: 
+
+	`$ salt-call --local state.apply components.s3client.awscli`
+	
+2. To teardown:  
+
+	`$ salt-call --local state.apply components.s3client.awscli.teardown`
+
+### 3. Setup COSBench
+
+1. To setup COSBench: `$ salt-call --local state.apply components.performance_testing.cosbench`
+2. To teardown: `$ salt-call --local state.apply components.performance_testing.cosbench.teardown`
+
+## You're All Set & You're Awesome!
+
+We thank you for stopping by to check out the CORTX Community. We are fully dedicated to our mission to build open source technologies that help the world save unlimited data and solve challenging data problems. Join our mission to help reinvent a data-driven world. 
+
+### Contribute to CORTX S3 Server
+
+Please contribute to the CORTX Open Source initiative and join our movement to make data storage better, efficient, and more accessible.
+
+### Reach Out to Us
+
+You can reach out to us with your questions, feedback, and comments through our CORTX Communication Channels:
+
+- Join our CORTX-Open Source Slack Channel to interact with your fellow community members and gets your questions answered. [![Slack Channel](https://img.shields.io/badge/chat-on%20Slack-blue)](https://join.slack.com/t/cortxcommunity/shared_invite/zt-femhm3zm-yiCs5V9NBxh89a_709FFXQ?)
+- If you'd like to contact us directly, drop us a mail at cortx-questions@seagate.com.
