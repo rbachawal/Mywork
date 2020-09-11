@@ -714,11 +714,22 @@ In such scenarios the destroy may get stuck somewhere due to some unknown reason
   
 ## 1.6 Set up the S3client   
 
-**Prerequisites:** Before proceeding with Server setup ensure you have:  
+<details>
+	<summary>Prerequisites</summary>
+	<p>
+
+Before proceeding with Server setup ensure you have:  
 - [Vagrant Setup](https://github.com/Seagate/cortx-prvsnr/wiki/Vagrant-Setup)
 - [SaltStack Setup](https://github.com/Seagate/cortx-prvsnr/wiki/SaltStack-Setup)
 
+</p>
+</details>
+
 ### 1. Prepare Config Files
+
+<details>
+	<summary>Click to expand!</summary>
+	<p>
 
 1. S3Client provisioning refers to the required data in _pillar/components/s3client.sls_.
 
@@ -762,9 +773,16 @@ In such scenarios the destroy may get stuck somewhere due to some unknown reason
 - Run script to set the release tag:  
 
 	`$ python <prvsnr source>/utils/configure-eos.py --release ees1.0.0-PI.1-sprint2`  
+	
+</p>
+</details>
 
 ### 2. Setup S3Client
 
+<details>
+	<summary>Click to expand!</summary>
+	<p>
+		
    1. Execute Salt formula to setup: `$ salt-call state.apply components.s3clients`  
 
       - This implicitly installs:  
@@ -794,11 +812,21 @@ In such scenarios the destroy may get stuck somewhere due to some unknown reason
 2. To teardown:  
 
 	`$ salt-call --local state.apply components.s3client.awscli.teardown`
+	
+</p>
+</details>
 
 ### 3. Setup COSBench
 
+<details>
+	<summary>Click to expand</summary>
+	<p>
+		
 1. To setup COSBench: `$ salt-call --local state.apply components.performance_testing.cosbench`
 2. To teardown: `$ salt-call --local state.apply components.performance_testing.cosbench.teardown`
+
+</p>
+</details>
 
 ## You're All Set & You're Awesome!
 
