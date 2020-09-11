@@ -7,7 +7,7 @@ This guide provides a step-by-step walkthrough for getting you CORTX-Provisioner
 - [1.2 Known Issues and Limitations](#12-Known-Issues-and-Limitations)
 - [1.3 Dual Node Setup on Hardware](#13-Dual-Node-Setup-on-Hardware)
 - [1.4 Teardown CORTX](#14-Teardown-CORTX)
-- [1.5](#15-Virtual-Machines)
+- [1.5 Virtual Machines](#15-Virtual-Machines)
 - [1.6 Set up the S3client](#16-Set-up-the-S3client)
 - [1.7 Additional Resources](#17-Additional-Resources)
 
@@ -315,15 +315,15 @@ In such scenarios the destroy may get stuck somewhere due to some unknown reason
 
 1. Run `$ ps -e f`  - This will list the processes in hierarchical manner 
 
- Here's a snippet of the ps output:   
+   Here's a snippet of the ps output:   
 
-  ```shell
+  	```shell
   
-  206342 ?        Sl     0:00 /usr/bin/python3.6 -s /usr/bin/salt-minion
-  206465 ?        S      0:00  \_ bash /opt/seagate/cortx/hare/libexec/prov-ha-reset None
-  206510 ?        S      0:00      \_ /usr/bin/python2 -Es /usr/sbin/pcs resource delete c2
-  206516 ?        S      0:00          \_ /usr/sbin/crm_resource --wait
-  ```
+  		206342 ?        Sl     0:00 /usr/bin/python3.6 -s /usr/bin/salt-minion
+  		206465 ?        S      0:00  \_ bash /opt/seagate/cortx/hare/libexec/prov-ha-reset None
+  		206510 ?        S      0:00      \_ /usr/bin/python2 -Es /usr/sbin/pcs resource delete c2
+  		206516 ?        S      0:00          \_ /usr/sbin/crm_resource --wait
+  	```
 
 2. Destroy will run salt commands to teardown the components one after another. Like in above output the salt minion has invoked process 206510 to delete resource c2 ( pcs resource delete c2) which further has invoked process 206516 (crm_resource —wait).
 
@@ -354,11 +354,11 @@ In such scenarios the destroy may get stuck somewhere due to some unknown reason
       
    If any rpms are still there, remove them manually from both nodes:  
    
-  	```shell 
+    ```shell 
      
-      		$ for pkg in `rpm -qa | grep -E "cortx|salt"`; do yum remove -y $pkg; done 
-      		$ rm -rf /etc/salt* && rm -rf /opt/seagate && rm -rf /root/.ssh/*   
-   	```  
+      	  $ for pkg in `rpm -qa | grep -E "cortx|salt"`; do yum remove -y $pkg; done 
+      	  $ rm -rf /etc/salt* && rm -rf /opt/seagate && rm -rf /root/.ssh/*   
+     ```  
 
 #### 3. Teardown only Cortx components all at once:
 :page_with_curl: **Note:** This will remove all the Cortx components, excluding Provisioner. We've listed the components that will be removed:   
@@ -375,15 +375,17 @@ In such scenarios the destroy may get stuck somewhere due to some unknown reason
 *   Elasticsearch  
 *   Statsd  
 *   Openldap  
-*   To remove configuration for other system components (cleanup storage partitions, etc), run the command: `$ sh /opt/seagate/cortx/provisioner/cli/destroy`  
+*   To remove configuration for other system components (cleanup storage partitions, etc), run the command: 
+	
+	`$ sh /opt/seagate/cortx/provisioner/cli/destroy`  
 
 #### 4. Teardown only specific group components  
 
-`destroy` now supports tearing down specific group states. Provisioner has grouped up following components states:   
+   `destroy` now supports tearing down specific group states. Provisioner has grouped up following components states:   
 
-- iopath-states: lustre, motr, s3server, and hare
-- ha-states: corosync-pacemaker and iostack-ha
-- ctrlpath-states: sspl and csm  
+   - iopath-states: lustre, motr, s3server, and hare
+   - ha-states: corosync-pacemaker and iostack-ha
+   - ctrlpath-states: sspl and csm  
 
 1. To teardown only cortx proprietary components i.e. motr, s3server, hare, sspl & csm, execute:
 
@@ -393,109 +395,323 @@ In such scenarios the destroy may get stuck somewhere due to some unknown reason
 
   :warning: **Caution:** It is recommended that you run this command only if you understand the interdependecies between group-states.
   
-3. To teardown only ctrlpath states (sspl, csm) run:  
+   1. To teardown only ctrlpath states (sspl, csm) run:  
   
-     `$ sh /opt/seagate/cortx/provisioner/cli/destroy --ctrlpath-states`  
+       `$ sh /opt/seagate/cortx/provisioner/cli/destroy --ctrlpath-states`  
      
-4. To teardown only ha states (corosync-pacemaker, iostack-ha) run:  
+   2. To teardown only ha states (corosync-pacemaker, iostack-ha) run:  
   
-     `$ sh /opt/seagate/cortx/provisioner/cli/destroy --ha-states`   
+     	`$ sh /opt/seagate/cortx/provisioner/cli/destroy --ha-states`   
      
-5. To teardown only iopath states (lustre, motr, s3server, hare) run: 
+   3. To teardown only iopath states (lustre, motr, s3server, hare) run: 
   
-      `$ sh /opt/seagate/cortx/provisioner/cli/destroy --iopath-states`  
+      	`$ sh /opt/seagate/cortx/provisioner/cli/destroy --iopath-states`  
       
        :page_with_curl: **NOTE:** iopath states has dependency with ha-states, so use it cautiously, like following: 
      
       `$ sh /opt/seagate/cortx/provisioner/cli/destroy --iopath-states --ha-states`  
   
   
-#### 5. Reinstall Cortx proprietary components with a different build   
+#### 5. Reinstall CORTX proprietary components with a different build   
 
-  - Following steps will re-install proprietary Cortx components like motr, s3server, hare, sspl & csm and;  
-  - Keep the provisioner & third party components like haproxy, openldap, etc. as is.  
+   - The Following steps will re-install proprietary CORTX components like motr, s3server, hare, sspl & csm and;  
+   - Keep the provisioner & third party components like haproxy, openldap, etc. as is.  
   
-  :page_with_curl: **Notes:** 
+     :page_with_curl: **Notes:** 
   
-  - Due to interdependency of the Cortx components, it's advised to do it only if you have the knowledge of component dependencies.  
-  - If the new build has provisioner changes that are required for some component then this is not recommended.  
+      - Due to interdependency of the Cortx components, it's advised to do it only if you have the knowledge of component dependencies.  
+      - If the new build has provisioner changes that are required for some component then this is not recommended.  
 
   1. To teardown only Cortx proprietary components i.e. motr, s3server, hare, sspl & csm, execute:
   
      `$ sh /opt/seagate/cortx/provisioner/cli/destroy --ctrlpath-states --ha-states --iopath-states`  
      
-     - Cleanup the failed services   
+      1. To cleanup the failed services, run
        
-       `$ systemctl reset-failed`  
+       	  `$ systemctl reset-failed`  
   
-  - Update new target_build in release.sls. if you want to install cortx compononts from some other build.  
+      2. To update new target_build in release.sls. if you want to install cortx compononts from some other build.  
 
-    ```shell
+    	 ```shell
     
-    $ cat /opt/seagate/cortx/provisioner/pillar/components/release.sls | grep target_build
-    target_build: http://cortx-storage.colo.seagate.com/releases/eos/github/release/prod/  
-    ```  
+    	      $ cat /opt/seagate/cortx/provisioner/pillar/components/release.sls | grep target_build
+              target_build: http://cortx-storage.colo.seagate.com/releases/eos/github/release/prod/  
+         ```  
 
-  - Ensure all pre requisites services are up and running:  
-    $`for service in firewalld slapd haproxy kibana elasticsearch statsd rabbitmq-server; do echo "$service"; salt '*' service.start $service; done`  
-    **NOTE:** If any service is not started (reported False in above command), troubleshoot why it is failing to start, fix it and then move to the next step.  
+  2. Ensure all prerequisites services are up and running:  
   
-  - Re-deploy Cortx proprietary components with the target build updated in release.sls file in previous step  
-    $`/opt/seagate/cortx/provisioner/cli/deploy --iopath-states --ha-states --ctrlpath-states`    
-
-  - Check if the cluster is started  
-    $`pcs cluster status`  
-
-  - Check if all the services in cluster are running  
-    $`pcs status`  
-    **The pcs status should show all the services started and cluster online**
-
-  - Check if all required services are up and running:  
-    $ `for service in firewalld slapd haproxy s3authserver lnet kibana elasticsearch statsd rabbitmq-server csm_web csm_agent sspl-ll pcsd ; do echo "$service"; salt '*' service.status $service; done`  
-
-# Teardown the installed Cortx components individually using salt commands(For Advanced users)
-
-**NOTE: Removing individual components one by one will break the Cortx cluster run only if you know what you are doing**  
-
-**Execute the following command(s) to tear down the cortx components one by one:**  
-
-* Remove Management stack  
-  $ `salt '*' state.apply components.csm.teardown`
-
-  $ `salt '*' state.apply components.sspl.teardown`
-
-* Remove Data stack  
-  $ `salt '*' state.apply components.ha.iostack-ha.teardown`
-
-  $ `salt '*' state.apply components.hare.teardown`
-
-  $ `salt '*' state.apply components.s3server.teardown`
-
-  $ `salt '*' state.apply components.motr.teardown`
-
-* Remove pre-reqs  
-  $ `salt '*' state.apply components.ha.haproxy.teardown`
-
-  $ `salt '*' state.apply components.ha.corosync-pacemaker.teardown`
-
-  $ `salt '*' state.apply components.misc_pkgs.openldap.teardown`
-
-  $ `salt '*' state.apply components.misc_pkgs.statsd.teardown`
-
-  $ `salt '*' state.apply components.misc_pkgs.rabbitmq.teardown`
-
-  $ `salt '*' state.apply components.misc_pkgs.nodejs.teardown`
-
-  $ `salt '*' state.apply components.misc_pkgs.kibana.teardown`
-
-  $ `salt '*' state.apply components.misc_pkgs.elasticsearch.teardown`
-
-  $ `salt '*' state.apply components.misc_pkgs.ssl_certs.teardown` 
-
-## 1.4 Virtual Machines
+    	`$ for service in firewalld slapd haproxy kibana elasticsearch statsd rabbitmq-server; do echo "$service"; salt '*' service.start $service; done`  
+    
+     :page_with_curl: **Note:** If any service is not started (reported False in above command), troubleshoot why it is failing to start. Fix it and then move to the next step.  
   
-  - Know how to [Set up Cortx on a Single Node VM](https://github.com/Seagate/cortx-prvsnr/wiki/Cortx-setup-on-VM-singlenode)
-  - **TODO** Add link for Dual Node VM. 
+  3. Re-deploy CORTX proprietary components with the target build updated in release.sls file in previous step:
+  
+    	`$ /opt/seagate/cortx/provisioner/cli/deploy --iopath-states --ha-states --ctrlpath-states`    
+
+  4. Check if the cluster has started: 
+    
+    	`$ pcs cluster status`  
+
+  5. Check if all the services in cluster are running: 
+    
+    	`$ pcs status` - the pcs status should show all the services started and cluster online.
+
+  6. Check if all required services are up and running:  
+  
+     `$ for service in firewalld slapd haproxy s3authserver lnet kibana elasticsearch statsd rabbitmq-server csm_web csm_agent sspl-ll pcsd ; do echo "$service"; salt '*' service.status $service; done`  
+
+#### 6. For Advanced users - to teardown the installed CORTX components individually using salt commands: 
+
+   :page_with_curl: **Note:** Removing individual components one by one will break the Cortx cluster run only if you know what you are doing.
+   
+   Execute the following command(s) to tear down the cortx components one by one:
+
+  1. Remove Management stack  
+  
+     ```
+     
+       $ salt '*' state.apply components.csm.teardown
+       $ salt '*' state.apply components.sspl.teardown
+     ```
+
+  2. Remove Data stack  
+     
+     ```
+       $ salt '*' state.apply components.ha.iostack-ha.teardown
+       $ salt '*' state.apply components.hare.teardown
+       $ salt '*' state.apply components.s3server.teardown
+       $ salt '*' state.apply components.motr.teardown
+     ```
+     
+  3. Remove pre-reqs  
+  
+     ```
+       $ salt '*' state.apply components.ha.haproxy.teardown
+       $ salt '*' state.apply components.ha.corosync-pacemaker.teardown
+       $ salt '*' state.apply components.misc_pkgs.openldap.teardown
+       $ salt '*' state.apply components.misc_pkgs.statsd.teardown
+       $ salt '*' state.apply components.misc_pkgs.rabbitmq.teardown
+       $ salt '*' state.apply components.misc_pkgs.nodejs.teardown
+       $ salt '*' state.apply components.misc_pkgs.kibana.teardown
+       $ salt '*' state.apply components.misc_pkgs.elasticsearch.teardown
+       $ salt '*' state.apply components.misc_pkgs.ssl_certs.teardown
+     ```
+     
+     </p>
+     </details>
+  
+## 1.5 Virtual Machines
+  
+   To set up up CORTX on a Single Node VM, follow these steps:
+   
+   <details>
+	<summary>Click to expand!</summary>
+	<p>
+		
+   1. Install Provisioner CLI rpm (cortx-prvsnr-cli) from from the CORTX release repo:   
+       
+       `$ yum install -y http://cortx-storage.colo.seagate.com/releases/eos/integration/centos-7.7.1908/last_successful/$(curl -s http://cortx-storage.colo.seagate.com/releases/eos/integration/centos-7.7.1908/last_successful/|grep eos-prvsnr-cli-1.0.0| sed 's/<\/*[^>]*>//g'|cut -d' ' -f1)`  
+       
+   2. Modify contents of file on primary node as suggested below:
+   
+      `/root/.ssh/config` 
+
+    	```
+           Host srvnode-1 <node-1 hostname> <node-1 fqdn>
+           HostName <node-1 hostname or mgmt IP>
+           User root
+           UserKnownHostsFile /dev/null
+           StrictHostKeyChecking no
+           IdentityFile /root/.ssh/id_rsa_prvsnr
+           IdentitiesOnly yes
+        ```
+    
+   3. Execute setup-provisioner script: 
+   
+      `$ sh /opt/seagate/cortx/provisioner/cli/setup-provisioner -S`  
+
+      :page_with_curl: **Note:** Check `--help` option in setup-provisioner for detailed usage information.
+      
+   4. Confirm whether the setup-provisioner has established the master-minion communication successfully:     
+      
+       ```
+         $ salt srvnode-1 test.ping  
+         srvnode-1:  
+         True  
+       ```
+      
+      It should return True for srvnode-1 as shown above. 
+      
+   5. Install multipath and configure if you are provisioning Hardware:
+    
+      `$ salt "srvnode-1" state.apply components.system.storage.multipath`  
+
+      **Checklist**  
+    
+      * [x]  Ensure that you've created volumes on storage and these volumes are available for multipath config.
+      * [x]  Verify that the SAS cabling is functional.
+  
+  6. Prepare the CORTX deployment configuration file: cluster.sls
+    
+      ```
+    	  WIP:  
+          1. Auto-update hostname in /opt/seagate/cortx/provisioner/pillar/components/cluster.sls 
+          2. Auto-update section ['cluster']['storage_enclosure'] once inband is setup between server and storage.
+          3. Freeze section ['cluster']['srvnode-1']['network'] to use mgmt0 and data0 established using kickstart
+       ```
+      **Example:** hostname of server node, network interface for management, and data channels, storage enclosure details, etc.  
+    
+       1. Check network interfaces:
+          
+	  1. To get interfaces:
+	 
+             `$ ip a`  
+	     
+	  2. To get route or gateway info:
+	  
+	     `$ ip r`  
+	     
+	    	**Output:** 
+		
+		 ```shell
+		 
+		   [root@eos-democ-197 /]# ip r
+                   default via 10.230.160.1 dev eth0 proto dhcp metric 100 
+                   10.230.160.0/21 dev eth0 proto kernel scope link src 10.230.161.141 metric 100 
+                   192.168.0.0/24 dev eth1 proto kernel scope link src 192.168.0.194 metric 101
+		   ```
+	    :page_with_curl: **Notes:**
+	    - Identify the network interfaces to be used for mgmt and data channels.
+	    - If *data0* and *mgmt0* interfaces are not available on the system, any other interface name can also be provided.
+	    	- **Example:** *eth0* for *mgmt0* and *eth1* for *data0*.  
+	  
+	  3. Update network interfaces, netmask and gateway under section  
+	
+  
+         ```shell
+	 
+          network:
+            mgmt_nw:                  # Management network interfaces
+              iface:
+                - eno1
+                - eno2
+              ipaddr: 
+              netmask: 
+            data_nw:                  # Data network interfaces
+              iface: 
+                - enp175s0f0
+                - enp175s0f0
+              ipaddr: 172.19.10.101
+              netmask: 255.255.255.0
+            gateway_ip: 10.230.160.1              # Gateway IP of network
+          ```  
+   
+   	   4. If you find bond0 already configured, just update the interfaces as below:
+	    
+          ```
+          network:
+            mgmt_nw:                  # Management network interfaces
+              iface:
+                - eno1
+              ipaddr: 
+              netmask: 
+            data_nw:                  # Data network interfaces
+              iface: 
+                - bond0
+              ipaddr:
+              netmask: 255.255.255.0
+            gateway_ip: 10.230.160.1              # Gateway IP of network
+          ```  
+
+    	5. Update *cluster.sls* to provide above details:
+	
+			`$ vi /opt/seagate/cortx/provisioner/pillar/components/cluster.sls`
+	    
+	    	:page_with_curl: **Note:** The reference template for single node can be seen at: 											
+		
+			`/opt/seagate/cortx/provisioner/pillar/components/samples/singlenode.cluster.sls`
+
+			A sample *cluster.sls* for single node EOS deployment might look like this: 
+			
+			```shell
+     
+        		cluster:
+          		type: single                           # single/ees/ecs
+          		node_list: - srvnode-1
+          		srvnode-1:
+            		hostname: srvnode-1
+            		is_primary: true
+            		network:
+              		mgmt_nw:                  # Management network interfaces
+                		iface:	- eth0
+                		ipaddr: 
+                		netmask: 255.255.255.0
+              		data_nw:                  # Data network interfaces
+                		iface: - eth1
+                		ipaddr: 
+                		netmask: 255.255.255.0
+              		floating_ip:
+              		gateway_ip:               # Gateway IP of network
+            		storage:
+              		metadata_device:                # Device for /var/mero and possibly SWAP - /dev/sdb
+              		data_devices:                   # Data device/LUN from storage enclosure - /dev/sdc
+          		storage_enclosure:
+            		id: storage_node_1            # equivalent to fqdn for server node
+            		type: 5U84                    # Type of enclosure. E.g. 5U84/PODS
+            		controller:
+              		type: gallium               # Type of controller on storage node. E.g. gallium/indium/sati
+              		primary_mc:
+                		ip: 127.0.0.1
+                		port: 80
+              		secondary_mc:
+                		ip: 127.0.0.1
+                		port: 80
+              		user: user
+              		password: 'passwd'
+ 		    ```
+	
+ 			:page_with_curl: **NoteS**: 
+			- Values above should be based on target primary or secondary node and leave any other values intact.
+			- Failing to provide these details correctly  may result in cluster deployment failure.  
+
+7.  Provide target build for cortx components:
+
+    1. By defualt the target build is last_successful, it is mentioned in the release.sls file as shown below:  
+    
+    	```shell
+    
+    		$ cat /opt/seagate/cortx/provisioner/pillar/components/release.sls  
+    		cortx_release:
+          		target_build: integration/centos-7.7.1908/last_successful  
+    	 ```  
+    
+    2. If you want to change the target build, update this file to provide the build of your choice against *target_build* field in this file  
+    
+    	```
+    	WIP:
+      	Release parameter would be accepted as CLI argument for setup-provisioner script as:
+      	sh /opt/seagate/cortx/provisioner/cli/setup-provisioner -S --release <build_number>
+    	```
+	
+8.  Setup network bonding:
+
+    :page_with_curl: **Notes**: Currently we lack the confidence for management interface bonding and do not recommend that although the step has been mentioned below:  
+    
+       1. Setup network and bond data network
+	
+	   		`$ salt "*" state.apply components.system.network`
+		
+       2.  Setup network and bond management network. It's crucial to provide correct gateway value in *cluster.sls* for management network to come-up post bonding.
+      		
+			`$ salt "*" state.apply components.system.network.management`
+		
+       3. Deploy the single node cluster using `deploy` command:
+       
+			`$ sh /opt/seagate/cortx/provisioner/cli/deploy -S`  
+   
+   </p>
+   </details>	
+		
   
 ## 1.5 Set up the S3client   
   
