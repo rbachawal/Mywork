@@ -239,7 +239,9 @@ Ensure that you have the correct hardware cofiguration before moving on to the p
 
    Before running the commands, please go through the list of [Known Issues for dual node setup](https://github.com/Seagate/cortx-prvsnr/wiki/deploy-eos)
 
-   :warning: **Limitation:** [Single node hardware setup](https://github.com/Seagate/cortx-prvsnr/wiki/Single-node-setup) is currently not supported by CORTX-Provisioner. 
+   :warning: **Limitation:** 
+   
+   [Single node hardware setup](https://github.com/Seagate/cortx-prvsnr/wiki/Single-node-setup) is currently not supported by CORTX-Provisioner. 
   
 
 ## 1.3 Dual Node Setup on Hardware
@@ -291,9 +293,204 @@ Ensure that you have the correct hardware cofiguration before moving on to the p
 	  2. [Manually deploy CORTX setup on a VM singlenode](https://github.com/Seagate/cortx-prvsnr/wiki/Cortx-setup-on-VM-singlenode). 
 	  
 
-## 1.3 Teardown CORTX  
+## 1.4 Teardown CORTX  
   
-  Follow the [Teardown Guide](https://github.com/Seagate/cortx-prvsnr/wiki/Teardown-Guide) to teardown CORTX components.  
+Teardown allows user to remove components and cleanup what had been setup as part of provisioning. This could be achieved either for entire system or for each component individually. Since there are various inter dependencies of Cortx cluster services the same script to teardown cluster does not always work and the Cortx cluster needs different ways of teardown in different situation or scenarios.  
+
+The following sections elucidate steps that you can run in such scenarios:   
+
+<details>
+	<summary>Click to expand</summary>
+	<p>
+		
+#### 1. Teardown cluster when the cluster is unstable and destroy itself is hung:    
+
+A cluster can be unhealthy if:
+  - One or more than one services or pcs resources are listed with status as Stopped/Offline   
+  - Cluster is in failed-over state.  
+  - Cluster is partially teared down  
+  - Cluster is teared down in wrong sequence  
+
+In such scenarios the destroy may get stuck somewhere due to some unknown reason. If the destroy is stuck at some point for more that 30 minutes, check what service the salt-minion is running. To do so, keep the destroy running on one session and open another ssh session for the same host (primary) and keep checking the running processes:   
+
+1. Run `$ ps -e f`  - This will list the processes in hierarchical manner 
+
+ Here's a snippet of the ps output:   
+
+  ```shell
+  
+  206342 ?        Sl     0:00 /usr/bin/python3.6 -s /usr/bin/salt-minion
+  206465 ?        S      0:00  \_ bash /opt/seagate/cortx/hare/libexec/prov-ha-reset None
+  206510 ?        S      0:00      \_ /usr/bin/python2 -Es /usr/sbin/pcs resource delete c2
+  206516 ?        S      0:00          \_ /usr/sbin/crm_resource --wait
+  ```
+
+2. Destroy will run salt commands to teardown the components one after another. Like in above output the salt minion has invoked process 206510 to delete resource c2 ( pcs resource delete c2) which further has invoked process 206516 (crm_resource —wait).
+
+3. To check if it’s proceeding or struck at  process 206516 keep running `ps -e f` command every 2-3 minutes, if it’s proceeding it will list the different  process under salt-minion. If it’s still shows the same command for more than 10-15 minutes it can be assumed that the command is stuck for deleting resource C2. In such scenario, to make destroy proceed ahead kill the stuck process (the last pid in the hierarchy)   
+  
+  	`$ kill -9 206516`  - this will proceed with destroy.  
+
+4. If it doesn’t, check the processes on second node and follow the same steps mentioned above. Repeat the same process if the destroy is stuck tearing down a next component.
+5. Once destroy completes successfully, you'll need to reboot the nodes. 
+
+#### 2. Wipe out everything including provisioner packages:
+    
+🛑 **Caution:** This will wipe out everything including salt and provisioner packages.
+
+1. To wipe out everything at once, run:
+
+   `$ sh /opt/seagate/cortx/provisioner/cli/destroy`    
+  
+   :page_with_curl: **NOTE:** You may get some failures, ignore them.  
+ 
+2. Remove Provisioner, salt and cleanup /opt/seagate directory:  
+  
+    `$ sh /opt/seagate/cortx/provisioner/cli/destroy --remove-prvsnr`  
+  
+3. Check and confirm if required rpms are removed on both nodes:  
+      
+   `$ rpm -qa | grep -E "cortx|salt"`  
+      
+   If any rpms are still there, remove them manually from both nodes:  
+   
+  	```shell 
+     
+      		$ for pkg in `rpm -qa | grep -E "cortx|salt"`; do yum remove -y $pkg; done 
+      		$ rm -rf /etc/salt* && rm -rf /opt/seagate && rm -rf /root/.ssh/*   
+   	```  
+
+#### 3. Teardown only Cortx components all at once:
+:page_with_curl: **Note:** This will remove all the Cortx components, excluding Provisioner. We've listed the components that will be removed:   
+
+*   CSM  
+*   SSPL  
+*   HA(corosync pacemaker)  
+*   Hare  
+*   S3server  
+*   Motr  
+*   Lustre  
+*   Rabbitmq  
+*   Kibana  
+*   Elasticsearch  
+*   Statsd  
+*   Openldap  
+*   To remove configuration for other system components (cleanup storage partitions, etc), run the command: `$ sh /opt/seagate/cortx/provisioner/cli/destroy`  
+
+#### 4. Teardown only specific group components  
+
+`destroy` now supports tearing down specific group states. Provisioner has grouped up following components states:   
+
+- iopath-states: lustre, motr, s3server, and hare
+- ha-states: corosync-pacemaker and iostack-ha
+- ctrlpath-states: sspl and csm  
+
+1. To teardown only cortx proprietary components i.e. motr, s3server, hare, sspl & csm, execute:
+
+   `$ sh /opt/seagate/cortx/provisioner/cli/destroy --ctrlpath-states --ha-states --iopath-states`  
+
+2. To teardown a specific group state, run: 
+
+  :warning: **Caution:** It is recommended that you run this command only if you understand the interdependecies between group-states.
+  
+3. To teardown only ctrlpath states (sspl, csm) run:  
+  
+     `$ sh /opt/seagate/cortx/provisioner/cli/destroy --ctrlpath-states`  
+     
+4. To teardown only ha states (corosync-pacemaker, iostack-ha) run:  
+  
+     `$ sh /opt/seagate/cortx/provisioner/cli/destroy --ha-states`   
+     
+5. To teardown only iopath states (lustre, motr, s3server, hare) run: 
+  
+      `$ sh /opt/seagate/cortx/provisioner/cli/destroy --iopath-states`  
+      
+       :page_with_curl: **NOTE:** iopath states has dependency with ha-states, so use it cautiously, like following: 
+     
+      `$ sh /opt/seagate/cortx/provisioner/cli/destroy --iopath-states --ha-states`  
+  
+  
+#### 5. Reinstall Cortx proprietary components with a different build   
+
+  - Following steps will re-install proprietary Cortx components like motr, s3server, hare, sspl & csm and;  
+  - Keep the provisioner & third party components like haproxy, openldap, etc. as is.  
+  
+  :page_with_curl: **Notes:** 
+  
+  - Due to interdependency of the Cortx components, it's advised to do it only if you have the knowledge of component dependencies.  
+  - If the new build has provisioner changes that are required for some component then this is not recommended.  
+
+  1. To teardown only Cortx proprietary components i.e. motr, s3server, hare, sspl & csm, execute:
+  
+     `$ sh /opt/seagate/cortx/provisioner/cli/destroy --ctrlpath-states --ha-states --iopath-states`  
+     
+     - Cleanup the failed services   
+       
+       `$ systemctl reset-failed`  
+  
+  - Update new target_build in release.sls. if you want to install cortx compononts from some other build.  
+
+    ```shell
+    
+    $ cat /opt/seagate/cortx/provisioner/pillar/components/release.sls | grep target_build
+    target_build: http://cortx-storage.colo.seagate.com/releases/eos/github/release/prod/  
+    ```  
+
+  - Ensure all pre requisites services are up and running:  
+    $`for service in firewalld slapd haproxy kibana elasticsearch statsd rabbitmq-server; do echo "$service"; salt '*' service.start $service; done`  
+    **NOTE:** If any service is not started (reported False in above command), troubleshoot why it is failing to start, fix it and then move to the next step.  
+  
+  - Re-deploy Cortx proprietary components with the target build updated in release.sls file in previous step  
+    $`/opt/seagate/cortx/provisioner/cli/deploy --iopath-states --ha-states --ctrlpath-states`    
+
+  - Check if the cluster is started  
+    $`pcs cluster status`  
+
+  - Check if all the services in cluster are running  
+    $`pcs status`  
+    **The pcs status should show all the services started and cluster online**
+
+  - Check if all required services are up and running:  
+    $ `for service in firewalld slapd haproxy s3authserver lnet kibana elasticsearch statsd rabbitmq-server csm_web csm_agent sspl-ll pcsd ; do echo "$service"; salt '*' service.status $service; done`  
+
+# Teardown the installed Cortx components individually using salt commands(For Advanced users)
+
+**NOTE: Removing individual components one by one will break the Cortx cluster run only if you know what you are doing**  
+
+**Execute the following command(s) to tear down the cortx components one by one:**  
+
+* Remove Management stack  
+  $ `salt '*' state.apply components.csm.teardown`
+
+  $ `salt '*' state.apply components.sspl.teardown`
+
+* Remove Data stack  
+  $ `salt '*' state.apply components.ha.iostack-ha.teardown`
+
+  $ `salt '*' state.apply components.hare.teardown`
+
+  $ `salt '*' state.apply components.s3server.teardown`
+
+  $ `salt '*' state.apply components.motr.teardown`
+
+* Remove pre-reqs  
+  $ `salt '*' state.apply components.ha.haproxy.teardown`
+
+  $ `salt '*' state.apply components.ha.corosync-pacemaker.teardown`
+
+  $ `salt '*' state.apply components.misc_pkgs.openldap.teardown`
+
+  $ `salt '*' state.apply components.misc_pkgs.statsd.teardown`
+
+  $ `salt '*' state.apply components.misc_pkgs.rabbitmq.teardown`
+
+  $ `salt '*' state.apply components.misc_pkgs.nodejs.teardown`
+
+  $ `salt '*' state.apply components.misc_pkgs.kibana.teardown`
+
+  $ `salt '*' state.apply components.misc_pkgs.elasticsearch.teardown`
+
+  $ `salt '*' state.apply components.misc_pkgs.ssl_certs.teardown` 
 
 ## 1.4 Virtual Machines
   
