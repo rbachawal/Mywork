@@ -425,7 +425,7 @@ try to adhere to some higher level idioms.
 #### Things to look after:
 
 <details>
-  <summary>Click to expand!</details>
+  <summary>Click to expand!</summary>
   <p>
 
   * locks should outlive the object(s) they are protecting.
