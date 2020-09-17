@@ -1,4 +1,4 @@
-# CORTX Development Quickstart Guide
+# CORTX - Developer's Quickstart Guide
 
 This guide is intended to provide quick start instructions for developers who want to build, test, and contribute to the CORTX software.  If you are merely looking to _test_ the software, please use [these instructions](doc/CORTX_on_Virtual_Appliance.rst).
 
