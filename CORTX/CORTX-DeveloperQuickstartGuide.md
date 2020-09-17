@@ -29,7 +29,6 @@ Watch our CORTX Engineer, Justin Woo, demonstrate **<link to the video>** the pr
 ***
 
 ## Contribute to CORTX Community
-***
 
 ## Code of Conduct
 
