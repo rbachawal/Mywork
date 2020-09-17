@@ -29,6 +29,13 @@ Watch our CORTX Engineer, Justin Woo, demonstrate **<link to the video>** the pr
 ***
 
 ## Contribute to CORTX Community
+***
+
+## Code of Conduct
+
+Thanks for joining us and we're glad to have you. We take community very seriously and we are committed to creating a community built on respectful interactions and inclusivity as documented in our [Contributor Covenant Code of Conduct](https://github.com/Seagate/cortx/blob/main/CODE_OF_CONDUCT.md). 
+
+You can report instances of abusive, harassing, or otherwise unacceptable behavior by contacting the project team at opensource@seagate.com.
 
 Refer to the CORTX [Community Guide](doc/CORTXContributionGuide.md) that hosts all information about community values, code of conduct, how to contribute code and documentation, community and code style guide, and how to reach out to us. 
 
@@ -40,13 +47,6 @@ We excited for your interest in CORTX and hope you will join us. We take communi
 - [**Contribution Process**](Contribution-Process)
 - [**Submitting issues**](#Submitting-Issues)
 - [**Contributing to Documentation**](#Contributing_to_Documentation)
-
-
-## Code of Conduct
-
-Thanks for joining us and we're glad to have you. We take community very seriously and we are committed to creating a community built on respectful interactions and inclusivity as documented in our [Contributor Covenant Code of Conduct](https://github.com/Seagate/cortx/blob/main/CODE_OF_CONDUCT.md). 
-
-You can report instances of abusive, harassing, or otherwise unacceptable behavior by contacting the project team at opensource@seagate.com.
 
 ## Contribution Process
 
