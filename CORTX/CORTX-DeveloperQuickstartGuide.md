@@ -41,19 +41,6 @@ Refer to the CORTX [Community Guide](doc/CORTXContributionGuide.md) that hosts a
 
 We excited for your interest in CORTX and hope you will join us. We take community very seriously and we are committed to creating a community built on respectful interactions and inclusivity as documented in our [Code of Conduct](CODE_OF_CONDUCT.md).
 
-## Support and Community Discussions
-
-- Join our CORTX-Open Source [![Slack](https://img.shields.io/badge/chat-on%20Slack-blue)](https://join.slack.com/t/cortxcommunity/shared_invite/zt-femhm3zm-yiCs5V9NBxh89a_709FFXQ?) channel to interact with your fellow community members and gets your questions answered. 
-- If you'd like to contact us directly, drop us a mail at: cortx-question@seagate.com.
-
-## Thank You!
-
-# Contribute to the CORTX Project
-
-CORTX is about building the world's best scalable mass-capacity object storage system. If you’re interested in what we’re building and intrigued by hard challenges, here's everything you need to know about contributing to the project and how to get started. 
-
-After reading this guide, you'll be able to pick up topics and issues to contribute, submit your codes, and how to turn your pull request into a successful contribution. Feel free to browse through the [list of contributions](https://github.com/Seagate/cortx/blob/main/doc/SuggestedContributions.md), and [view and submit issues](https://github.com/Seagate/cortx/issues). And if you have any suggestions on how we can improve this guide, or anything else in the project, we want to hear from you!
-
 ## Contribution Guide
 
 - [**Code of Conduct**](#Code-of-Conduct)
@@ -323,13 +310,37 @@ You can pass DCO in many ways:
 </p>
 </details>
 
-## Submitting Issues
-
 ### The GitHub Triage Process
 
-## File a Bug 
+========
+Triaging
+========
 
-## Suggest a Feature or Improvement
+Triaging is about prioritizing and troubleshooting issues raised by you in `GitHub <https://github.com/>`_. Triage can broadly be defined as a process oriented approach towards issue resolution and conflict management.
+
+*******************
+Process of Triaging
+*******************
+The process of triaging in CORTX is depicted in the diagram below.
+
+
+ .. image:: images/IMS.png
+ 
+Creating an Issue
+=================
+Perform the below mentioned procedure to create an issue in GitHub.
+
+1. Login to GitHub with your credentials.
+
+2. Navigate to the CORTX repository. Then, click **Issues**. List of issues are displayed.
+
+3. If there are multiple issue types, click Get started next to the type of issue you'd like to open.
+
+4. Click **New Issue**. A page requesting the **Title** and **Description** is displayed.
+
+5. Enter a title and description for your issue, and click **Submit new issue**.
+
+**Note**: Click **Open a blank issue** if the type of issue you want to open, is not included in the available different types of issues.
 
 ## Contributing to Documentation TODO
 
