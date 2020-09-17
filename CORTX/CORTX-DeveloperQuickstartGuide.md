@@ -28,13 +28,6 @@ Since CORTX is composed of the Motr and S3 Server components, you'll need to:
 Watch our CORTX Engineer, Justin Woo, demonstrate **<link to the video>** the process.
 ***
 
-## Additional Resources
-
-- Know more about [CORTX CI/CD and Automation](doc/CI_CD.md).
-- Setup [CORTX on JBOD](https://github.com/Seagate/cortx/blob/main/doc/scaleout/READ_ME.rst).
-- Learn more about the [CORTX Architechture](doc/architecture.md).
-- You can [submit requests and bugs using GitHub Issues](https://github.com/Seagate/cortx/issues).
-
 ## Contribute to CORTX Community
 
 Refer to the CORTX [Community Guide](doc/CORTXContributionGuide.md) that hosts all information about community values, code of conduct, how to contribute code and documentation, community and code style guide, and how to reach out to us. 
@@ -356,6 +349,11 @@ Refer to these Quickstart Guides to build and contribute to the CORTX project.
 - Motr
 - S3 Server
 - CSM
+
+- Know more about [CORTX CI/CD and Automation](doc/CI_CD.md).
+- Setup [CORTX on JBOD](https://github.com/Seagate/cortx/blob/main/doc/scaleout/READ_ME.rst).
+- Learn more about the [CORTX Architechture](doc/architecture.md).
+- You can [submit requests and bugs using GitHub Issues](https://github.com/Seagate/cortx/issues).
 
 </p>
 </details>
