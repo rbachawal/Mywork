@@ -1,0 +1,37 @@
+# Installing Dependencies
+
+Follow these steps to install all the dependency packages required to build your components:
+
+1. Download the [CORTX Build Dependencies](https://github.com/Seagate/cortx/releases/tag/build-dependencies) via the Release Branch.
+2. Run these commands to install the dependencies:
+
+    ```shell
+    
+    yum install python3-pip createrepo yum-utils -y
+    pip3 install githubrelease
+    mkdir -p /root/cortx-build-dependencies && cd /root/cortx-build-dependencies
+    export GITHUB_TOKEN=<GitHub Token>
+    githubrelease --github-token $GITHUB_TOKEN  asset Seagate/cortx download build-dependencies
+    createrepo -v
+    yum-config-manager --add-repo file:///root/cortx-build-dependencies
+    yum clean all
+    ```
+    
+3. To verify the RPM listing is working, run:
+
+    ```shell
+    
+    [root@17129055844e cortx-build-dependencies]# yum list cortx-py-utils
+    ```
+    
+    **Sample Output**
+    
+    ```shell
+    
+    Loaded plugins: fastestmirror, ovl, priorities
+    Loading mirror speeds from cached hostfile
+    Available Packages
+    cortx-py-utils.noarch     1.0.0-45_41623ee   root_cortx
+    build-dependencies
+    [root@17129055844e cortx-build-dependencies]#
+    ```
