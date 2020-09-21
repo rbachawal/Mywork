@@ -1,4 +1,4 @@
-# Security
+# CORTX Security Policy
 
 We take the security of the CORTX project seriously. If you find any [security vulnerabilities] *Link placeholder* in any of the CORTX-owned source code managed via our [GitHub Organisation](https://github.com/Seagate) repositories, please report it to us as [described below](#Reporting-Security-Issues).
 
@@ -14,11 +14,7 @@ Instead, please report them to us by mailing us at [opensource@seagate.com](mail
 
 #### Reporting Format
 
-To make your reporting meaningful and help us understand the nature and scope of the issue, please include the following information. This is not an exhaustive list, please include as much information as you can.
-
-
-
-This information will help us triage your report more quickly.
+To make your reporting meaningful and help us understand the nature and scope of the issue, please include the following information. This is not an exhaustive list, we request you to include as much information as possible to help us quicky triage your reporting.
 
 #### Preferred Languages
 
