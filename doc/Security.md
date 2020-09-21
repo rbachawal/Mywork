@@ -14,7 +14,11 @@ Instead, please report them to us by mailing us at [opensource@seagate.com](mail
 
 #### Reporting Format
 
-To make your reporting meaningful and help us understand the nature and scope of the issue, please include the following information. This is not an exhaustive list, we request you to include as much information as possible to help us quicky triage your reporting.
+To make your reporting meaningful and help us understand the nature and scope of the issue, please include the following information. 
+
+**TODO** Add the reporting format.
+
+This is not an exhaustive list, we request you to include as much information as possible to help us quicky triage your reporting.
 
 #### Preferred Languages
 
