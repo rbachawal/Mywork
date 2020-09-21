@@ -14,7 +14,7 @@ Instead, please report them to [opensource@seagate.com](mailto:opensource@seagat
 
 **TODO** Add a method to encrypt the mail. 
 
-### Reporting Format
+#### Reporting Format
 
 We've listed the basic information required to report a security vulnerability. This is not an exhaustive list, please include as much information as you can to help us understad the nature and scope of the vulnerability of the reported issue:
 
@@ -30,12 +30,10 @@ This information will help us triage your report more quickly.
 
 If you are reporting for a bug bounty, more complete reports can contribute to a higher bounty award. Please visit our [Microsoft Bug Bounty Program](https://microsoft.com/msrc/bounty) page for more details about our active programs.
 
-## Preferred Languages
+#### Preferred Languages
 
 We prefer all communications to be in English.
 
-## Policy
+#### Policy
 
 Microsoft follows the principle of [Coordinated Vulnerability Disclosure](https://www.microsoft.com/en-us/msrc/cvd).
-
-<!-- END MICROSOFT SECURITY.MD BLOCK -->
