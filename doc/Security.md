@@ -1,22 +1,20 @@
 # Security
 
-We take the security of our CORTX project seriously, which includes all our source code repositories managed through our [GitHub organisation](https://github.com/Seagate).
-
-If you find any security vulnerabilities in any of the CORTX-owned repositories that meet the definition of a security vulnerability, please report it to us as described below.
+We take the security of the CORTX project seriously. If you find any [security vulnerabilities] *Link placeholder* in any of the CORTX-owned source code managed via our [GitHub Organisation](https://github.com/Seagate) repositories, please report it to us as [described below](#Reporting-Security-Issues).
 
 **TODO** Add an article that identifies and lists out security vulnerabilities within the project and provide the link here. 
 
 ## Reporting Security Issues
 
-:warning: **Please do not report any security vulnerabilities via GitHub issues.**
+:warning: **Please do not publicly report any security vulnerabilities via GitHub issues.**
 
-Instead, please report them to [opensource@seagate.com](mailto:opensource@seagate.com). 
+Instead, please report them to us by mailing us at [opensource@seagate.com](mailto:opensource@seagate.com). 
 
 **TODO** Add a method to encrypt the mail. 
 
 #### Reporting Format
 
-We've listed the basic information required to report a security vulnerability. This is not an exhaustive list, please include as much information as you can to help us understad the nature and scope of the vulnerability of the reported issue:
+To make your reporting meaningful and help us understand the nature and scope of the issue, please include the following information. This is not an exhaustive list, please include as much information as you can:
 
   * Issue type 
   * Full paths of source file(s) related to the manifestation of the issue
