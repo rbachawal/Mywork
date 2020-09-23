@@ -22,9 +22,9 @@ Follow these steps to install all the dependency packages required to build your
 
     ```shell
     
-    [root@17129055844e cortx-build-dependencies]# yum list cortx-py-utils
+    [local_host cortx-build-dependencies]# yum list cortx-py-utils
     ```
     
     **Sample Output**
     
-    <img src="../doc/images/Dependencies.png?raw=true">
+   <img src="../master/doc/Dependencies.png?raw=true">
