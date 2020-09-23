@@ -27,4 +27,4 @@ Follow these steps to install all the dependency packages required to build your
     
     **Sample Output**
     
-    <img src="../images/Dependencies.png?raw=true">
+    <img src="../doc/images/Dependencies.png?raw=true">
