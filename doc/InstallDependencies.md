@@ -27,12 +27,4 @@ Follow these steps to install all the dependency packages required to build your
     
     **Sample Output**
     
-    ```shell
-    
-    Loaded plugins: fastestmirror, ovl, priorities
-    Loading mirror speeds from cached hostfile
-    Available Packages
-    cortx-py-utils.noarch     1.0.0-45_41623ee   root_cortx
-    build-dependencies
-    [root@17129055844e cortx-build-dependencies]#
-    ```
+    <img src="../images/Dependencies.png?raw=true">
