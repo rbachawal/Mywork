@@ -58,3 +58,26 @@ The following diagram depicts these sub-components of SNS repair:
 
 .. image:: /http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/SaumyaSunder/Mywork/master/SNSrepairSubComponents.rsttoken=AQJGZB5H2Y3A6UCDXVRFVL27YXDPA
 
+You configure agents in various ways. In the simplest case, storage-in and storage-out agents are located in the same address space and directly exchange data through a pool of shared buffers (this is a scenario of local data duplication, e.g., for the purpose of a snapshot creation). Next in complexity is a configuration where storage-in agents, associated with a storage devices on a node, deliver data into buffers allocated by a network-out agent running on the node. The latter sends data to a set of network-in agents across the network. The network-in agent forwards data to a collecting agent, running on the same node. This collecting agent, collects and optionally reconstructs the data, and sends them to the storage-out agent running on the same node. This is a scenario of a network repair. 
+
+Key design highlights: 
+**********************
+
+The SNS and SNS repire code and algorithm is shared by server network striping and the local RAID. SNS repair will try to use maximal system bandwidth, by balance the normal I/O operation and repair activities. 
+
+**Use cases:**
+
+- Lost data is reconstructed by SNS repair.  In the presence of some failure, including disk failure, node failure, lost data can be reconstructed from redundancy data. 
+
+- Liveness layer detected the failure, trigger SNS repair. 
+
+- SNS repair manage initializes copy machines, instruct them to use new layout for ongoing I/O, and repair the lost data out of order. 
+
+- Disk bandwidth/network bandwidth/CPU utilization can be controlled by limiting the usage of these resources. 
+
+- SNS layout. When a global (cluster-wide) object is created or accessed, its layout is used to locate the data/metadata contents of this object. 
+
+- Parity data is also modified or saved in parity group. Parity is de-clustered. This means the parity data is stored evenly in the parity group. SNS repair can utilize the system throughput as much as possible. 
+
+- Spare space. Spare space is distributed among the whole system. This also insures the fast repair. 
+
