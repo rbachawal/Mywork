@@ -56,3 +56,5 @@ The main sub-components of SNS repair components are:
 
 The following diagram depicts these sub-components of SNS repair: 
 
+.. image:: /http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/SaumyaSunder/Mywork/master/SNSrepairSubComponents.rsttoken=AQJGZB5H2Y3A6UCDXVRFVL27YXDPA
+
