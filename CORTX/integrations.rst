@@ -11,26 +11,26 @@ Click on any of the images below to know how to integrate CORTX with these other
      - |Siddhi-Celery|
      - |ImagesApi|
    
-.. |Splunk| image:: /doc/images/SplunkLogo.png
+.. |Splunk| image:: SplunkLogo.png
    :width: 1 em
    :target: https://github.com/Seagate/cortx/blob/main/doc/integrations/splunk.md
 
-.. |Prometheus| image:: /doc/images/PrometheusLogo.png
+.. |Prometheus| image:: PrometheusLogo.png
    :width: 0 em
    :target: https://github.com/Seagate/cortx/blob/main/doc/integrations/prometheus.md
 
-.. |Siddhi-Celery| image:: /doc/images/siddhi_small.png
+.. |Siddhi-Celery| image:: siddhi_small.png
    :width: 10 em
    :target: siddhi-celery.md
 
-.. |FHIR| image:: /doc/images/FHIR-LOGO.png
+.. |FHIR| image:: FHIR-LOGO.png
    :width: 0 em
    :target: https://github.com/Seagate/cortx/blob/main/doc/integrations/fhir.md
 
-.. |TensorFlow| image:: /doc/images/tensorflow.png
+.. |TensorFlow| image:: tensorflow.png
    :width: 1 em
    :target: https://github.com/Seagate/cortx/blob/main/doc/integrations/tensorflow
 
-.. |ImagesApi| image:: /doc/images/images-api.png
+.. |ImagesApi| image:: images-api.png
    :width: 0 em
    :target: https://github.com/Seagate/cortx/blob/main/doc/integrations/images-api.md   
