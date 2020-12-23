@@ -1,7 +1,7 @@
 Click on any of the images below to know how to integrate CORTX with these other technologies:
 
 .. list-table:: Title
-   :widths: 25 15 25
+   :widths: 30 30 30
    :header-rows: 1
 
    * - |Splunk|
@@ -18,6 +18,7 @@ Click on any of the images below to know how to integrate CORTX with these other
    :target: https://github.com/Seagate/cortx/blob/main/doc/integrations/prometheus.md
 
 .. |Siddhi-Celery| image:: siddhi-logo.png
+   
    :target: siddhi-celery.md
 
 .. |FHIR| image:: FHIR-LOGO.png
