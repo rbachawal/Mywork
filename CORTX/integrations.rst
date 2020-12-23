@@ -1,7 +1,7 @@
 Click on any of the images below to know how to integrate CORTX with these other technologies:
 
 .. list-table:: Title
-   :widths: 25 50 25
+   :widths: 25 25 25
    :header-rows: 1
 
    * - |Splunk|
