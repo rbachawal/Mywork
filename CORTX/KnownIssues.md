@@ -180,3 +180,31 @@ Refresh CMP UI after 30 secs.
       1. User and Password configured are correct.
       2. Host and Port is reachable through machine.
       3. User has permissions to upload the files on supplied remote path.
+      
+ </p>
+  </details>
+      
+<details>
+  <summary>Unable to view/download Audit logs.</summary>
+  </p>
+  
+  ### Symptoms and causes
+  
+1. Rsyslog not configured correctly.
+2. Rsyslog is not running.
+
+### Resolution
+
+1. Please check whether rsyslog host and port are correctly configured in csm.conf using:
+
+    `Csm.conf path : /etc/csm/csm.conf`
+2. Check rsyslog is running using:
+    
+    `Systemctl status rsyslog`
+2. If rsyslog is not active, run:
+    
+    `Systemctl start rsyslog`
+    
+</p>
+  </details>
+    
