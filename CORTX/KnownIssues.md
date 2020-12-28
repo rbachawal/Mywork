@@ -179,4 +179,4 @@ Refresh CMP UI after 30 secs.
   4. If FTP Upload fails check the following:
       1. User and Password configured are correct.
       2. Host and Port is reachable through machine.
-      3. User given has permissions to upload the files on supplied remote path.
+      3. User has permissions to upload the files on supplied remote path.
