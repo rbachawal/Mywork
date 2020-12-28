@@ -15,11 +15,11 @@ We've listed all the known issues with the CORTX software and the steps to resol
 ### Resolution
 
   1. Failed to fetch update status.
-    a. Refresh CSM UI after 30 secs
-  2. Failed to upload firmware bundle file
-    a. File format is incorrect. Please upload .bin file only
-    b. File size is too large. Max file allowed is 2 GB
-  3. Failed to update the firmware
+    a. Refresh CSM UI after 30 secs.
+  2. Failed to upload firmware bundle file.
+    a. File format is incorrect. Please upload .bin file only.
+    b. File size is too large. Max file allowed is 2 GB.
+  3. Failed to update the firmware.
     a. Failure reason as per return by provisioner component. Please check the csm_agent and provisioner logs.
     
  </p>
@@ -32,17 +32,17 @@ We've listed all the known issues with the CORTX software and the steps to resol
 ### Symptoms and causes
 
 1. Failed to fetch update status.
-2. Failed to upload software bundle file
-3. Failed to update the software
+2. Failed to upload software bundle file.
+3. Failed to update the software.
 
 ### Resolution
 
 1. Failed to fetch update status.
-  a. Refresh CSM UI after 30 secs
-2. Failed to upload software bundle file
-  a. File format is incorrect. Please upload .iso file only
-  b. File size is too large. Max file allowed is 2 GB
-3. Failed to update the software
+  a. Refresh CSM UI after 30 secs.
+2. Failed to upload software bundle file.
+  a. File format is incorrect. Please upload .iso file only.
+  b. File size is too large. Max file allowed is 2 GB.
+3. Failed to update the software.
   a. Failure reason as per return by provisioner component. Please check the csm_agent and provisioner logs.
   
  </p>
@@ -55,18 +55,36 @@ We've listed all the known issues with the CORTX software and the steps to resol
 ### Symptoms and causes
 
 1. URL is incorrect.
-2. Csm_web service is not running.
+2. Csm_web service is not running. Run the command:
+  
   `pcs resource show | grep csm-web`
 
 ### Resolution
 
-1. URL is incorrect. Please enter correct Mgmt_Vip, port and url.
+1. URL is incorrect. Please enter correct Mgmt_Vip, port, and url.
 2. Csm_web service is not running.
 3. If not in active state please fire the below command:
+   
    `pcs resource enable csm-web`
 4. If problem is not solved:
+   
    `pcs resource cleanup csm-web`
 5. Please refer to HA chapter for more information.
 
  </p>
  </details>
+ 
+ <details>
+ <summary>Capacity Dial showing to Total Space as 0.0 KB</summary>
+ <p>
+    
+### Symptoms and causes
+
+Storage details in capacity widget is incorrect.
+
+### Resolution
+
+Refresh CSM UI after 30 secs.
+
+</p>
+</details>
