@@ -6,9 +6,11 @@ The S3 IAM REST APIs are a collection of resources and methods which are integra
 <summary>CreateAccount</summary>
 <p>
 
+The CreateAccount request lets you create an S3 IAM account. 
+
 | Request | Request body attributes  | Request Parameters    |
 | :------- | :------------------------ | :--------------------- |
-| POST / HTTP/1.1  </br> Host: <IAM Endpoint>:9443 | Action: CreateAccount </br> AccountName: newrandom10 </br> Email: newrandom10@xyz.com  | <ul> <li> **AccountName:** The name of the account. </br> This parameter allows (through its regex pattern) a string of characters </br> consisting of upper and lowercase alphanumeric characters with no spaces. </br> You can also include any of the following characters:`_+=,.@-` </br> **Type:** String </br> **Length Constraints:** Minimum length of 1. Maximum length of 64. </br> **Pattern:** `[\w+=,.@-]+` </br> **Required:** Yes </br> </ul> <ul> <li> **Email:** The email of the account which you want to create. </br> **Type:** String </br> **Pattern:** `[\w+=,.@-]+` </br> **Required:** Yes |
+| POST / HTTP/1.1  </br> Host: <IAM Endpoint>:9443 | **Action:** CreateAccount </br> **AccountName:** newrandom10 </br> **Email:** newrandom10@xyz.com  | <ul> <li> **AccountName:** The name of the account. This parameter allows </br>(through its regex pattern) a string of characters consisting of upper </br> and lowercase alphanumeric characters with no spaces. </br> You can also include any of the following characters:`_+=,.@-` </br> **Type:** String </br> **Length Constraints:** Minimum length of 1. Maximum length of 64. </br> **Pattern:** `[\w+=,.@-]+` </br> **Required:** Yes </br> </ul> <ul> <li> **Email:** The email of the account which you want to create. </br> **Type:** String </br> **Pattern:** `[\w+=,.@-]+` </br> **Required:** Yes |
 
 ### Known Errors
 
@@ -23,4 +25,21 @@ The S3 IAM REST APIs are a collection of resources and methods which are integra
 </p>
 </details>
 
+<details>
+<summary>ListAccounts</summary>
+<p>
+  
+ The ListAccounts parameter lists all the S3 IAM accounts.
+
+| Request | Request body attributes  | Request Parameters    |
+| :------- | :------------------------ | :--------------------- |
+| POST / HTTP/1.1  </br> Host: <IAM Endpoint>:9443 | **Action:** ListAccounts | None |
+  
+### Known Errors
+
+`ServiceFailure` The request processing has failed because of an unknown error, exception or failure.
+- HTTP Status Code: 500
+
+</p>
+</details>
 
