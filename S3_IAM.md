@@ -89,7 +89,7 @@ Response>`
 
 | Request | Request body attributes  | Request Parameters    |  
 | :------ | :----------------------- | :-------------------- | 
-| POST / HTTP/1.1  </br> Host: <IAM Endpoint>:9443 | **Action:** GetAccountLoginProfile **AccountName:** newrandom10 | **AccountName:** The name of the account. This parameter allows </br>(through its regex pattern) a string of characters consisting of upper </br> and lowercase alphanumeric characters with no spaces. </br> You can also include any of the following characters:`_+=,.@-` </br> **Type:** String </br> **Length Constraints:** Minimum length of 1. Maximum length of 64. </br> **Pattern:** `[\w+=,.@-]+` </br> **Required:** Yes </br> |
+| POST / HTTP/1.1  </br> Host: <IAM Endpoint>:9443 | **Action:** GetAccountLoginProfile </br> **AccountName:** newrandom10 | **AccountName:** The name of the account. This parameter allows </br>(through its regex pattern) a string of characters consisting of upper </br> and lowercase alphanumeric characters with no spaces. </br> You can also include any of the following characters:`_+=,.@-` </br> **Type:** String </br> **Length Constraints:** Minimum length of 1. Maximum length of 64. </br> **Pattern:** `[\w+=,.@-]+` </br> **Required:** Yes </br> |
 
 **Sample Response:**
 
