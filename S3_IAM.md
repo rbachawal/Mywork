@@ -119,3 +119,14 @@ xmlns="https://iam.seagate.com/doc/2010-05-
 08/"><ResponseMetadata><RequestId>6fd38b0dab344e21a798e61ec5ae1caf</RequestId></ResponseMetada
 ta></UpdateLoginProfileResponse>`
 
+</p>
+</details>
+
+<details>
+  <summary>CreateUserLoginProfile</summary>
+  <p>
+    
+ The CreateUserLoginProfile parameter creates a password for the specified IAM user.
+ 
+ 
+
