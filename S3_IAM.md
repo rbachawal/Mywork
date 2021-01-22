@@ -82,3 +82,23 @@ Response>`
 </p>
 </details>
 
+<details>
+  <summary>GetAccountLoginProfile</summary>
+  <p>
+    The GetAccountLoginProfile retrieves the user name and password-creation date for the specified account.
+
+| Request | Request body attributes  | Request Parameters    |  
+| :------ | :----------------------- | :-------------------- | 
+| POST / HTTP/1.1  </br> Host: <IAM Endpoint>:9443 | **Action:** GetAccountLoginProfile **AccountName:** newrandom10 | **AccountName:** The name of the account. This parameter allows </br>(through its regex pattern) a string of characters consisting of upper </br> and lowercase alphanumeric characters with no spaces. </br> You can also include any of the following characters:`_+=,.@-` </br> **Type:** String </br> **Length Constraints:** Minimum length of 1. Maximum length of 64. </br> **Pattern:** `[\w+=,.@-]+` </br> **Required:** Yes </br> |
+
+**Sample Response:**
+
+b`<?xml version="1.0" encoding="UTF-8" standalone="no"?><GetLoginProfileResponse
+xmlns="https://iam.seagate.com/doc/2010-05-
+08/"><GetLoginProfileResult><LoginProfile><UserName>s3user1New</UserName><CreateDate>202012110
+90305Z</CreateDate><PasswordResetRequired>false</PasswordResetRequired></LoginProfile></GetLog
+inProfileResult><ResponseMetadata><RequestId>30e7e40f8bf743b2915fa4ee3fde6f2c</RequestId></Res
+ponseMetadata></GetLoginProfileResponse>`
+
+</p>
+</details>
