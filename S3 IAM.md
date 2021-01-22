@@ -72,7 +72,7 @@ The CreateAccount request lets you create an S3 IAM account.
  
 | Request | Request body attributes  | Request Parameters    |  
 | :------ | :----------------------- | :-------------------- | 
-| POST / HTTP/1.1  </br> Host: <IAM Endpoint>:9443 | **Action:** DeleteAccount </br> **AccountName:** newrandom6 </br> **Response:** Account Deleted successfully. | **AccountName:** The name of the account. </br> This parameter allows (through its regex pattern) </br> a string of characters consisting of upper and </br> lowercase alphanumeric characters with no spaces. </br> You can also include any of the following characters:`_+=,.@-` </br> **Type:** String </br> **Length Constraints:** Minimum length of 1. Maximum length of 64. </br> **Pattern:** `[\w+=,.@-]+` </br> **Required:** Yes </br> </ul> |
+| POST / HTTP/1.1  </br> Host: <IAM Endpoint>:9443 | **Action:** DeleteAccount </br> **AccountName:** newrandom6 </br> <p> **Response:** Account Deleted successfully. </p> | **AccountName:** The name of the account. </br> This parameter allows (through its regex pattern) </br> a string of characters consisting of upper and </br> lowercase alphanumeric characters with no spaces. </br> You can also include any of the following characters:`_+=,.@-` </br> **Type:** String </br> **Length Constraints:** Minimum length of 1. Maximum length of 64. </br> **Pattern:** `[\w+=,.@-]+` </br> **Required:** Yes </br> </ul> |
 
 ### Known Errors
 
@@ -81,6 +81,8 @@ The CreateAccount request lets you create an S3 IAM account.
 `InternalFailure` The request processing has failed because of an unknown error, exception or failure.
 - HTTP Status Code: 500
 
+</p>
+</details>
  
 
 
