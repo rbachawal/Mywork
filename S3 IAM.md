@@ -88,5 +88,28 @@ The CreateAccount request lets you create an S3 IAM account.
   <summary>CreateAccountLoginProfile</summary>
   <p>
   
+  The CreateAccountLoginProfile parameter creates a password for the specified account.
+  
+| Request | Request body attributes  | Request Parameters    |  
+| :------ | :----------------------- | :-------------------- | 
+| POST / HTTP/1.1  </br> Host: <IAM Endpoint>:9443 | **Password:** Random12@# </br> **AccountName:** newrandom10 </br> **PasswordResetRequired:** false </br> **Action:** CreateAccountLoginProfile | Password
+The new password for the Account.
+Type: String
+Length Constraints: Minimum length of 1. Maximum length of 128.
+Pattern: [\u0009\u000A\u000D\u0020-\u00FF]+
+Required: Yes
+password-reset-required | no-password-reset-required
+Specifies whether the Account is required to set a new password on next sign-in.
+Required: No
+If you are passing both --password-reset-required and --no-password-reset-required in same command with any
+sequence, It will set “PasswordResetRequired” flag as true. This is expected behaviour for this command.
+AccountName
+The name of the Account to create a password for. The Account must already exist.
+Type: String
+Required: Yes
+AccountLoginProfile -> (structure) A structure containing the account name and password create date.
+AccountName -> (string) The name of the account, which can be used for signing in to the S3 Management Console.
+CreateDate -> (timestamp) The date when the password for the account was created. PasswordResetRequired ->
+(boolean) Specifies whether the account user is required to set a new password on next sign-in. |
 
 
