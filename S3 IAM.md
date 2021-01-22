@@ -70,9 +70,9 @@ The CreateAccount request lets you create an S3 IAM account.
     
  The DeleteAccount parameter lets you delete your S3 IAM account.
  
-| Request | Request body attributes  | Request Parameters    | Response |
+| Request | Request body attributes  | Request Parameters    |  |
 | :------ | :----------------------- | :-------------------- | :--------|
-| POST / HTTP/1.1  </br> Host: <IAM Endpoint>:9443 | **Action:** DeleteAccount </br> **AccountName:** newrandom6 | **AccountName:** The name of the account. </br> This parameter allows </br> (through its regex pattern) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. </br> You can also include any of the following characters:`_+=,.@-` </br> **Type:** String </br> **Length Constraints:** Minimum length of 1. Maximum length of 64. </br> **Pattern:** `[\w+=,.@-]+` </br> **Required:** Yes </br> </ul> | Account Deleted successfully. |
+| POST / HTTP/1.1  </br> Host: <IAM Endpoint>:9443 | **Action:** DeleteAccount </br> **AccountName:** newrandom6 **Response:** Account Deleted successfully. | **AccountName:** The name of the account. </br> This parameter allows (through its regex pattern) </br> a string of characters consisting of upper and </br> lowercase alphanumeric characters with no spaces. </br> You can also include any of the following characters:`_+=,.@-` </br> **Type:** String </br> **Length Constraints:** Minimum length of 1. Maximum length of 64. </br> **Pattern:** `[\w+=,.@-]+` </br> **Required:** Yes </br> </ul> |
 
 ### Known Errors
 
