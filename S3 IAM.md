@@ -43,3 +43,23 @@ The CreateAccount request lets you create an S3 IAM account.
 </p>
 </details>
 
+<details>
+<summary>ResetAccountAccessKey</summary>
+<p>
+  
+ The ResetAccountAccessKey parameter lets you reset the access key for your S3 IAM account. 
+ 
+| Request | Request body attributes  | Request Parameters    |
+| :------- | :------------------------ | :--------------------- |
+| POST / HTTP/1.1  </br> Host: <IAM Endpoint>:9443 | **Action:** ResetAccountAccessKey </br> **AccountName:** newrandom6 </br> **Email:** None | <ul> <li> **AccountName:** The name of the account. This parameter allows </br>(through its regex pattern) a string of characters consisting of upper </br> and lowercase alphanumeric characters with no spaces. </br> You can also include any of the following characters:`_+=,.@-` </br> **Type:** String </br> **Length Constraints:** Minimum length of 1. Maximum length of 64. </br> **Pattern:** `[\w+=,.@-]+` </br> **Required:** Yes </br> </ul> <ul> <li> **Email:** The email of the account which you want to create. </br> **Type:** String </br> **Pattern:** `[\w+=,.@-]+` </br> **Required:** Yes |
+
+### Known Errors 
+
+`NoSuchEntity` An error occurred : The request was rejected because it referenced an entity that does not exist.
+- HTTP Status Code: 404
+
+`InternalFailure` The request processing has failed because of an unknown error, exception or failure.
+- HTTP Status Code: 500
+
+
+
