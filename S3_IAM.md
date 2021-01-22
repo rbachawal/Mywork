@@ -102,3 +102,15 @@ ponseMetadata></GetLoginProfileResponse>`
 
 </p>
 </details>
+
+<details>
+  <summary>UpdateAccountLoginProfile</summary>
+  <p>
+    The UpdateAccountLoginProfile parameter changes the password for the specified account.
+    
+| Request | Request body attributes  | Request Parameters    |  
+| :------ | :----------------------- | :-------------------- | 
+| POST / HTTP/1.1  </br> Host: <IAM Endpoint>:9443 | **AccountName:** <account name> </br> **PasswordResetRequired:** <true|false> </br> **Action:** UpdateAccountLoginProfile
+ </br> **Password:** <password> | <ul> <li> **Password:** The new password for the specified IAM account. </br> **PasswordResetRequired:** Allows this new password to be used only once by requiring the specified IAM account to set a new password on next sign-in.</li> <li> **AccountName:** The name of the account whose password you want to update. This parameter allows (through its regex pattern) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. </br> You can also include any of the following characters: `_+=,.@-` `--password` </br> **New Password to update:** `--password-reset-required` </br> Optionally you can use `--no-password-reset-required` to force a user to reset the account password on their first login use the `password-reset-flag` or the `no-password-reset-flag`. Passwords are optional, you can specify the accountname (mandatory), and the API will error out saying - `at least specify flag
+or password`. </ul> |
+
