@@ -65,6 +65,20 @@ The CreateAccount request lets you create an S3 IAM account.
 | :------ | :----------------------- | :-------------------- | 
 | POST / HTTP/1.1  </br> Host: <IAM Endpoint>:9443 | **Password:** Random12@# </br> **AccountName:** newrandom10 </br> **PasswordResetRequired:** false </br> **Action:** CreateAccountLoginProfile |  **Password:** The new password for the Account. </br> **Type:** String </br> **Length Constraints:** Minimum length of 1. Maximum length of 128. </br> **Pattern:** [\u0009\u000A\u000D\u0020-\u00FF]+ </br> **Required:** Yes </br> `password-reset-required` `no-password-reset-required`: Specifies whether you're required to  set a new password during yournext sign-in. </br> **Required:** No </br> If you are passing  `--password-reset-required` and `--no-password-reset-required` argument in same command without any sequence, the `PasswordResetRequired` flag will be set as true by default. </br> **AccountName:** The name of the Account to create a password for. The Account must already exist. </br> **Type:** String </br> **Required:** Yes </br> **AccountLoginProfile:** A structure containing the account name and password create date. </br> **AccountName:** A string, that holds the name of the account used to sign in to the S3 Management Console. </br> **CreateDate:** Is a timestamp for the date when the password for the account was created. </br> **PasswordResetRequired:** is a boolean value that specifies whether the account user is required to set a new password on next sign-in. |
 
+**Sample Response:**
+
+b `<?xml version="1.0" encoding="UTF-8" standalone="no"?><CreateLoginProfileResponse
+xmlns="https://iam.seagate.com/doc/2010-05-08/"><CreateLoginProfileResult>
+<LoginProfile>
+<UserName>user01</UserName>
+<PasswordResetRequired>true</PasswordResetRequired>
+<CreateDate>20201211090307Z</CreateDate>
+</LoginProfile>
+</CreateLoginProfileResult>
+<ResponseMetadata>
+<RequestId>88e92110820f423092a2d228316bfb10</RequestId></ResponseMetadata></CreateLoginProfile
+Response>`
+
 </p>
 </details>
 
