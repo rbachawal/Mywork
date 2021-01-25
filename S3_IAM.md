@@ -151,6 +151,12 @@ The GetUserLoginProfile parameter retrieves the *user name* and *password-creati
 | :------ | :----------------------- | :-------------------- | 
 | POST / HTTP/1.1  </br> Host: <IAM Endpoint>:9443 | **UserName:** newrandom11 </br> **Action:** GetLoginProfile | **UserName:** The name of the user whose login profile you want to retrieve. This parameter allows (through its regex pattern) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters:` _+=,.@-` </br> **Type:** String </br> **Length Constraints:** Minimum length of 1. Maximum length of 64. </br> **Pattern:** `[\w+=,.@-]+` </br> **Required:** Yes </li> </ul> |
 
+**Sample Response** 
+ 
+- **LoginProfile (structure):** A structure containing the user name and password create date.  
+- **UserName (string):** The name of the user, which can be used for signing in to the S3 Management Console.  
+- **CreateDate (timestamp):** The date when the password for the user was created.  
+- **PasswordResetRequired (boolean):** Specifies whether the user is required to set a new password on next sign-in.
 
     
     
