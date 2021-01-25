@@ -128,9 +128,9 @@ ta></UpdateLoginProfileResponse>`
     
  The CreateUserLoginProfile parameter creates a password for the specified IAM user.
  
- | Request | Request body attributes  | Request Parameters    |  
+| Request | Request body attributes  | Request Parameters    |  
 | :------ | :----------------------- | :-------------------- | 
-| POST / HTTP/1.1  </br> Host: <IAM Endpoint>:9443 | **UserName:** newrandom11user </br> **PasswordResetRequired:** false </br> **Action:** CreateLoginProfile </br> **Password:** Random12@# | <ul> <li> **UserName:** The name of the IAM user to create a password for. The user must already exist. This parameter allows (through its regex pattern) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: `_+=,.@-` </br> **Required:** Yes </br> **Password:** The new password for the user. </br> **Type:** String </br> **Length Constraints:** Minimum length of 6. Maximum length of 128. </br> **Pattern:** `[\u0009\u000A\u000D\u0020-\u00FF]+` </br> **Required:** Yes </br> **PasswordResetRequired:** Specifies whether the user is required to set a new password on next sign-in. </br> **Type:** Boolean </br> **Required:** No |
+| POST / HTTP/1.1  </br> Host: <IAM Endpoint>:9443 | **UserName:** newrandom11user </br> **PasswordResetRequired:** false </br> **Action:** CreateLoginProfile </br> **Password:** Random12@# | <ul> <li> **UserName:** The name of the IAM user to create a password for. The user must already exist. This parameter allows (through its regex pattern) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: `_+=,.@-` </br> **Required:** Yes </br> <li> **Password:** The new password for the user. </br> **Type:** String </br> **Length Constraints:** Minimum length of 6. Maximum length of 128. </br> **Pattern:** `[\u0009\u000A\u000D\u0020-\u00FF]+` </br> **Required:** Yes </br> <li> **PasswordResetRequired:** Specifies whether the user is required to set a new password on next sign-in. </br> **Type:** Boolean </br> **Required:** No </li></ul> |
 
 **Sample Response**
 
@@ -142,6 +142,18 @@ ta></UpdateLoginProfileResponse>`
 </p>
 </details>
 
+<details>
+  <summary>GetUserLoginProfile</summary>
+  <p>
+The GetUserLoginProfile parameter retrieves the *user name* and *password-creation date* for the specified IAM user. If the user has not been assigned a password, the operation will return a `404 (NoSuchEntity)` error. 
+    
+| Request | Request body attributes  | Request Parameters    |  
+| :------ | :----------------------- | :-------------------- | 
+| POST / HTTP/1.1  </br> Host: <IAM Endpoint>:9443 | **UserName:** newrandom11 </br> **Action:** GetLoginProfile | **UserName:** The name of the user whose login profile you want to retrieve. This parameter allows (through its regex pattern) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters:` _+=,.@-` </br> **Type:** String </br> **Length Constraints:** Minimum length of 1. Maximum length of 64. </br> **Pattern:** `[\w+=,.@-]+` </br> **Required:** Yes </li> </ul> |
+
+
+    
+    
 
  
  
