@@ -274,7 +274,7 @@ The ListUsers parameter lists the IAM users that with a specified path prefix. I
 
 | Request | Request body attributes  | Request Parameters    |  
 | :------ | :----------------------- | :-------------------- | 
-| POST / HTTP/1.1  </br> Host: <IAM Endpoint>:9443 | **Action:** ListUsers </br> **Version:** 2010-05-08 | <ul><li>**PathPrefix:** The path prefix for filtering the results. For example: `/division_abc/subdivision_xyz/`, which would return all user names with a path that starts with `/division_abc/subdivision_xyz/`. This parameter is optional. If it is not included, it defaults to a slash (/), listing all user names. This parameter allows (through its regex pattern) a string of characters consisting of either a forward slash (/) by or a string that begins and ends with forward slashes. In addition, it can contain any ASCII character from `!(\u0021)` to the DEL character `(\u007F)` including punctuation, characters, digits, and upper and lowercased letters. </br> **Type:** String </br> **Length Constraints:** Minimum length of 1. Maximum length of 512. </br> **Pattern:** `\u002F[\u0021-\u007F]*` </br> **Required:** No </li></ul> |
+| POST / HTTP/1.1  </br> Host: <IAM Endpoint>:9443 | **Action:** ListUsers </br> **Version:** 2010-05-08 | <ul><li>**PathPrefix:** The path prefix for filtering the results. For example: `/division_abc/subdivision_xyz/`, which would return all user names with a path that starts with `/division_abc/subdivision_xyz/`. This parameter is optional. If it is not included, it defaults to a slash (/), listing all user names. This parameter allows (through its regex pattern) a string of characters consisting of either a forward slash (/) by or a string that begins and ends with forward slashes. In addition, it can contain any ASCII character from `!(\u0021)` to the DEL character `(\u007F)` including punctuation, characters, digits, and upper and lower case letters. </br> **Type:** String </br> **Length Constraints:** Minimum length of 1. Maximum length of 512. </br> **Pattern:** `\u002F[\u0021-\u007F]*` </br> **Required:** No </li></ul> |
 
 **Sample Response**
 
@@ -286,6 +286,28 @@ eateDate>2020-12-
 11T09:38:34.000+0000</CreateDate></member></Users><IsTruncated>false</IsTruncated></ListUsersR
 esult><ResponseMetadata><RequestId>b411b61e14324697bd617d86c4ca5632</RequestId></ResponseMetad
 ata></ListUsersResponse>`
+
+</p>
+</details>
+
+<details>
+  <summary>UpdateUser</summary>
+  
+The UpdateUser parameter lets you update the name and/or the path of the specified IAM user.
+
+| Request | Request body attributes  | Request Parameters    |  
+| :------ | :----------------------- | :-------------------- | 
+| POST / HTTP/1.1  </br> Host: <IAM Endpoint>:9443 | **Action:** UpdateUser </br> **Version:** 2010-05-08 </br> **UserName:** newuserrandom11 </br> <li> **NewUserName:** newuserrandom11changed | <ul><li>**NewPath:** New path for the IAM user. Include this parameter only if you're changing the user's path. This parameter allows (through its regex pattern) a string of characters consisting of either a forward slash (/) or a string that begins and end with forward slashes. In addition, it can contain any ASCII character from `! (\u0021)` to DEL character `(\u007F)`, including punctuation, characters, digits, and upper and lower case letters. </br> **Type:** String </br> **Length Constraints:** Minimum length of 1. Maximum length of 512. </br> **Pattern:** `(\u002F)` or `(\u002F[\u0021-\u007F]+\u002F)` </br> **Required:** No </br> <li> **NewUserName:** New name for the user. Include this parameter only if you're changing the user's name. IAM user, group, role, and policy names must be unique for an account. Names are not distinguished by cases. For example, you cannot create resources named both `MyResource` and `myresource`. </br> **Type:** String </br> **Length Constraints:** Minimum length of 1. Maximum length of 64. </br> **Pattern:** `[\w+=,.@-]+` </br> **Required:** No </br><li>**UserName:** Name of the user that you want to update. If you're changing the name of the user, this is the original user name. This parameter allows (through its regex pattern) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: `_+=,.@-` </br> **Type:** String </br> **Length Constraints:** Minimum length of 1. Maximum length of 128. </br> **Pattern:** `[\w+=,.@-]+` </br> **Required:** Yes </li></ul> |
+
+**Sample Response**
+
+b`<?xml version="1.0" encoding="UTF-8" standalone="no"?><UpdateUserResponsexmlns="https://iam.seagate.com/doc/2010-05-08/"><ResponseMetadata <RequestId>7db81406809d40aeb08e5f0c95baa3dd</RequestId></ResponseMetadata></UpdateUserResponse>`
+
+</p>
+</details>
+
+
+
 
 
 
