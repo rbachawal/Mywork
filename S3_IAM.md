@@ -158,6 +158,21 @@ The GetUserLoginProfile parameter retrieves the *user name* and *password-creati
 - **CreateDate (timestamp):** The date when the password for the user was created.  
 - **PasswordResetRequired (boolean):** Specifies whether the user is required to set a new password on next sign-in.
 
+</p>
+</details>
+
+<details>
+  <summary>UpdateUserLoginProfile</summary>
+
+The UpdateUserLoginProfile parameter updates the user login profile for an existing user.
+
+| Request | Request body attributes  | Request Parameters    |  
+| :------ | :----------------------- | :-------------------- | 
+| POST / HTTP/1.1  </br> Host: <IAM Endpoint>:9443 | **UserName:** newrandom10 </br> **PasswordResetRequired:** false </br> **Action:** UpdateLoginProfile </br> **Password:** Random07@# | <ul><li> **UserName:** The name of the user whose password you want to update. This parameter allows (through its regex pattern) a string of characters consisting of upper and lowercase  alphanumeric characters with no spaces. You can also include any of the following characters: `_+=,.@-` </br> **Required:** Yes</li><li>**Password:** The new password for the specified IAM user. </br> **Type:** String </br> **Length Constraints:** Minimum length of 1. Maximum length of 128. </br> **Pattern:** `[\u0009\u000A\u000D\u0020-\u00FF]+` </br> **Required:** Yes </br></li> <li> **PasswordResetRequired:** Specifies whether the user is required to set a new password on next sign-in. Though `password-reset-flag` or `no-password-reset-flag` and password are optional, if you specify the username (mandatory), the API will error out stating: `At least specify flag or password.` </br> **Type:** Boolean </br> **Required:** No </li></ul> |
+
+
+
+
     
     
 
