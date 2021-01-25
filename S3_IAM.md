@@ -187,6 +187,15 @@ The CreateAccessKey creates a new S3 secret access key and corresponding S3 acce
 | :------ | :----------------------- | :-------------------- | 
 | POST / HTTP/1.1  </br> Host: <IAM Endpoint>:9443 | **Action:** CreateAccessKey </br> **Version:** 2010-05-08 </br> **UserName:** newuserrandom111 | <ul> <li> **UserName:** The name of the user. This parameter allows (through its regex pattern) a string of characters consisting of upper and  lowercase alphanumeric characters with no spaces. You can also include any of the following  characters: `_+=,.@-` </br> **Type:** String </br> **Length Constraints:** Minimum length of 1. Maximum length of 128. </br> **Pattern:** `[\w+=,.@-]+` </br> **Required:** No </li></ul> |
 
+**Sample Response**
+
+b `<?xml version="1.0" encoding="UTF-8" standalone="no"?><CreateAccessKeyResponse  xmlns="https://iam.seagate.com/doc/2010-05- 
+08/"><CreateAccessKeyResult><AccessKey><UserName>changePasswordUserLoginProfileTestUser</UserN ame><AccessKeyId>AKIAgjTAmeFcShmDxtbQqBKQqg</AccessKeyId><Status>Active</Status><SecretAccessK ey>h9G1hwPAKFLcsGAKy7GePiuHCCayka81kh7M45v6</SecretAccessKey></AccessKey></CreateAccessKeyResu lt><ResponseMetadata><RequestId>f03ba9e9876e43cd9ae55e644ba798d3</RequestId></ResponseMetadata ></CreateAccessKeyResponse>`
+
+</p>
+</details>
+
+
 
 
 
