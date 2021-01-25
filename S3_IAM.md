@@ -205,6 +205,18 @@ The ListAccessKeys parameter returns information about the Access Key IDs associ
 | :------ | :----------------------- | :-------------------- | 
 | POST / HTTP/1.1  </br> Host: <IAM Endpoint>:9443 | **Action:** ListAccessKeys </br> **Version:** 2010-05-08 </br> **UserName:** newuserrandom111 | **UserName:** The name of the user. This parameter allows (through its regex pattern) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following  characters: `_+=,.@-` </br> **Type:** String </br> **Length Constraints:** Minimum length of 1. Maximum length of 128. </br> **Pattern:** `[\w+=,.@-]+` </br> **Required:** No |
 
+**Sample Response**
+
+b `<?xml version="1.0" encoding="UTF-8" standalone="no"?><ListAccessKeysResponse  xmlns="https://iam.seagate.com/doc/2010-05- 
+08/"><ListAccessKeysResult><UserName>root</UserName><AccessKeyMetadata><member><UserName>root< /UserName><AccessKeyId>AKIAGNP1JEOkTHqaeH3jU5bnHQ</AccessKeyId><Status>Active</Status><CreateD
+ate>2020-12- 
+11T09:02:47.000+0000</CreateDate></member></AccessKeyMetadata><IsTruncated>false</IsTruncated> </ListAccessKeysResult><ResponseMetadata><RequestId>f427b8d0412648eaa72e1431e9a7414c</RequestI d></ResponseMetadata></ListAccessKeysResponse>`
+
+</p>
+</details>
+
+
+
 
 
 
