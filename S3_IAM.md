@@ -195,6 +195,19 @@ b `<?xml version="1.0" encoding="UTF-8" standalone="no"?><CreateAccessKeyRespons
 </p>
 </details>
 
+<details> 
+  <summary>ListAccessKeys</summary>
+  <p>
+    
+The ListAccessKeys parameter returns information about the Access Key IDs associated with a specified IAM user. If there is none, the operation returns an empty list. 
+
+| Request | Request body attributes  | Request Parameters    |  
+| :------ | :----------------------- | :-------------------- | 
+| POST / HTTP/1.1  </br> Host: <IAM Endpoint>:9443 | **Action:** ListAccessKeys </br> **Version:** 2010-05-08 </br> **UserName:** newuserrandom111 | **UserName:** The name of the user. This parameter allows (through its regex pattern) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following  characters: `_+=,.@-` </br> **Type:** String </br> **Length Constraints:** Minimum length of 1. Maximum length of 128. </br> **Pattern:** `[\w+=,.@-]+` </br> **Required:** No |
+
+
+
+
 
 
 
