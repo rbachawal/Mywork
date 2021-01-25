@@ -224,6 +224,12 @@ The UpdateAccessKey parameter changes the status of the specified access key fro
 | :------ | :----------------------- | :-------------------- | 
 | POST / HTTP/1.1  </br> Host: <IAM Endpoint>:9443 | **Action:** UpdateAccessKey </br> **Version:** 2010-05-08 </br> **AccessKeyId:** AKIAov_KUl_wRjexnXZe7eUQcA </br> **Status:** Active </br> **UserName:** newuserrandom111 | <ul> <li> **AccessKeyId:** The access key ID of the secret access key you want to update. This parameter allows (through its regex pattern) a string of characters that can consist of any upper or lowercased letter or digit. </br> **Type:** String </br> **Length Constraints:** Minimum length of 16. Maximum length of 128. </br> **Pattern:** `[\w]+` </br> **Required:** Yes </br> <li> **Status:** The status you want to assign to the secret access key. Active means that the key can be used for API  calls to S3, while Inactive means that the key cannot be used. </br> **Type:** String </br> **Valid Values:** `Active` or `Inactive` </br> **Required:** Yes </br> <li> **UserName:** The name of the user whose key you want to update. This parameter allows (through its regex pattern) a string of characters consisting of upper and lowercase  alphanumeric characters with no spaces. You can also include any of the following characters: `_+=,.@-` </br> **Type:** String </br> **Length Constraints:** Minimum length of 1. Maximum length of 128. </br> **Pattern:** `[\w+=,.@-]+` </br> **Required:** No </li></ul> | 
 
+**Sample Response**
+
+b `<?xml version="1.0" encoding="UTF-8" standalone="no"?><UpdateAccessKeyResponse  xmlns="https://iam.seagate.com/doc/2010-05- 
+08/"><ResponseMetadata><RequestId>c2ce14e35ccb4d1bb3ef0d01a10e82ba</RequestId></ResponseMetada ta></UpdateAccessKeyResponse>`
+
+
 
 
 
