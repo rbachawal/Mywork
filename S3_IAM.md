@@ -267,6 +267,33 @@ b`<?xml version="1.0" encoding="UTF-8" standalone="no"?><CreateUserResponse  xml
 </p>
 </details>
 
+<details>
+  <summary>ListUsers</summary>
+
+The ListUsers parameter lists the IAM users that with a specified path prefix. If no path prefix is specified, the operation returns all users. If there are none, the operation returns an empty list.
+
+| Request | Request body attributes  | Request Parameters    |  
+| :------ | :----------------------- | :-------------------- | 
+| POST / HTTP/1.1  </br> Host: <IAM Endpoint>:9443 | **Action:** ListUsers </br> **Version:** 2010-05-08 | <ul><li>**PathPrefix:** The path prefix for filtering the results. For example: `/division_abc/subdivision_xyz/`, which would return all user names with a path that starts with `/division_abc/subdivision_xyz/`. This parameter is optional. If it is not included, it defaults to a slash (/), listing all user names. This parameter allows (through its regex pattern) a string of characters consisting of either a forward slash (/) by or a string that begins and ends with forward slashes. In addition, it can contain any ASCII character from `!(\u0021)` to the DEL character `(\u007F)` including punctuation, characters, digits, and upper and lowercased letters. </br> **Type:** String </br> **Length Constraints:** Minimum length of 1. Maximum length of 512. </br> **Pattern:** `\u002F[\u0021-\u007F]*` </br> **Required:** No </li></ul> |
+
+**Sample Response**
+
+b`<?xml version="1.0" encoding="UTF-8" standalone="no"?><ListUsersResponse
+xmlns="https://iam.seagate.com/doc/2010-05-
+08/"><ListUsersResult><Users><member><UserId>AIDAF9C78D8CBDC84C849</UserId><Path>/test/success
+/</Path><UserName>s3user1New</UserName><Arn>arn:aws:iam::208477331058:user/s3user1New</Arn><Cr
+eateDate>2020-12-
+11T09:38:34.000+0000</CreateDate></member></Users><IsTruncated>false</IsTruncated></ListUsersR
+esult><ResponseMetadata><RequestId>b411b61e14324697bd617d86c4ca5632</RequestId></ResponseMetad
+ata></ListUsersResponse>`
+
+
+
+
+
+
+
+
 
 
 
