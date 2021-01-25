@@ -259,6 +259,15 @@ The CreateUser parameter creates a new IAM user.
 | :------ | :----------------------- | :-------------------- | 
 | POST / HTTP/1.1  </br> Host: <IAM Endpoint>:9443 | **UserName:** new </br> **Action:** CreateUser | <ul> <li> **Path:** The path for the user name. For more information about paths, see IAM Identifiers in the IAM User Guide. This parameter is optional. If it is not included, it defaults to a slash (/). This parameter allows (through its regex pattern) a string of characters consisting of either a forward slash (/) by itself or a string that must begin and end with forward slashes. In addition, it can contain any ASCII character from the `!(\u0021)` through the DEL character `(\u007F)`, including most punctuation characters, digits, and upper and lowercased letters. </br> **Type:** String </br> **Length Constraints:** Minimum length of 1. Maximum length of 512. </br> **Pattern:** `(\u002F)` or `(\u002F[\u0021-\u007F]+\u002F)` </br> **Required:** No </br><li>**UserName:** The name of the user that you want to create. IAM user, group, role, and policy names must be unique within the account. Names are not distinguished by case. For example, you cannot create resources named both `MyResource` and `myresource`. </br> **Type:** String </br> **Length Constraints:** Minimum length of 1. Maximum length of 64. </br> **Pattern:** `[\w+=,.@-]+` </br> **Required:** Yes</li></ul> |
 
+**Sample Response**
+
+b`<?xml version="1.0" encoding="UTF-8" standalone="no"?><CreateUserResponse  xmlns="https://iam.seagate.com/doc/2010-05- 
+08/"><CreateUserResult><User><Path>/test/</Path><UserName>s3user_1</UserName><UserId>AIDAFFEC1 72CE21849C19</UserId><Arn>arn:aws:iam::918609980441:user/s3user_1</Arn></User></CreateUserResu lt><ResponseMetadata><RequestId>bec144b54c0546cf9367c70213db08e5</Req`
+
+</p>
+</details>
+
+
 
 
 
