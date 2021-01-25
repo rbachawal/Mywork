@@ -229,6 +229,29 @@ The UpdateAccessKey parameter changes the status of the specified access key fro
 b `<?xml version="1.0" encoding="UTF-8" standalone="no"?><UpdateAccessKeyResponse  xmlns="https://iam.seagate.com/doc/2010-05- 
 08/"><ResponseMetadata><RequestId>c2ce14e35ccb4d1bb3ef0d01a10e82ba</RequestId></ResponseMetada ta></UpdateAccessKeyResponse>`
 
+</p>
+</details>
+
+<details>
+  <summary>DeleteAccesskey</summary>
+  
+The DeleteAccesskey parameter lets you delete the Access Key Pair associated with an IAM user. If you do not specify a user name, IAM determines the user name implicitly based on the S3 Access Key ID used to sign the request. This operation works for access keys under the S3 account. Consequently, you  can use this operation to manage S3 account root user credentials even if the S3 account has no associated users. 
+
+| Request | Request body attributes  | Request Parameters    |  
+| :------ | :----------------------- | :-------------------- | 
+| POST / HTTP/1.1  </br> Host: <IAM Endpoint>:9443 | **Action:** DeleteAccessKey </br> **Version:** 2010-05-08 </br> **AccessKeyId:** AKIAov_KUl_wRjexnXZe7eUQcA | <ul> <li> **UserName:** The name of the user whose access key pair you want to delete. This parameter allows (through its regex pattern) a string of characters consisting of upper and lowercase  alphanumeric characters with no spaces. You can also include any of the following characters: `_+=,.@-` </br> **Type:** String </br> **Length Constraints:** Minimum length of 1. Maximum length of 128. </br> **Pattern:** `[\w+=,.@-]+` </br> **Required:** No </li> </ul>
+
+**Sample Response** 
+
+b `<?xml version="1.0" encoding="UTF-8" standalone="no"?><DeleteAccessKeyResponse  xmlns="https://iam.seagate.com/doc/2010-05- 
+08/"><ResponseMetadata><RequestId>7364ce6973fa462cb81792490649ccde</RequestId></ResponseMetada ta></DeleteAccessKeyResponse>`
+
+</p>
+</details>
+
+
+
+
 
 
 
