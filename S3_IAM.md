@@ -326,7 +326,22 @@ ta></DeleteUserResponse>`
 </p>
 </details>
 
+<details>
+  <summary>ChangePassword</summary>
+  <p>
+  
+The ChangePassword parameter lets you change the password of the IAM user that is used to call this operation.
 
+| Request | Request body attributes  | Request Parameters    |  
+| :------ | :----------------------- | :-------------------- | 
+| POST / HTTP/1.1  </br> Host: <IAM Endpoint>:9443 | **OldPassword:** djfjdsfkd@ </br> **NewPassword:** sfksdfdl@# </br> **Action:** ChangePassword | <ul><li> **OldPassword (Required):** The IAM user's current password.</li><li> **NewPassword (Required):** The new valid password. </br> :page_with_curl: **Note:** </br> 1. the oldPassword and newPassword should not be same. </br> 2. minimum password length is 6 characters. </br> 3. Allowed special characters are `~, !, @, #, $, %, ^, *, (, ), -, _, +, =, \, /, ?, .., \n, \t, \r` </br> 4. For special characters `&, <, > and | ,` you'll need to enter the newly created the password in quotes. **For example:** "x&sds1" </li></ul> |
+
+**Sample Response**
+
+b`<?xml version="1.0" encoding="UTF-8" standalone="no"?><ChangePasswordResponse xmlns="https://iam.seagate.com/doc/2010-05-08/"><ResponseMetadata<RequestId>29399cfbce37453990ff8295271af345</RequestId></ResponseMetadata></ChangePasswordResponse>`
+
+</p>
+</details>
 
 
 
