@@ -343,6 +343,13 @@ b`<?xml version="1.0" encoding="UTF-8" standalone="no"?><ChangePasswordResponse 
 </p>
 </details>
 
+<details>
+  <summary>GetTempAuthCredentials</summary>
+The GetTempAuthCredentials API returns the temporary authentication credentials for an account or an IAM user sending this request. 
+
+| Request | Request body attributes  | Request Parameters    |  
+| :------ | :----------------------- | :-------------------- | 
+| POST / HTTP/1.1 </br> Host: <IAM Endpoint>:9443 | **Action:** GetTempAuthCredentials </br> **Password:** Random07@# </br> **AccountName:** newrandom10 | <ul><li> **AccountName (Mandatory):** This will accept Account Name </li><li> **Password:** The Password for an account or an IAM user sending the request. </li><li> **UserName (optional):** The IAM User Name </li><li> **Duration (optional):** The Duration for which you want the credentials to be valid. </br> :page_with_curl: **Note:** If you specify a UserName, the API will authenticate it using the account name, user name and password. If you do not specify any UserName, the API will authenticate it using the account name and password.</li> <li> **Duration (optional):** The duration, in seconds, that you want the credentials should remain valid. </br> :page_with_curl: **Note:** </br> The Acceptable durations for an IAM user session range from 900 seconds (15 minutes) to 129,600 seconds (36 hours). </br> The default duration is 43,200 seconds (12 hours). </br> The active seeion for an account owner is restricted to a maximum of 3,600 seconds (one hour). The API will return an error if the active session crosses the one hour mark. </br> Similarly, if the duration of an active session is lower than 900 seconds (minimum) the API will return an error.</br> **Type:** Integer </br> **Valid Range:** Minimum value of 900 seconds and  Maximum value of 129600 seconds</li></ul> |
 
 
 
