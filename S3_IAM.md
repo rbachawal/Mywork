@@ -306,6 +306,26 @@ b`<?xml version="1.0" encoding="UTF-8" standalone="no"?><UpdateUserResponsexmlns
 </p>
 </details>
 
+<details>
+  <summary>DeleteUser</summary>
+  <p>
+    
+The DeleteUser parameter deletes a specified IAM user.
+
+| Request | Request body attributes  | Request Parameters    |  
+| :------ | :----------------------- | :-------------------- | 
+| POST / HTTP/1.1  </br> Host: <IAM Endpoint>:9443 | **Action:** DeleteUser </br> **Version:** 2010-05-08 </br> **UserName:** newuserrandom11changed | <ul><li>**UserName:** The user name that you want to delete. This parameter allows (through its regex pattern) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: `_+=,.@-` </br> **Type:** String </br> **Length Constraints:** Minimum length of 1. Maximum length of 128. </br> **Pattern:** `[\w+=,.@-]+` </br> **Required:** Yes </li></ul> |
+
+**Sample Response**
+
+b `<?xml version="1.0" encoding="UTF-8" standalone="no"?><DeleteUserResponse
+xmlns="https://iam.seagate.com/doc/2010-05-
+08/"><ResponseMetadata><RequestId>b121c2cf9c204d42bfa792aab1f8d2be</RequestId></ResponseMetada
+ta></DeleteUserResponse>`
+
+</p>
+</details>
+
 
 
 
