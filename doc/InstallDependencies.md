@@ -28,3 +28,5 @@ Follow these steps to install all the dependency packages required to build your
     **Sample Output**
     
    <img src="Dependencies.png?raw=true">
+   
+   <a href="https://github.com/Saumya-Sunder/cortx-1/blob/09a21dce73c7a807fa82fd4427f99e13dd541a05/doc/GitHub_Processes_and_Tools.rst">Link</a>
