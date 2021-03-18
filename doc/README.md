@@ -7,7 +7,7 @@
 
 <img src="../assets/images/cortx-logo.png?raw=true">
 
-- [Motivation and Project Goals](../main/CORTX-Motivation&Goals.md)
+- [Motivation and Project Goals](../doc/CORTX-Motivation&Goals.md)
 
 
 ## CORTX Community Values 
