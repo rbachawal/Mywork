@@ -8,7 +8,7 @@
 <img src="../assets/images/cortx-logo.png?raw=true">
 
 - [Motivation and Project Goals](../doc/CORTX-Motivation&Goals.md)
-- [Community Standards](..doc/CORTX/CODE_OF_CONDUCT.md)
+- [Community Standards](..doc/CODE_OF_CONDUCT.md)
 
 ## Get Started
 
