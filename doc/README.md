@@ -10,7 +10,7 @@
 - [Motivation and Project Goals](../doc/CORTX-Motivation&Goals.md)
 - [Community Standards](../doc/CODE_OF_CONDUCT.md)
 - [Quick Start](../doc/QUICK_START.md)
-- [Support](..doc/CORTX-SUPPORT.md)
+- [Support](../doc/CORTX-SUPPORT.md)
 
 Thanks
 ----------
