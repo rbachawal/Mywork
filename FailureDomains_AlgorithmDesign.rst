@@ -46,7 +46,10 @@ won’t affect the design materially.
 Consider Fig 1.0 representing a tree of failure domains. Assume that
 each parity group has :math:`N` data units, :math:`K` parity units, and
 :math:`S` spare units. Our aim is to distribute the total
-:math:`G\  = \ N\  + \ K\  + \ S` units across a pool, such that user
+
+.. math:: 
+
+G = N + K + S units across a pool, such that user
 supplied tolerance for each level of tree is satisfied. Following
 definitions are useful for exploring the solution.
 
