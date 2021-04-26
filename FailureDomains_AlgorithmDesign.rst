@@ -27,7 +27,7 @@
 Introduction
 ============
 
-Mero uses a parity declustered layout which stripes a file over
+Motr uses a parity declustered layout which stripes a file over
 devices/targets in such a way that failure of any :math:`K` devices,
 among available :math:`P` devices, is tolerable. We aim to extend this
 fault tolerance to failure domains other than a device (ie. controller,
