@@ -50,9 +50,8 @@ supplied tolerance for each level of tree is satisfied. Following
 definitions are useful for exploring the solution.
 
 **Def:** *Tolerance vector* associated with a failure domains tree (FDT)
-of height :math:`h` is a vector of size :math:`h`,\ :math:`i^{th}`
-member of which represents the required tolerance associated with
-:math:`i^{th}`\ level of the FDT.
+of height :math:`h` is a vector of size :math:`h`, :math:`i` :sup:`th` member of which represents the required tolerance associated with
+:math:`i^th` level of the FDT.
 
 For the given values of :math:`N`, :math:`K` and :math:`S` all tolerance
 vectors associated with an FDT need not be feasible.
