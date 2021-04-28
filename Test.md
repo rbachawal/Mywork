@@ -1,29 +1,24 @@
-> [[Introduction]{.ul}](#introduction)
->
-> [[Problem definition]{.ul}](#problem-definition)
->
-> [[Properties of uniform
-> partition]{.ul}](#properties-of-uniform-partition)
->
-> [[Partition for symmetric FDT]{.ul}](#partition-for-symmetric-fdt)
->
-> [[Partition for asymmetric FDT]{.ul}](#partition-for-asymmetric-fdt)
->
-> [[Mapping asymmetric tree to virtual symmetric
-> tree]{.ul}](#mapping-asymmetric-tree-to-virtual-symmetric-tree)
->
-> [[Parity-group to target
-> mapping]{.ul}](#parity-group-to-target-mapping)
->
-> [[Target-frame to parity group
-> mapping]{.ul}](#target-frame-to-parity-group-mapping)
->
-> [[Characterizing the region of tolerable
-> failures]{.ul}](#characterizing-the-region-of-tolerable-failures)
->
-> [[Algorithms]{.ul}](#algorithms)
->
-> [[References]{.ul}](#references)
+[Introduction](#introduction)
+
+[Problem definition](#problem-definition)
+
+[Properties of uniform partition](#properties-of-uniform-partition)
+
+[Partition for symmetric FDT](#partition-for-symmetric-fdt)
+
+[Partition for asymmetric FDT](#partition-for-asymmetric-fdt)
+
+[Mapping asymmetric tree to virtual symmetric tree](#mapping-asymmetric-tree-to-virtual-symmetric-tree)
+
+[Parity-group to target mapping](#parity-group-to-target-mapping)
+
+[Target-frame to parity group mapping](#target-frame-to-parity-group-mapping)
+
+[Characterizing the region of tolerable failures](#characterizing-the-region-of-tolerable-failures)
+
+[Algorithms](#algorithms)
+
+[References](#references)
 
 Introduction
 ------------
