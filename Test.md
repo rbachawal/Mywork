@@ -1,24 +1,14 @@
-[Introduction](#introduction)
-
-[Problem definition](#problem-definition)
-
-[Properties of uniform partition](#properties-of-uniform-partition)
-
-[Partition for symmetric FDT](#partition-for-symmetric-fdt)
-
-[Partition for asymmetric FDT](#partition-for-asymmetric-fdt)
-
-[Mapping asymmetric tree to virtual symmetric tree](#mapping-asymmetric-tree-to-virtual-symmetric-tree)
-
-[Parity-group to target mapping](#parity-group-to-target-mapping)
-
-[Target-frame to parity group mapping](#target-frame-to-parity-group-mapping)
-
-[Characterizing the region of tolerable failures](#characterizing-the-region-of-tolerable-failures)
-
-[Algorithms](#algorithms)
-
-[References](#references)
+- [Introduction](#introduction)
+- [Problem definition](#problem-definition)
+- [Properties of uniform partition](#properties-of-uniform-partition)
+- [Partition for symmetric FDT](#partition-for-symmetric-fdt)
+- [Partition for asymmetric FDT](#partition-for-asymmetric-fdt)
+  - [Mapping asymmetric tree to virtual symmetric tree](#mapping-asymmetric-tree-to-virtual-symmetric-tree)
+  - [Parity-group to target mapping](#parity-group-to-target-mapping)
+  - [Target-frame to parity group mapping](#target-frame-to-parity-group-mapping)
+- [Characterizing the region of tolerable failures](#characterizing-the-region-of-tolerable-failures)
+- [Algorithms](#algorithms)
+- [References](#references)
 
 Introduction
 ------------
