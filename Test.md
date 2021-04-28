@@ -555,4 +555,5 @@ References
 5.  [[Wiki link for "Convex
     Polytopes"]{.ul}](http://en.wikipedia.org/wiki/Convex_polytope)
 
-###### [1] Please refer to [[HLD of a parity de-clustering algorithm](https://docs.google.com/a/seagate.com/document/d/1THpmQZig__zkfh6CdiMgAfbH5BUv7NfhW0ZpxRhvYEU/edit) for the definition of a tile.
+###### [1] 
+Please refer to [[HLD of a parity de-clustering algorithm](https://docs.google.com/a/seagate.com/document/d/1THpmQZig__zkfh6CdiMgAfbH5BUv7NfhW0ZpxRhvYEU/edit) for the definition of a tile.
