@@ -25,7 +25,7 @@ Problem definition
 We represent a pool as a tree, with each level representing one failure
 domain. Starting from the virtual root node "Pool", we get racks,
 enclosures, controllers, and devices at subsequent levels of this tree.
-<sup>[[1]](#1)</sup> This hierarchy of failure domains can be, if desirable, refined to
+<sup>[[1]](#[1])</sup> This hierarchy of failure domains can be, if desirable, refined to
 include drawers, midplanes, *etc*. Inclusion of new failure domain types
 won't affect the design materially.
 
