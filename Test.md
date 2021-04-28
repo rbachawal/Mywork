@@ -14,8 +14,8 @@ Introduction
 ------------
 
 Motr uses a parity declustered layout which stripes a file over
-devices/targets in such a way that failure of any `K` devices, among
-available `P` devices are tolerable. We aim to extend this fault
+devices/targets in such a way that failure of any *`K`* devices, among
+available *`P`* devices are tolerable. We aim to extend this fault
 tolerance to failure domains other than a device (ie. controller,
 enclosure, rack).
 
