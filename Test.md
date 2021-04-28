@@ -25,7 +25,7 @@ Problem definition
 We represent a pool as a tree, with each level representing one failure
 domain. Starting from the virtual root node "Pool", we get racks,
 enclosures, controllers, and devices at subsequent levels of this tree.
-<sup>[[1]](#[1])</sup> This hierarchy of failure domains can be, if desirable, refined to
+[^1] This hierarchy of failure domains can be, if desirable, refined to
 include drawers, midplanes, *etc*. Inclusion of new failure domain types
 won't affect the design materially.
 
@@ -555,5 +555,4 @@ References
 5.  [[Wiki link for "Convex
     Polytopes"]{.ul}](http://en.wikipedia.org/wiki/Convex_polytope)
 
-###### [1] 
-Please refer to [[HLD of a parity de-clustering algorithm](https://docs.google.com/a/seagate.com/document/d/1THpmQZig__zkfh6CdiMgAfbH5BUv7NfhW0ZpxRhvYEU/edit) for the definition of a tile.
+[^1]: Please refer to [[HLD of a parity de-clustering algorithm](https://docs.google.com/a/seagate.com/document/d/1THpmQZig__zkfh6CdiMgAfbH5BUv7NfhW0ZpxRhvYEU/edit) for the definition of a tile.
