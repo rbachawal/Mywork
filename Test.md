@@ -543,19 +543,13 @@ References
 
 1.  [Failure Domains description doc](https://docs.google.com/a/seagate.com/document/d/19IMkodSeWu-w-NooUh7EbDD5C416FYM7bhfVXSb_U-c/edit#heading=h.7vglgtla0sm1)
 
-2.  [[Failure domains - Skeleton tree to real tree
-    mapping]{.ul}](https://docs.google.com/a/seagate.com/file/d/0B6co5mpIf4sZUEc3NDFpbS1MY2s/edit)
+2.  [Failure domains - Skeleton tree to real tree mapping](https://docs.google.com/a/seagate.com/file/d/0B6co5mpIf4sZUEc3NDFpbS1MY2s/edit)
 
-3.  [[Pools in configuration schema description
-    doc]{.ul}](https://docs.google.com/a/seagate.com/document/d/19IdRJBQLglVi0D8FxZ4cTF9G7QwRmm1Wa9YhbetO5qA/edit)
+3.  [Pools in configuration schema description doc](https://docs.google.com/a/seagate.com/document/d/19IdRJBQLglVi0D8FxZ4cTF9G7QwRmm1Wa9YhbetO5qA/edit)
 
-4.  [[Wiki link for \"Partition (number
-    theory)\"]{.ul}](http://en.wikipedia.org/wiki/Partition_(number_theory))
+4.  [Wiki link for "Partition number theory"](http://en.wikipedia.org/wiki/Partition_(number_theory))
 
-5.  [[Wiki link for "Convex
-    Polytopes"]{.ul}](http://en.wikipedia.org/wiki/Convex_polytope)
-
-## References
+5.  [Wiki link for "Convex Polytopes"](http://en.wikipedia.org/wiki/Convex_polytope)
 
 <a id="1">[1]</a> 
 Please refer to [HLD of a parity de-clustering algorithm](https://docs.google.com/a/seagate.com/document/d/1THpmQZig__zkfh6CdiMgAfbH5BUv7NfhW0ZpxRhvYEU/edit) for the definition of a tile.
