@@ -30,8 +30,8 @@ include drawers, midplanes, *etc*. Inclusion of new failure domain types
 won't affect the design materially.
 
 Consider Fig 1.0 representing a tree of failure domains. Assume that
-each parity group has $N$ data units, $K$ parity units, and $S$ spare
-units. Our aim is to distribute the total $G\  = \ N\  + \ K\  + \ S$
+each parity group has *`N`* data units, *`K`* parity units, and *`S`* spare
+units. Our aim is to distribute the total *`G`*  = *`N`* + *`K`* + *`S`*
 units across a pool, such that user supplied tolerance for each level of
 tree is satisfied. Following definitions are useful for exploring the
 solution.
