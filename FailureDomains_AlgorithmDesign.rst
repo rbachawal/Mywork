@@ -58,7 +58,7 @@ vectors associated with an FDT need not be feasible.
 
 **Def:** For the given values of :math:`N`, :math:`K` and :math:`S` we
 represent the set of feasible tolerance vectors by
-:math:`F_{v}(N\  + \ S,\ K)`.
+:math:`F`:sub:`v` :math:`(N + S, K)`.
 
 **Def**: An FDT is symmetric if all nodes at the same level have same
 number of children.
