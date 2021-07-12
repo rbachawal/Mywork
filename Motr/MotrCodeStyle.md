@@ -12,17 +12,17 @@ easier to understand.
 
 Motr coding style is based on the Linux kernel coding style, which everyone is advised to familiarize with at [Linux Kernel Coding Style](https://www.kernel.org/doc/Documentation/process/coding-style.rst).
 
-#### To Summarise:
+#### 1.To Summarise:
 
 <details>
   <summary>Click to expand!</summary>
   <p>
 
-  * tabs are 8 characters;
+  * Tabs are 8 characters;
 
-  * block indentation is done with tabs;
+  * Block indentation is done with tabs;
 
-  * braces placement and spacing is as following:
+  * Braces placement and spacing is as following:
 
           if (condition) {
                   branch0;
@@ -46,29 +46,29 @@ Motr coding style is based on the Linux kernel coding style, which everyone is a
                   defaultbranch;
           }
 
-  * no blank spaces at the end of a line;
+  * No blank spaces at the end of a line;
 
-  * braces around single statement blocks can be optionally omitted;
+  * Braces around single statement blocks can be optionally omitted;
 
-  * comment formatting follows Linux kernel style;
+  * Comment formatting follows Linux kernel style;
 
   * British spelling is used in the documentation, comments and
     variable names;
 
-  * continuation line starts one column after the last unclosed
+  * Continuation line starts one column after the last unclosed
     opening parenthesis:
 
           M0_ASSERT(ergo(service != NULL,
                          m0_rpc_service_invariant(service) &&
                          service->svc_state == M0_RPC_SERVICE_STATE_INITIALISED));
 
-  * a new line should not start with an operator:
+  * A new line should not start with an operator:
 
           if (pl_oldrec->pr_let_id != stl->ls_enum->le_type->let_id ||
               pl_oldrec->pr_attr.pa_N != pl->pl_attr.pa_N) {
           }
 
-  * align identifier names, not asterisks or other type-declaration related
+  * Align identifier names, not asterisks or other type-declaration related
     decorations:
 
           struct foo {
@@ -83,7 +83,7 @@ Motr coding style is based on the Linux kernel coding style, which everyone is a
 In addition to the above syntactic conventions, Motr code should
 try to adhere to some higher level idioms.
 
-  * a loop repeated N times is written
+  * A loop repeated N times is written
 
           for (i = 0; i < N; ++i) {
                   body;
@@ -93,13 +93,13 @@ try to adhere to some higher level idioms.
 
           m0_forall(i, N, body);
 
-  * an infinite loop is written as
+  * An infinite loop is written as
 
           while (1) {
                   ...
           }
 
-  * names of struct and union members (fields) are have a short
+  * Names of struct and union members (fields) are have a short
     (1--4 characters) prefix, derived from the union or struct tag:
 
           struct misc_imperium_translatio {
@@ -109,19 +109,19 @@ try to adhere to some higher level idioms.
 
       (Rationale: his makes search for field name usage easier.)
 
-  * typedefs are used only for "scalar" data types, including
+  * Typedefs are used only for "scalar" data types, including
     function pointers, but excluding enums. Compound data types
     (structs and unions) should never be aliased with typedef.
 
       Names introduced by typedef end with `_t` ;
 
-  * sizeof expr is preferred to sizeof(type):
+  * Sizeof expr is preferred to sizeof(type):
 
           struct foo *bar = m0_alloc(sizeof *bar);
 
       (Rationale: when bar's type changes code remains correct.);
 
-  * to iterate over indices of an array X use ARRAY_SIZE(X) macro
+  * To iterate over indices of an array X use ARRAY_SIZE(X) macro
     instead of an explicit array size:
 
           #define MAX_DEGREE_OF_SEPARATION (7)
@@ -134,11 +134,11 @@ try to adhere to some higher level idioms.
 
       (Rationale: when array's declaration changes code remains correct.);
 
-  * in the spirit of the two examples above, always try to make the
+  * In the spirit of the two examples above, always try to make the
     code as autonomous as possible, so that the code correctness
     survives changes;
 
-  * use difference between NULL, 0 and "false" to emphasize whether
+  * Use difference between NULL, 0 and "false" to emphasize whether
     an expression is used as a pointer, integer (including success
     or failure code) or boolean:
 
@@ -149,14 +149,14 @@ try to adhere to some higher level idioms.
 
       Specifically, never use if (r == true);
 
-  * use `?:` form of ternary operator (a gcc-extension) like
+  * Use `?:` form of ternary operator (a gcc-extension) like
 
           a ?: b ?: c ?: ...
 
       This expression means "return first non-zero value among a, b,
       c". Operands, including "a" can have any suitable type.
 
-  * simplify:
+  * Simplify:
 
             return q != 0;            to     return q;
             return expr ? 0 : 1;      to     return !expr;
@@ -167,11 +167,11 @@ try to adhere to some higher level idioms.
       (Rationale: if `(x == true)` is clearer than `(x)`, then `((x == true) == true)`
       is even more clearer.)
 
-  * use `!!x` to convert a "boolean" integer into an "arithmetic" integer;
+  * Use `!!x` to convert a "boolean" integer into an "arithmetic" integer;
 
-  * use C99 bool type;
+  * Use C99 bool type;
 
-  * naming:
+  * Naming:
 
       globally visible name:
 
@@ -189,7 +189,7 @@ try to adhere to some higher level idioms.
       `m0_<module-name>__` (that is double _). This rule applies to invariants as
       well;
 
-  * use C99 "designated initializers":
+  * Use C99 "designated initializers":
 
           static const struct foo bar = { /* initialize a struct */
                   .field0 = ...,
@@ -200,12 +200,12 @@ try to adhere to some higher level idioms.
                   ...
           };
 
-  * avoid implicit field initialization using designated initializers;
+  * Avoid implicit field initialization using designated initializers;
 
       (Rationale: it helps to find all struct field usage and it documents
       default value of the field.);
 
-  * use enums to define numerical constants:
+  * Use enums to define numerical constants:
 
           enum LSD_HASHTABLE_PARAMS {
                   LHP_PRIME   = 32416190071ULL,
@@ -220,18 +220,18 @@ try to adhere to some higher level idioms.
       (Rationale: enums (as opposed to #defines) have types, visible
       in a debugger, etc.)
 
-  * inline functions are preferable to macros
+  * Inline functions are preferable to macros
 
       (Rationale: type-checking, sane argument evaluation rules.);
 
-  * not inline functions are preferable to inline functions, unless
+  * Not inline functions are preferable to inline functions, unless
     performance measurements show otherwise.
 
       (Rationale: breakpoint can be placed within a non-inline function. Stack
       trace is more reliable with non-inline functions. Instruction cache
       pollution is reduced.);
 
-  * macros should be used only when other language constructs cannot
+  * Macros should be used only when other language constructs cannot
     achieve the required goal. When creating a macro take care to:
 
       - evaluate arguments only once,
@@ -244,18 +244,18 @@ try to adhere to some higher level idioms.
 
       - properly parenthesize so that macro works in any context;
 
-  * return code conventions follow linux: return 0 for success,
+  * Return code conventions follow linux: return 0 for success,
     negated error code for a failure, positive values for other non
     failure conditions;
 
-  * use "const" as a documentation and help for type-checker. Do not
+  * Use "const" as a documentation and help for type-checker. Do not
     use casts to trick type-checking system into believing your
     consts. A typical scenario is a function that doesn't modify its
     input struct argument except for taking and releasing a lock
     inside of the struct. Don't use "const" in this case. Instead,
     document why the argument is not technically a constant;
 
-  * control flow statement conditions ought to have no side-effects:
+  * Control flow statement conditions ought to have no side-effects:
 
           alive = qoo_is_alive(elvis);
           if (alive) { /* rather than if (qoo_is_alive(elvis)) */
@@ -264,7 +264,7 @@ try to adhere to some higher level idioms.
 
       (Rationale: with this convention statement coverage metric is more adequate.);
 
-  * use C precedence rules to omit noise in _obvious_ expressions:
+  * Use C precedence rules to omit noise in _obvious_ expressions:
 
           (left <= x && x < right)  /* not ((left <= x) && (x < right)) */
 
@@ -272,39 +272,39 @@ try to adhere to some higher level idioms.
 
           (mask << (bits & 0xf)) /* not (mask << bits & 0xf) */
 
-  * use assertions freely to verify state invariants. An asserted
+  * Use assertions freely to verify state invariants. An asserted
     expression should have no side-effects;
 
-  * factor common code. Always prefer creating a common helper
+  * Factor common code. Always prefer creating a common helper
     function to copying code
 
       (Rationale: avoids duplication of bugs.);
 
-  * use standard scalar data type with explicit width, instead of
+  * Use standard scalar data type with explicit width, instead of
     "long" or "int".  E.g., int32_t, int64_t, uint32_t, uint64_t
     should be used to represent 32-bits, 64-bits integers, unsigned
     32-bits, unsigned 64-bits integers respectively
 
       (Rationale: avoids inconsistent data structures on different arch);
 
-  * no comparison between signed vs. unsigned without explicit casting;
+  * No comparison between signed vs. unsigned without explicit casting;
 
-  * the canonical order of type qualifiers in declarations and
+  * The canonical order of type qualifiers in declarations and
     definitions is
 
           {static|extern|auto} {const|volatile} typename;
 
-  * when using long or long long qualifiers, omit int;
+  * When using long or long long qualifiers, omit int;
 
-  * declare one variable per line;
+  * Declare one variable per line;
 
-  * avoid bit-fields. Instead, use explicit bit manipulations with
+  * Avoid bit-fields. Instead, use explicit bit manipulations with
     integer types;
 
       (Rationale: eliminates non-atomic access to bit-fields and implicit
       integer promotion.)
 
-  * avoid dead assignments and initializations (i.e., assignments
+  * Avoid dead assignments and initializations (i.e., assignments
     which are overwritten before the variable is read)
 
           int x = 0;
@@ -322,7 +322,7 @@ try to adhere to some higher level idioms.
       un-initialized in a conditional branch or in a loop that might
       execute 0 times, the initializer suppresses compiler warning.);
 
-  * all header files should begin with '#pragma once' followed by a
+  * All header files should begin with '#pragma once' followed by a
     conventional '#ifndef' include guard:
 
           #pragma once
@@ -337,16 +337,16 @@ try to adhere to some higher level idioms.
 
           __MOTR_\w+_H__
 
-      this is required for a build script which automatically checks
+      This is required for a build script which automatically checks
       correctness of include guards and reports duplicates;
 
-  * specify invariants as a conjunction of positive properties one can rely
+  * Specify invariants as a conjunction of positive properties one can rely
     upon, rather than as a disjunction of exceptions. Use m0_*_forall() macros
     to build conjunctions over containers and sequences;
 
-  * in invariants use _0C() macro to record a failed conjunct;
+  * In invariants use _0C() macro to record a failed conjunct;
 
-  * a header file should include only headers, which are necessary for the
+  * A header file should include only headers, which are necessary for the
     header to pass compilation. Forward declarations should be used instead of
     includes where possible. .c files should include all necessary headers
     directly, without relaying on headers included in already included
@@ -358,12 +358,12 @@ try to adhere to some higher level idioms.
       (Rationale: reduces dependencies between modules, makes inclusion tree
       re-structuring easier and compilation faster.).
 
-  * use M0_LOG() from lib/trace.h instead of printf(3)/printk() in
+  * Use M0_LOG() from lib/trace.h instead of printf(3)/printk() in
     all source files which are part of libmotr.so library or
     m0tr.ko module (UT, ST and various helper utilities and
     modules should use printf(3)/printk()).
 
-  * consider using M0_LOG() with some meaningful information to
+  * Consider using M0_LOG() with some meaningful information to
     describe important error conditions; preferably it should be
     done close to the place where the error is detected:
 
@@ -371,17 +371,17 @@ try to adhere to some higher level idioms.
           if (reply == NULL)
                   M0_LOG(M0_ERROR, "failed to allocate reply fop");
 
-      try to describe error using current context, and not a low-level
+      Try to describe error using current context, and not a low-level
       (which might be already logged by the other func), for example
       it would be bad to report the above error like this:
 
           "failed to allocate memory"
 
-  * choose appropriate trace level for each M0_LOG(), a general
+  * Choose appropriate trace level for each M0_LOG(), a general
     guidelines for this can be found in lib/trace.h in
     documentation of m0_trace_level enum.
 
-  * consider using M0_ENTRY()/M0_LEAVE() at function's entry and exit points,
+  * Consider using M0_ENTRY()/M0_LEAVE() at function's entry and exit points,
     as well as M0_RC() and M0_ERR_INFO() to explicitly return from function,
     which conforms to the standard return code convention.
 
@@ -422,15 +422,15 @@ try to adhere to some higher level idioms.
       </details>
 
 
-#### Things to look after:
+#### 2.Things to look after:
 
 <details>
   <summary>Click to expand!</summary>
   <p>
 
-  * locks should outlive the object(s) they are protecting.
+  * Locks should outlive the object(s) they are protecting.
 
-      The code below illustrates a common mistake:
+      i). The code below illustrates a common mistake:
 
           struct foo {
                   ...
@@ -461,10 +461,10 @@ try to adhere to some higher level idioms.
                   m0_mutex_unlock(&foo->f_lock);
           }
 
-      Here it is possible that some thread (B) tries to unlock the
+      ii. Here it is possible that some thread (B) tries to unlock the
       mutex, which is already finalized by another thread (A).
 
-      A general rule of thumb is that object creation and destruction
+      iii. A general rule of thumb is that object creation and destruction
       should be protected by "existential lock(s)", with a life-time
       longer than that of the object.
       
@@ -498,11 +498,11 @@ the programmer proceeds through the other involved modules, recursively.
 
 Two observations are of import here:
 
-  * the code is mostly read, not written. The stabler the project, the more
+  * The code is mostly read, not written. The stabler the project, the more
     predominant reads are, because only harder to find bugs remain and more
     code has to be analyzed for each of them;
 
-  * the code is read under an assumption that it is incorrect.
+  * The code is read under an assumption that it is incorrect.
 
 The last point goes contrary to the principles of information hiding and
 abstraction boundaries: when a module A, which uses a module B, is analyzed
@@ -519,7 +519,7 @@ toward the long term readability.
 
 Some concrete consequences:
 
-  * keep the code *visually* compact. The amount of code visible at the screen
+  * Keep the code *visually* compact. The amount of code visible at the screen
     at once is very important, if you stare at it for hours. Blank lines are
     precious resource;
 
@@ -530,14 +530,14 @@ Some concrete consequences:
     only "bar" is redundant, it is also ugly. Use thesaurus to deal with
     "call_with_x" vs. "call_with_y";
 
-  * wrapping field access in an accessor function is a gratuitous abstraction,
+  * Wrapping field access in an accessor function is a gratuitous abstraction,
     which should only be used sparingly, if it makes code more compact: field
     accesses have nice properties (like side-effect freedom), which are
     important for code analysis and which function wrapper hides. Besides, C
     type system doesn't allow correct handling of constness in this case,
     unless you have *two* wrappers;
 
-  * more generally, abstractions should be introduced for design purposes,
+  * More generally, abstractions should be introduced for design purposes,
     e.g., to mark a point of possible variability. Sub-modules,
     data-structures and operation vectors should not be created simply to
     "keep things small". Remember, that in the long term, refactoring is easy.
@@ -545,4 +545,16 @@ Some concrete consequences:
     </p>
     </details>
 
-LocalWords:  struct enums structs sizeof summarise accessor
+## You're All Set & You are Awesome!
+    
+We thanks you for stopping by to check  out the CORTX Community. We are fully dedicated to our mission to build open source technologies that help the world save unlimited data and solve challanging data problems. Join our mission  to help reinvent a data-driven world.
+    
+ ### Contribute to CORTX Managemental Protal 
+    
+ Please contribute to the [CORTX Open Source project](https://github.com/Seagate/cortx-management-portal/blob/main/docs/CONTRIBUTING.md) and join our movement to make data storage better, efficient, and more accessible.
+    
+#### Reach Out to Us
+    
+You can reach out to us with your questions, feedback, and comments through our [CORTX Communication Channels](/SUPPORT.md
+
+
