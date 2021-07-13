@@ -1,22 +1,16 @@
-# Motr Coding Style 
+# Motr Coding Style
+
+#### Intended Audience
 
 This document describes Motr project coding style. This document
 does NOT describe code documentation practices, they are explained
 elsewhere.
 
-The first thing to remember is that a primary purpose that a coding
-style exists for is to make understanding code easier for a project
-participant. To this end, a code should be as uniform and idiomatic as
-possible similarly with the properties that make usual human speech
-easier to understand.
+The first thing to remember is that a coding style exists for us to make understanding code easier for a project participant. To this end, a code should be as uniform and idiomatic as possible similarly to the properties that make usual human speech easier to understand.
 
 Motr coding style is based on the Linux kernel coding style, which everyone is advised to familiarize with at [Linux Kernel Coding Style](https://www.kernel.org/doc/Documentation/process/coding-style.rst).
 
-#### 1.To Summarise:
-
-<details>
-  <summary>Click to expand!</summary>
-  <p>
+## Motr Coding Style Guidelines
 
   * Tabs are 8 characters;
 
@@ -55,7 +49,7 @@ Motr coding style is based on the Linux kernel coding style, which everyone is a
   * British spelling is used in the documentation, comments and
     variable names;
 
-  * Continuation line starts one column after the last unclosed
+  * The continuation line starts one column after the last unclosed
     opening parenthesis:
 
           M0_ASSERT(ergo(service != NULL,
@@ -81,7 +75,7 @@ Motr coding style is based on the Linux kernel coding style, which everyone is a
       This rule applied to block-level variable declarations too.
 
 In addition to the above syntactic conventions, Motr code should
-try to adhere to some higher level idioms.
+try to adhere to some higher-level idioms.
 
   * A loop repeated N times is written
 
@@ -99,7 +93,7 @@ try to adhere to some higher level idioms.
                   ...
           }
 
-  * Names of struct and union members (fields) are have a short
+  * Names of struct and union members (fields) have a short
     (1--4 characters) prefix, derived from the union or struct tag:
 
           struct misc_imperium_translatio {
@@ -138,7 +132,7 @@ try to adhere to some higher level idioms.
     code as autonomous as possible, so that the code correctness
     survives changes;
 
-  * Use difference between NULL, 0 and "false" to emphasize whether
+  * Use the difference between NULL, 0, and "false" to emphasize whether
     an expression is used as a pointer, integer (including success
     or failure code) or boolean:
 
@@ -180,11 +174,11 @@ try to adhere to some higher level idioms.
           int    m0_<module>_<noun>_<verb>(...); /* function */
           bool   m0_<module>_<noun>_is_<adjective>(...); /* predicate function */
 
-      Static names don't have "m0_" prefix. Function pointers within
+      Static names don't have the "m0_" prefix. Function pointers within
       "operation" structs count as static. Names of constants are
       capitalized.
 
-      Functions which are not static, not globally exported, and are shared
+      Functions that are not static, not globally exported, and are shared
       only across multiple files within a module - shall be prefixed with
       `m0_<module-name>__` (that is double _). This rule applies to invariants as
       well;
@@ -202,7 +196,7 @@ try to adhere to some higher level idioms.
 
   * Avoid implicit field initialization using designated initializers;
 
-      (Rationale: it helps to find all struct field usage and it documents
+      (Rationale: it helps to find all struct field usage and it documents the
       default value of the field.);
 
   * Use enums to define numerical constants:
@@ -227,12 +221,12 @@ try to adhere to some higher level idioms.
   * Not inline functions are preferable to inline functions, unless
     performance measurements show otherwise.
 
-      (Rationale: breakpoint can be placed within a non-inline function. Stack
+      (Rationale: breakpoint can be placed within a non-inline function. The Stack
       trace is more reliable with non-inline functions. Instruction cache
       pollution is reduced.);
 
   * Macros should be used only when other language constructs cannot
-    achieve the required goal. When creating a macro take care to:
+    achieve the required goal. When creating macro take care to:
 
       - evaluate arguments only once,
 
@@ -244,18 +238,18 @@ try to adhere to some higher level idioms.
 
       - properly parenthesize so that macro works in any context;
 
-  * Return code conventions follow linux: return 0 for success,
+  * Return code conventions follow Linux: return 0 for success,
     negated error code for a failure, positive values for other non
     failure conditions;
 
-  * Use "const" as a documentation and help for type-checker. Do not
+  * Use "const" as documentation and help for type-checker. Do not
     use casts to trick type-checking system into believing your
     consts. A typical scenario is a function that doesn't modify its
     input struct argument except for taking and releasing a lock
     inside of the struct. Don't use "const" in this case. Instead,
     document why the argument is not technically a constant;
 
-  * Control flow statement conditions ought to have no side-effects:
+  * Control flow statement conditions ought to have no side effects:
 
           alive = qoo_is_alive(elvis);
           if (alive) { /* rather than if (qoo_is_alive(elvis)) */
@@ -272,8 +266,8 @@ try to adhere to some higher level idioms.
 
           (mask << (bits & 0xf)) /* not (mask << bits & 0xf) */
 
-  * Use assertions freely to verify state invariants. An asserted
-    expression should have no side-effects;
+  * Use assertions freely to verify state invariants. An asserted the
+    expression should have no side effects;
 
   * Factor common code. Always prefer creating a common helper
     function to copying code
@@ -283,18 +277,18 @@ try to adhere to some higher level idioms.
   * Use standard scalar data type with explicit width, instead of
     "long" or "int".  E.g., int32_t, int64_t, uint32_t, uint64_t
     should be used to represent 32-bits, 64-bits integers, unsigned
-    32-bits, unsigned 64-bits integers respectively
+    32-bits unsigned 64-bits integers respectively
 
       (Rationale: avoids inconsistent data structures on different arch);
 
   * No comparison between signed vs. unsigned without explicit casting;
 
   * The canonical order of type qualifiers in declarations and
-    definitions is
+    definitions are
 
           {static|extern|auto} {const|volatile} typename;
 
-  * When using long or long long qualifiers, omit int;
+  * When using long or long qualifiers, omit int;
 
   * Declare one variable per line;
 
@@ -332,12 +326,12 @@ try to adhere to some higher level idioms.
           ...
           #endif /* __MOTR_SUBSYS_HEADER_H__ */
 
-      notice, that include guards should use names conforming to the
+      notice, that includes guards should use names conforming to the
       following regular expression:
 
           __MOTR_\w+_H__
 
-      This is required for a build script which automatically checks
+      This is required for a build script that automatically checks
       correctness of include guards and reports duplicates;
 
   * Specify invariants as a conjunction of positive properties one can rely
@@ -346,10 +340,10 @@ try to adhere to some higher level idioms.
 
   * In invariants use _0C() macro to record a failed conjunct;
 
-  * A header file should include only headers, which are necessary for the
+  * A header file should include only headers, which are necessary for the 
     header to pass compilation. Forward declarations should be used instead of
     includes where possible. .c files should include all necessary headers
-    directly, without relaying on headers included in already included
+    directly, without relying on headers included in already included
     headers. Unneeded headers should not be included. When a header is
     included only for a few definitions (as opposed to for a whole interface
     defined in this header) these symbols should be mentioned in the comment
@@ -382,7 +376,7 @@ try to adhere to some higher level idioms.
     documentation of m0_trace_level enum.
 
   * Consider using M0_ENTRY()/M0_LEAVE() at function's entry and exit points,
-    as well as M0_RC() and M0_ERR_INFO() to explicitly return from function,
+    as well as M0_RC() and M0_ERR_INFO() to explicitly return from the function,
     which conforms to the standard return code convention.
 
   * When a function is about to return a "leaf level" error (i.e., an
@@ -418,14 +412,11 @@ try to adhere to some higher level idioms.
       analysis. Reporting leaf errors is more important, because
       call-chain can usually be traced upward easily.
       
-      </p>
-      </details>
-
-
-#### 2.Things to look after:
+      
+#### Things to Consider:
 
 <details>
-  <summary>Click to expand!</summary>
+  <summary>Click here to view!</summary>
   <p>
 
   * Locks should outlive the object(s) they are protecting.
@@ -465,31 +456,31 @@ try to adhere to some higher level idioms.
       mutex, which is already finalized by another thread (A).
 
       iii. A general rule of thumb is that object creation and destruction
-      should be protected by "existential lock(s)", with a life-time
+      should be protected by "existential lock(s)", with a lifetime
       longer than that of the object.
       
       </p>
       </details>
 
-## Code organization guidelines
+## Code Organization Guidelines
 
 The following is not a substitute for design guidelines, which are defined
 elsewhere.
 
 <details>
-  <summary>Click to expand!</summary>
+  <summary>Click here to view!</summary>
   <p>
 
 Traditional code organization techniques, taught in universities, include
 modularity, layering, information hiding, and maintaining abstraction
-boundaries. They tend to produce code, which is easy to modify and re-factor,
-and are, hence, very important. Their utility is highest in the projects that
+boundaries. They tend to produce code, which is easy to modify and refactor,
+and are, hence, very important. Their utility is highest in projects that
 experience constant frequent modifications. Such projects (or phases of
-projects) cannot be long. In a long term project, where code lives around for
+projects) cannot belong. In a long-term project, where code lives around for
 many years, different considerations start playing an increasing role.
 
 Consider an example. In a project that is in a stable phase, i.e., sees
-relatively infrequent addition of the new features, most typical use of source
+relatively infrequent addition of the new features, the most typical use of source
 code by a programmer is bug analysis. That is starting from a failure report (or
 performance degradation, or test failure) a programmer looks through the area of
 code that is most likely to be the culprit. Failing to find the problem here
@@ -502,7 +493,7 @@ Two observations are of import here:
     predominant reads are, because only harder to find bugs remain and more
     code has to be analyzed for each of them;
 
-  * The code is read under an assumption that it is incorrect.
+  * The code is read under the assumption that it is incorrect.
 
 The last point goes contrary to the principles of information hiding and
 abstraction boundaries: when a module A, which uses a module B, is analyzed
@@ -512,20 +503,20 @@ to be followed anyway (cannot rely on invariants!) and the more rigorous is
 abstraction, the more effort is spent jumping around the abstraction wall.
 
 The experience with large long term projects, such as Lustre and Linux kernel,
-demonstrated that after a certain threshold readability is at least as important
+demonstrated that after certain threshold readability is at least as important
 as modifiability. In such projects, abstraction and modularity are properties of
-the software *design*, whereas the code, produced from the design, is optimised
-toward the long term readability.
+the software *design*, whereas the code, produced from the design, is optimized
+toward the long-term readability.
 
 Some concrete consequences:
 
-  * Keep the code *visually* compact. The amount of code visible at the screen
-    at once is very important, if you stare at it for hours. Blank lines are
+  * Keep the code *visually* compact. The amount of code visible on the screen
+    at once is very important if you stare at it for hours. Blank lines are
     precious resource;
 
   * all kinds of redundant Hungarian notations should be eschewed. For
-    example, don't put information about parameters in function name, because
-    parameters are already present at a call-site. A typical call for
+    example, don't put information about parameters in the function name, because
+    parameters are already present at a call site. A typical call for
     m0_mod_call_with_bar() would look like m0_mod_call_with_bar(foo, bar). Not
     only "bar" is redundant, it is also ugly. Use thesaurus to deal with
     "call_with_x" vs. "call_with_y";
@@ -534,27 +525,25 @@ Some concrete consequences:
     which should only be used sparingly, if it makes code more compact: field
     accesses have nice properties (like side-effect freedom), which are
     important for code analysis and which function wrapper hides. Besides, C
-    type system doesn't allow correct handling of constness in this case,
+    the type system doesn't allow correct handling of constness in this case,
     unless you have *two* wrappers;
 
   * More generally, abstractions should be introduced for design purposes,
     e.g., to mark a point of possible variability. Sub-modules,
-    data-structures and operation vectors should not be created simply to
+    data structures, and operation vectors should not be created simply to
     "keep things small". Remember, that in the long term, refactoring is easy.
     
     </p>
     </details>
 
 ## You're All Set & You are Awesome!
+
+ We Thank you for stopping by to check out the CORTX Community. We are fully dedicated to our mission to build open source technologies that help the world save unlimited data and solve challenging data problems. Join our mission to help reinvent a data-driven world.
     
-We thanks you for stopping by to check  out the CORTX Community. We are fully dedicated to our mission to build open source technologies that help the world save unlimited data and solve challanging data problems. Join our mission  to help reinvent a data-driven world.
-    
- ### Contribute to CORTX Managemental Protal 
+### Contribute to CORTX Managemental Portal 
     
  Please contribute to the [CORTX Open Source project](https://github.com/Seagate/cortx-management-portal/blob/main/docs/CONTRIBUTING.md) and join our movement to make data storage better, efficient, and more accessible.
     
-#### Reach Out to Us
+### Reach Out to Us
     
 You can reach out to us with your questions, feedback, and comments through our [CORTX Communication Channels](/SUPPORT.md
-
-
